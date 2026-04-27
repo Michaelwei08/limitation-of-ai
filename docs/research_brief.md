@@ -28,6 +28,7 @@ Permission enforcement should not depend on the LLM's self-restraint. The LLM ma
 - A benchmark of synthetic personal-agent tasks with explicit necessary and unnecessary access
 - A measurement protocol covering utility, privacy, and security tradeoffs
 - A concrete enforcement architecture that places policy checks outside the LLM
+- A working hypothesis that the main gap lies in the combination of task-scoped capability compilation, external enforcement, non-expert permission framing, and multi-metric evaluation
 
 ## Paper argument
 
@@ -35,8 +36,8 @@ The paper should argue that agent safety for consumer settings needs a permissio
 
 ## Possible venue positioning
 
-- Security/privacy systems venue: emphasize enforcement, threat model, and attack resistance
-- HCI/privacy venue: emphasize user-comprehensible permission boundaries and consent burden
-- ML datasets and benchmarks venue: emphasize the benchmark and multi-metric evaluation setup
+- Security/privacy systems venue: current best fit for a first paper if the project includes an executable enforcement prototype and benchmark-backed evaluation
+- HCI/privacy venue: strong long-term fit, but likely premature until non-expert comprehension evidence exists
+- ML datasets and benchmarks venue: viable if the benchmark matures faster than the enforcement stack, but it risks underselling PAPF's main thesis
 
-Exact venue choice is `TODO`. Positioning should be refined after the first benchmark slice and prototype evaluation are defined.
+Exact venue choice remains `TODO`, but the current repo framing most naturally supports a security/privacy systems paper with the benchmark serving as the evaluation artifact rather than the sole contribution.

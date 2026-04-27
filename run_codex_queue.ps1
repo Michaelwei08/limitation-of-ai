@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Continue"
 
 $Model = "gpt-5.4"
 $Root = Get-Location
@@ -30,18 +30,23 @@ foreach ($task in $tasks) {
     Write-Host "Log: $logFile"
     Write-Host "=============================="
 
+    $Error.Clear()
+
     Get-Content $task.FullName -Raw |
         codex exec --cd . -m $Model - 2>&1 |
         Tee-Object -FilePath $logFile
 
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "Task failed: $($task.Name)"
-        Write-Host "Stopping queue."
-        exit $LASTEXITCODE
-    }
+    $exitCode = $LASTEXITCODE
 
     git status --short | Out-File (Join-Path $LogDir "${taskName}_git_status_after.txt")
     git diff --stat | Out-File (Join-Path $LogDir "${taskName}_diff_stat.txt")
+
+    if ($exitCode -ne 0) {
+        Write-Host ""
+        Write-Host "Task failed with exit code ${exitCode}: $($task.Name)"
+        Write-Host "Stopping queue."
+        exit $exitCode
+    }
 }
 
 git status --short | Out-File (Join-Path $LogDir "git_status_final.txt")
