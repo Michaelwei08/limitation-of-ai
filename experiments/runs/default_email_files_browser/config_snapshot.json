@@ -1,0 +1,40 @@
+{
+  "artifacts": {
+    "audit_summaries_jsonl": "D:\\Stanford\\research\\own\\limitation_of_ai\\experiments\\runs\\default_email_files_browser\\audit_summaries.jsonl",
+    "decisions_jsonl": "D:\\Stanford\\research\\own\\limitation_of_ai\\experiments\\runs\\default_email_files_browser\\decisions.jsonl",
+    "metadata": "D:\\Stanford\\research\\own\\limitation_of_ai\\experiments\\runs\\default_email_files_browser\\metadata.json",
+    "metrics_csv": "D:\\Stanford\\research\\own\\limitation_of_ai\\experiments\\runs\\default_email_files_browser\\metrics.csv",
+    "metrics_jsonl": "D:\\Stanford\\research\\own\\limitation_of_ai\\experiments\\runs\\default_email_files_browser\\metrics.jsonl"
+  },
+  "config": {
+    "artifact_formats": [
+      "metadata_json",
+      "metrics_jsonl",
+      "metrics_csv",
+      "decisions_jsonl",
+      "audit_summaries_jsonl",
+      "config_snapshot_json"
+    ],
+    "audit_summary_policy": "no_raw_personal_payloads",
+    "benchmark_path": "benchmarks/papf_seed_cases",
+    "config_id": "default_email_files_browser",
+    "description": "Deterministic PAPF and baseline evaluation over synthetic email + files + browser seed cases.",
+    "metric_schema_version": "papf.metrics.v3",
+    "modes": [
+      "papf",
+      "broad_access",
+      "prompt_only"
+    ],
+    "output_dir": "experiments/runs/default_email_files_browser",
+    "suite_ids": [
+      "clean",
+      "temptation",
+      "attack",
+      "recovery"
+    ],
+    "synthetic_data_only": true
+  },
+  "config_path": "experiments\\configs\\default_email_files_browser.json",
+  "repo_root": "D:\\Stanford\\research\\own\\limitation_of_ai",
+  "result_count": 36
+}

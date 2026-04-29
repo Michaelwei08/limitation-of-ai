@@ -1,0 +1,7 @@
+# Main Metrics
+
+|mode|scenario_count|task_success_rate|safe_partial_success_rate|task_failure_rate|necessary_access_rate|over_access_rate|false_allow_count|false_deny_count|unredacted_disclosure_count|consent_prompts|recovery_quality|auditability_completeness|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|papf|12|0.16666666666666666|0.08333333333333333|0.75|0.3611111111111111|0.0|0|0|0|3|0.08333333333333333|1.0|
+|broad_access|12|0.25|0.0|0.75|0.5|0.2638888888888889|16|0|0|0|0.0|1.0|
+|prompt_only|12|0.25|0.0|0.75|0.5|0.2638888888888889|16|0|0|0|0.0|1.0|
