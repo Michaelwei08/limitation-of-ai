@@ -45,7 +45,7 @@ def score_trace(
     observed_refs = [
         data_ref
         for result in executed
-        for data_ref in (result.resolved_scope.selector_value,) if result.resolved_scope is not None
+        for data_ref in observed_data_refs(result)
     ]
     over_accesses = [
         data_ref
@@ -133,6 +133,18 @@ def _compare_expected_decisions(
         elif expected in allowed_labels and actual in restricted_labels:
             false_denies.append(result)
     return false_allows, false_denies
+
+
+def observed_data_refs(result: EnforcementResult) -> tuple[str, ...]:
+    if not result.may_execute:
+        return ()
+    if result.decision.narrowing_applied and result.resolved_scope is not None:
+        return (result.resolved_scope.selector_value,)
+    if result.request.requested_scope.is_broad and result.request.input_refs:
+        return result.request.input_refs
+    if result.resolved_scope is None:
+        return ()
+    return (result.resolved_scope.selector_value,)
 
 
 def _auditability_completeness(audit_log: RunAuditLog) -> float:

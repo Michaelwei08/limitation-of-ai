@@ -4,8 +4,8 @@
 - Goal: Build a research project on task-scoped permission boundaries for consumer AI agents.
 - Working title: Personal Agent Permission Firewall (PAPF).
 - Benchmark idea: NonExpert-AgentPermBench.
-- Now: Core docs specify the PAPF architecture and paper plan; `src/papf/` includes deterministic evaluation, hardened run serialization, a file-backed benchmark loader, centralized policy/schema validation, runtime redaction evidence, and recovery/partial-success scoring.
-- Next: Start `tasks/016_baselines.md` for comparable baselines, or expand the file-backed seed suite under `tasks/017_expand_benchmark_suite.md`.
+- Now: Core docs specify the PAPF architecture and paper plan; `src/papf/` includes deterministic evaluation, hardened run serialization, a file-backed benchmark loader, centralized policy/schema validation, runtime redaction evidence, recovery/partial-success scoring, and comparable broad-access/prompt-only baselines.
+- Next: Expand the file-backed seed suite under `tasks/017_expand_benchmark_suite.md`, or continue toward synthetic tool runtime and experiment-runner integration.
 - Open questions: Clarification versus safe refusal under ambiguity, partial-success scoring, and whether the planned non-expert comprehension protocol should become an actual user study.
 
 ## Invariants / Constraints
@@ -69,12 +69,13 @@
 - 2026-04-29 [CODE]: Completed Task 013 by adding centralized policy/schema validators, fail-closed policy/capability checks before compile/evaluation, and negative tests for duplicates, invalid labels, unsafe grants, missing refs, resource mismatches, and broad capabilities.
 - 2026-04-29 [CODE]: Completed Task 014 by adding `RedactionArtifact`, enforcing artifact presence for `allow_with_redaction`, linking artifacts from audit events, adding redacted/unredacted metric fields, and bumping serialized metric schema to `papf.metrics.v2`.
 - 2026-04-29 [CODE]: Completed Task 015 by adding structured task-level safer alternatives, deterministic recovery scoring, safe-partial-success/task-failure metric separation, unsafe-workaround detection after denial/narrowing, and metric schema `papf.metrics.v3`.
+- 2026-04-29 [CODE]: Completed Task 016 by adding deterministic broad-access and prompt-only baseline runners over the same `TraceScenario`/task/environment records, baseline audit logs with observed data touches, and tests showing over-access/false-allow behavior that PAPF blocks.
 
 ### Now
-- 2026-04-29 [CODE]: Project has an executable PAPF evaluation path, serialized default run artifacts, a file-backed PAPF seed case loader, schema/policy validation gates, redaction evidence enforcement, and recovery scoring while preserving the hard-coded smoke fixture.
+- 2026-04-29 [CODE]: Project has an executable PAPF evaluation path, serialized default run artifacts, a file-backed PAPF seed case loader, schema/policy validation gates, redaction evidence enforcement, recovery scoring, and baseline runners while preserving the hard-coded smoke fixture.
 
 ### Next
-- 2026-04-29 [CODE]: Run Task 016 to add comparable baselines, or Task 017 to expand the loader-backed benchmark suite.
+- 2026-04-29 [CODE]: Run Task 017 to expand the loader-backed benchmark suite, or Task 018 to add a synthetic tool runtime.
 - 2026-04-27 [CODE]: Keep the security-critical path deterministic while expanding benchmark loaders, baselines, and experiment reporting.
 
 ## Working set
@@ -139,7 +140,10 @@
 - `tasks/024_paper_draft_and_artifact.md`
 - `src/papf/evaluation/serialization.py`
 - `src/papf/evaluation/recovery.py`
+- `src/papf/baselines/__init__.py`
+- `src/papf/baselines/runners.py`
 - `src/papf/enforcement/redaction.py`
+- `tests/test_baselines.py`
 - `tests/test_evaluation_serialization.py`
 - `tests/test_redaction_evidence.py`
 - `tests/test_recovery_scoring.py`
@@ -222,3 +226,6 @@
 - 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest tests.test_recovery_scoring -v` -> 3 recovery scoring tests passed for successful recovery, no recovery, and unsafe workaround.
 - 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest discover -s tests -v` -> 53 tests passed after Task 015 recovery scoring additions.
 - 2026-04-29 [TOOL]: PowerShell stdin compile script with `python -B -` -> compiled 38 Python files after Task 015.
+- 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest tests.test_baselines -v` -> 5 baseline tests passed.
+- 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest discover -s tests -v` -> 58 tests passed after Task 016 baseline additions.
+- 2026-04-29 [TOOL]: PowerShell stdin compile script with `python -B -` -> compiled 41 Python files after Task 016.

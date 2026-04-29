@@ -2,6 +2,7 @@
 
 __all__ = [
     "audit",
+    "baselines",
     "benchmark",
     "capabilities",
     "enforcement",
