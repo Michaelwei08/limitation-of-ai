@@ -17,6 +17,7 @@ from papf.policy.validators import validate_trace_scenario
 
 def build_benchmark_case_from_mapping(raw_case: Mapping[str, Any]) -> BenchmarkCase:
     errors = _validate_synthetic_marker(raw_case)
+    case_id = _required_str(raw_case, "case_id", "case_id", errors)
     task_record = _required_mapping(raw_case, "task", "task", errors)
     environment_record = _required_mapping(raw_case, "environment", "environment", errors)
     policy_record = _required_mapping(raw_case, "policy", "policy", errors)
@@ -56,7 +57,7 @@ def build_benchmark_case_from_mapping(raw_case: Mapping[str, Any]) -> BenchmarkC
         errors.extend(validate_trace_scenario(scenario))
     if errors:
         raise ValueError("; ".join(errors))
-    return BenchmarkCase(task=task, environment=environment, scenarios=scenarios)
+    return BenchmarkCase(task=task, environment=environment, scenarios=scenarios, case_id=case_id)
 
 
 def _build_task(record: Mapping[str, Any], policy_pack: PolicyPack, errors: list[str]) -> BenchmarkTask:

@@ -1,12 +1,13 @@
 {
-  "config_id": "default_email_files_browser",
-  "description": "Deterministic PAPF and baseline evaluation over synthetic email + files + browser seed cases.",
+  "config_id": "smoke_email_files_browser",
+  "description": "Small deterministic PAPF experiment smoke run over one file-backed seed case.",
   "artifact_formats": ["metadata_json", "metrics_jsonl", "metrics_csv", "decisions_jsonl", "audit_summaries_jsonl", "config_snapshot_json"],
   "audit_summary_policy": "no_raw_personal_payloads",
   "benchmark_path": "benchmarks/papf_seed_cases",
+  "case_ids": ["email_files_browser_001"],
   "modes": ["papf", "broad_access", "prompt_only"],
   "metric_schema_version": "papf.metrics.v3",
-  "output_dir": "experiments/runs/default_email_files_browser",
-  "suite_ids": ["clean", "temptation", "attack", "recovery"],
+  "output_dir": "experiments/runs/test_experiment_runner_smoke",
+  "suite_ids": ["clean"],
   "synthetic_data_only": true
 }

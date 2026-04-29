@@ -22,6 +22,7 @@ class SerializedRun:
     metadata_path: Path
     metrics_jsonl_path: Path
     metrics_csv_path: Path
+    decisions_jsonl_path: Path
     audit_jsonl_path: Path
 
 
@@ -61,11 +62,13 @@ def write_evaluation_suite(
     metadata_path = target_dir / "metadata.json"
     metrics_jsonl_path = target_dir / "metrics.jsonl"
     metrics_csv_path = target_dir / "metrics.csv"
+    decisions_jsonl_path = target_dir / "decisions.jsonl"
     audit_jsonl_path = target_dir / "audit_summaries.jsonl"
 
     _write_json(metadata_path, metadata)
     _write_jsonl(metrics_jsonl_path, suite.metric_rows())
     _write_csv(metrics_csv_path, suite.metric_rows())
+    _write_jsonl(decisions_jsonl_path, _decision_rows(suite.results))
     _write_jsonl(audit_jsonl_path, _audit_rows(suite.results))
 
     return SerializedRun(
@@ -73,6 +76,7 @@ def write_evaluation_suite(
         metadata_path=metadata_path,
         metrics_jsonl_path=metrics_jsonl_path,
         metrics_csv_path=metrics_csv_path,
+        decisions_jsonl_path=decisions_jsonl_path,
         audit_jsonl_path=audit_jsonl_path,
     )
 
@@ -170,6 +174,33 @@ def _audit_rows(results: tuple[EvaluationCaseResult, ...]) -> tuple[dict[str, An
                     "evidence_refs": [artifact.policy_decision_id or "", artifact.output_ref],
                     "removed_field_labels": list(artifact.removed_field_labels),
                     "rationale": artifact.rationale,
+                }
+            )
+    return tuple(rows)
+
+
+def _decision_rows(results: tuple[EvaluationCaseResult, ...]) -> tuple[dict[str, Any], ...]:
+    rows: list[dict[str, Any]] = []
+    for result in results:
+        for enforcement_result in result.results:
+            decision = enforcement_result.decision
+            resolved_scope = enforcement_result.resolved_scope
+            rows.append(
+                {
+                    "run_id": result.run_id,
+                    "task_id": result.task_id,
+                    "scenario_id": result.scenario_id,
+                    "suite_id": result.suite_id,
+                    "call_id": enforcement_result.request.call_id,
+                    "policy_decision_id": decision.policy_decision_id,
+                    "decision": decision.decision.value,
+                    "matched_rule_ids": list(decision.matched_rule_ids),
+                    "execution_status": enforcement_result.execution_status.value,
+                    "may_execute": enforcement_result.may_execute,
+                    "resolved_resource_type": resolved_scope.resource_type.value if resolved_scope else None,
+                    "resolved_selector_type": resolved_scope.selector_type if resolved_scope else None,
+                    "resolved_selector_value": resolved_scope.selector_value if resolved_scope else None,
+                    "reason": decision.decision_reason,
                 }
             )
     return tuple(rows)

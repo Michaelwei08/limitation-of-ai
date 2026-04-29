@@ -60,3 +60,4 @@ class BenchmarkCase:
     task: BenchmarkTask
     environment: EnvironmentBundle
     scenarios: tuple["TraceScenario", ...]
+    case_id: str = ""
