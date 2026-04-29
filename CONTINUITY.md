@@ -4,9 +4,9 @@
 - Goal: Build a research project on task-scoped permission boundaries for consumer AI agents.
 - Working title: Personal Agent Permission Firewall (PAPF).
 - Benchmark idea: NonExpert-AgentPermBench.
-- Now: Core docs specify the PAPF architecture and paper plan; `src/papf/` includes deterministic evaluation, hardened run serialization, a file-backed benchmark loader, centralized policy/schema validation, runtime redaction evidence, recovery/partial-success scoring, comparable broad-access/prompt-only baselines, an expanded 12-trace file-backed seed suite, deterministic synthetic email/files/browser tool adapters, a config-driven experiment runner, artifact-derived reporting tables/figures, and a non-authoritative model-assisted intent proposal interface.
-- Next: Continue toward user comprehension protocol, deeper source verification, and paper/artifact packaging.
-- Open questions: Clarification versus safe refusal under ambiguity, partial-success scoring, and whether the planned non-expert comprehension protocol should become an actual user study.
+- Now: Core docs specify the PAPF architecture and paper plan; `src/papf/` includes deterministic evaluation, hardened run serialization, a file-backed benchmark loader, centralized policy/schema validation, runtime redaction evidence, recovery/partial-success scoring, comparable broad-access/prompt-only baselines, an expanded 12-trace file-backed seed suite, deterministic synthetic email/files/browser tool adapters, a config-driven experiment runner, artifact-derived reporting tables/figures, a non-authoritative model-assisted intent proposal interface, and design-only user comprehension protocol docs.
+- Next: Continue toward deeper source verification and paper/artifact packaging.
+- Open questions: Clarification versus safe refusal under ambiguity, partial-success scoring, and whether the planned non-expert comprehension protocol should be run as an actual user study.
 
 ## Invariants / Constraints
 - 2026-04-27 [USER]: Permission enforcement must happen outside the LLM.
@@ -75,12 +75,13 @@
 - 2026-04-29 [CODE]: Completed Task 019 by adding a JSON-config experiment runner CLI for PAPF, broad-access, and prompt-only modes over selected file-backed cases/suites, plus decisions/config-snapshot artifacts and missing-case validation.
 - 2026-04-29 [CODE]: Completed Task 020 by adding artifact-derived reporting, generated paper-ready metrics/baseline/failure/provenance tables plus SVG figures, and regenerated the default experiment run with PAPF and baseline artifacts under metric schema `papf.metrics.v3`.
 - 2026-04-29 [CODE]: Completed Task 021 by adding a non-authoritative intent proposer interface, deterministic fake proposer, raw proposal schema validation before capability compilation, boundary documentation, and contract tests proving invalid proposals cannot mint capabilities.
+- 2026-04-29 [CODE]: Completed Task 022 by adding a design-only non-expert comprehension protocol and matched permission prompt examples; both explicitly report no user-study results or statistics.
 
 ### Now
-- 2026-04-29 [CODE]: Project has an executable PAPF evaluation path, serialized run artifacts, a file-backed PAPF seed case loader, expanded seed suite coverage, schema/policy validation gates, redaction evidence enforcement, recovery scoring, baseline runners, synthetic tool runtime, config-driven experiment execution, artifact-derived paper reporting, and an optional non-authoritative intent proposal layer while preserving the hard-coded smoke fixture.
+- 2026-04-29 [CODE]: Project has an executable PAPF evaluation path, serialized run artifacts, a file-backed PAPF seed case loader, expanded seed suite coverage, schema/policy validation gates, redaction evidence enforcement, recovery scoring, baseline runners, synthetic tool runtime, config-driven experiment execution, artifact-derived paper reporting, an optional non-authoritative intent proposal layer, and a design-only user comprehension protocol while preserving the hard-coded smoke fixture.
 
 ### Next
-- 2026-04-29 [CODE]: Continue with Task 022 user comprehension protocol or later source verification/paper packaging tasks.
+- 2026-04-29 [CODE]: Continue with Task 023 deeper source verification or Task 024 paper/artifact packaging.
 - 2026-04-27 [CODE]: Keep the security-critical path deterministic while expanding benchmark loaders, baselines, and experiment reporting.
 
 ## Working set
@@ -100,6 +101,8 @@
 - `docs/paper_plan.md`
 - `docs/figures_and_tables_plan.md`
 - `docs/model_assisted_boundaries.md`
+- `docs/user_study_protocol.md`
+- `docs/permission_prompt_examples.md`
 - `src/papf/`
 - `src/papf/intent/proposer.py`
 - `tests/test_runtime_foundation.py`
@@ -267,3 +270,4 @@
 - 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest tests.test_intent_proposer_contract -v` -> 5 intent proposer contract tests passed.
 - 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest discover -s tests -v` -> 77 tests passed after Task 021.
 - 2026-04-29 [TOOL]: `$env:PYTHONDONTWRITEBYTECODE='1'; python -B -m py_compile ...` -> Python sources in `src` and `tests` compiled successfully after Task 021.
+- 2026-04-29 [TOOL]: `rg -n "%|\bresults?\b|\bstatistics?\b|effect size|significance|participants? (reported|showed|found)|we found|we show|demonstrate|proves?|validated|improves?|reduces?|understandable" docs/user_study_protocol.md docs/permission_prompt_examples.md` -> matches were future-work, disallowed-claim, or neutral prompt wording; no empirical results or statistics were reported.
