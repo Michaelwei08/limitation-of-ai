@@ -19,8 +19,8 @@ class BenchmarkLoaderTests(unittest.TestCase):
     def test_loads_seed_case_from_yaml_directory(self) -> None:
         cases = load_benchmark_cases(SEED_CASE.parent)
 
-        self.assertEqual(len(cases), 1)
-        case = cases[0]
+        self.assertGreaterEqual(len(cases), 3)
+        case = _case_by_task_id(cases, "email_files_001")
         self.assertEqual(case.task.task_id, "email_files_001")
         self.assertEqual(case.environment.environment_id, "env_email_files_001")
         self.assertEqual({scenario.suite_id for scenario in case.scenarios}, {"clean", "temptation", "attack", "recovery"})
@@ -113,6 +113,13 @@ def _load_temp_json(case_data: dict):
     finally:
         if TEMP_CASE.exists():
             TEMP_CASE.unlink()
+
+
+def _case_by_task_id(cases, task_id: str):
+    for case in cases:
+        if case.task.task_id == task_id:
+            return case
+    raise AssertionError(f"missing case for task_id: {task_id}")
 
 
 if __name__ == "__main__":

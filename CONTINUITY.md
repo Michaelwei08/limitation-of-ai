@@ -4,8 +4,8 @@
 - Goal: Build a research project on task-scoped permission boundaries for consumer AI agents.
 - Working title: Personal Agent Permission Firewall (PAPF).
 - Benchmark idea: NonExpert-AgentPermBench.
-- Now: Core docs specify the PAPF architecture and paper plan; `src/papf/` includes deterministic evaluation, hardened run serialization, a file-backed benchmark loader, centralized policy/schema validation, runtime redaction evidence, recovery/partial-success scoring, and comparable broad-access/prompt-only baselines.
-- Next: Expand the file-backed seed suite under `tasks/017_expand_benchmark_suite.md`, or continue toward synthetic tool runtime and experiment-runner integration.
+- Now: Core docs specify the PAPF architecture and paper plan; `src/papf/` includes deterministic evaluation, hardened run serialization, a file-backed benchmark loader, centralized policy/schema validation, runtime redaction evidence, recovery/partial-success scoring, comparable broad-access/prompt-only baselines, and an expanded 12-trace file-backed seed suite.
+- Next: Continue toward synthetic tool runtime and experiment-runner integration.
 - Open questions: Clarification versus safe refusal under ambiguity, partial-success scoring, and whether the planned non-expert comprehension protocol should become an actual user study.
 
 ## Invariants / Constraints
@@ -70,12 +70,13 @@
 - 2026-04-29 [CODE]: Completed Task 014 by adding `RedactionArtifact`, enforcing artifact presence for `allow_with_redaction`, linking artifacts from audit events, adding redacted/unredacted metric fields, and bumping serialized metric schema to `papf.metrics.v2`.
 - 2026-04-29 [CODE]: Completed Task 015 by adding structured task-level safer alternatives, deterministic recovery scoring, safe-partial-success/task-failure metric separation, unsafe-workaround detection after denial/narrowing, and metric schema `papf.metrics.v3`.
 - 2026-04-29 [CODE]: Completed Task 016 by adding deterministic broad-access and prompt-only baseline runners over the same `TraceScenario`/task/environment records, baseline audit logs with observed data touches, and tests showing over-access/false-allow behavior that PAPF blocks.
+- 2026-04-29 [CODE]: Completed Task 017 by expanding `benchmarks/papf_seed_cases/` to three synthetic email/files/browser YAML tasks with 12 total traces covering clean, temptation, attack, recovery, redaction, confirmation-gated outbound send, and cross-tool exfiltration attempts.
 
 ### Now
-- 2026-04-29 [CODE]: Project has an executable PAPF evaluation path, serialized default run artifacts, a file-backed PAPF seed case loader, schema/policy validation gates, redaction evidence enforcement, recovery scoring, and baseline runners while preserving the hard-coded smoke fixture.
+- 2026-04-29 [CODE]: Project has an executable PAPF evaluation path, serialized default run artifacts, a file-backed PAPF seed case loader, expanded seed suite coverage, schema/policy validation gates, redaction evidence enforcement, recovery scoring, and baseline runners while preserving the hard-coded smoke fixture.
 
 ### Next
-- 2026-04-29 [CODE]: Run Task 017 to expand the loader-backed benchmark suite, or Task 018 to add a synthetic tool runtime.
+- 2026-04-29 [CODE]: Run Task 018 to add a synthetic tool runtime, or Task 019 to add experiment-runner integration.
 - 2026-04-27 [CODE]: Keep the security-critical path deterministic while expanding benchmark loaders, baselines, and experiment reporting.
 
 ## Working set
@@ -151,7 +152,10 @@
 - `src/papf/benchmark/_loader_builders.py`
 - `src/papf/policy/validators.py`
 - `benchmarks/papf_seed_cases/email_files_browser.yaml`
+- `benchmarks/papf_seed_cases/email_files_browser_redaction.yaml`
+- `benchmarks/papf_seed_cases/browser_email_files_account_update.yaml`
 - `tests/test_benchmark_loader.py`
+- `tests/test_seed_case_coverage.py`
 - `tests/test_policy_validation.py`
 - `experiments/configs/`
 - `experiments/runs/`
@@ -229,3 +233,5 @@
 - 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest tests.test_baselines -v` -> 5 baseline tests passed.
 - 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest discover -s tests -v` -> 58 tests passed after Task 016 baseline additions.
 - 2026-04-29 [TOOL]: PowerShell stdin compile script with `python -B -` -> compiled 41 Python files after Task 016.
+- 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest discover -s tests -v` -> 61 tests passed after Task 017 seed-suite expansion.
+- 2026-04-29 [TOOL]: PowerShell stdin compile script with `python -B -` -> compiled all `src` and `tests` Python files after Task 017.
