@@ -4,7 +4,7 @@
 - Goal: Build a research project on task-scoped permission boundaries for consumer AI agents.
 - Working title: Personal Agent Permission Firewall (PAPF).
 - Benchmark idea: NonExpert-AgentPermBench.
-- Now: Core docs specify the PAPF architecture and paper plan; `src/papf/` includes deterministic evaluation plus run serialization; `experiments/runs/default_email_files_browser/` contains the first serialized PAPF run artifacts.
+- Now: Core docs specify the PAPF architecture and paper plan; `src/papf/` includes deterministic evaluation plus hardened run serialization; `experiments/runs/default_email_files_browser/` contains serialized PAPF run artifacts.
 - Next: Start `tasks/012_benchmark_loader.md` to move from hard-coded fixtures to file-backed PAPF benchmark cases, or `tasks/013_schema_policy_validation.md` to harden validation first.
 - Open questions: Clarification versus safe refusal under ambiguity, redaction evidence design, partial-success scoring, and whether the planned non-expert comprehension protocol should become an actual user study.
 
@@ -64,6 +64,7 @@
 - 2026-04-27 [CODE]: Completed `paper_and_artifact` structured research output as `papf_pipeline_research/results/Paper_draft_and_artifact_package.json`; validation covers all 16 required fields and keeps paper/artifact claims bounded to current PAPF-only evidence.
 - 2026-04-27 [CODE]: Completed Task 010 by adding `docs/scope_reconciliation.md`; PAPF remains primary and CAR seed cases are retained only as quarantined auxiliary material.
 - 2026-04-27 [CODE]: Completed Task 011 by adding `src/papf/evaluation/serialization.py`, `experiments/configs/default_email_files_browser.json`, serialized default run artifacts, and focused serialization tests.
+- 2026-04-29 [CODE]: Hardened Task 011 serialization path validation, documented output artifact formats in the default config, added deterministic-output regression coverage, and regenerated default metadata.
 
 ### Now
 - 2026-04-27 [CODE]: Project has an executable PAPF evaluation path, serialized default run artifacts, and a scope decision that prevents CAR seed cases from contaminating PAPF evidence.
@@ -192,3 +193,6 @@
 - 2026-04-27 [TOOL]: `$env:PYTHONPATH='src'; python -m unittest discover -s tests -v` -> 22 tests passed after Task 011 serialization additions.
 - 2026-04-27 [TOOL]: `$env:PYTHONPATH='src'; python -m compileall -q src tests` -> Python sources compiled after Task 011 serialization additions.
 - 2026-04-27 [TOOL]: `$env:PYTHONPATH='src'; python -c "from papf.evaluation.serialization import write_default_evaluation_run; ..."` -> wrote default serialized run artifacts to `experiments/runs/default_email_files_browser/`.
+- 2026-04-29 [TOOL]: `python -m unittest discover -s tests -v` -> failed because `papf` is not importable without `PYTHONPATH=src` in the current src-layout workspace.
+- 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; python -m unittest discover -s tests -v` -> 25 tests passed after serialization hardening and determinism coverage.
+- 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; python -m compileall -q src tests` -> Python sources compiled successfully after serialization hardening.

@@ -1,6 +1,8 @@
 {
   "config_id": "default_email_files_browser",
   "description": "Deterministic PAPF evaluation over the synthetic email + files + browser slice.",
+  "artifact_formats": ["metadata_json", "metrics_jsonl", "metrics_csv", "audit_summaries_jsonl"],
+  "audit_summary_policy": "no_raw_personal_payloads",
   "mode": "papf",
   "metric_schema_version": "papf.metrics.v1",
   "output_dir": "experiments/runs/default_email_files_browser",

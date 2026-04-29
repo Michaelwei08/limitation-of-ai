@@ -78,14 +78,18 @@ def write_evaluation_suite(
 
 
 def _prepare_output_dir(output_dir: str | Path) -> Path:
-    target = Path(output_dir)
-    if str(target).strip() == "":
+    if isinstance(output_dir, str) and output_dir.strip() == "":
         raise ValueError("output_dir must be non-empty")
+    target = Path(output_dir)
     if target.exists() and not target.is_dir():
         raise ValueError(f"output_dir must be a directory, got file: {target}")
     if target.parent.exists() and not target.parent.is_dir():
         raise ValueError(f"output_dir parent must be a directory: {target.parent}")
-    target.mkdir(parents=True, exist_ok=True)
+    try:
+        target.mkdir(parents=True, exist_ok=True)
+    except OSError as exc:
+        detail = exc.strerror or str(exc)
+        raise ValueError(f"failed to create output_dir {target}: {detail}") from exc
     return target
 
 

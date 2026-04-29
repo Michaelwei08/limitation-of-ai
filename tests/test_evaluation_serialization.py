@@ -63,6 +63,50 @@ class EvaluationSerializationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "output_dir must be a directory"):
             write_default_evaluation_run(bad_path)
 
+    def test_output_dir_rejects_empty_path(self) -> None:
+        with self.assertRaisesRegex(ValueError, "output_dir must be non-empty"):
+            write_default_evaluation_run("")
+
+    def test_output_dir_rejects_file_parent(self) -> None:
+        bad_parent = Path("experiments/runs/test_serialization_blocking_parent.txt")
+        bad_parent.write_text("x", encoding="utf-8")
+
+        with self.assertRaisesRegex(ValueError, "output_dir parent must be a directory"):
+            write_default_evaluation_run(bad_parent / "child")
+
+    def test_outputs_are_deterministic_except_timestamp_metadata(self) -> None:
+        first = write_default_evaluation_run(
+            Path("experiments/runs/test_serialization_determinism_a"),
+            timestamp="2026-04-27T00:00:00+00:00",
+        )
+        second = write_default_evaluation_run(
+            Path("experiments/runs/test_serialization_determinism_b"),
+            timestamp="2026-04-28T00:00:00+00:00",
+        )
+
+        self.assertEqual(
+            first.metrics_jsonl_path.read_text(encoding="utf-8"),
+            second.metrics_jsonl_path.read_text(encoding="utf-8"),
+        )
+        self.assertEqual(
+            first.metrics_csv_path.read_text(encoding="utf-8"),
+            second.metrics_csv_path.read_text(encoding="utf-8"),
+        )
+        self.assertEqual(
+            first.audit_jsonl_path.read_text(encoding="utf-8"),
+            second.audit_jsonl_path.read_text(encoding="utf-8"),
+        )
+        self.assertEqual(
+            _metadata_without_timestamp(first.metadata_path),
+            _metadata_without_timestamp(second.metadata_path),
+        )
+
+
+def _metadata_without_timestamp(path: Path) -> dict[str, object]:
+    metadata = json.loads(path.read_text(encoding="utf-8"))
+    metadata.pop("timestamp")
+    return metadata
+
 
 if __name__ == "__main__":
     unittest.main()
