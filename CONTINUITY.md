@@ -4,8 +4,8 @@
 - Goal: Build a research project on task-scoped permission boundaries for consumer AI agents.
 - Working title: Personal Agent Permission Firewall (PAPF).
 - Benchmark idea: NonExpert-AgentPermBench.
-- Now: Core docs specify the PAPF architecture and paper plan; `src/papf/` includes deterministic evaluation, hardened run serialization, a file-backed benchmark loader, centralized policy/schema validation, runtime redaction evidence, recovery/partial-success scoring, comparable broad-access/prompt-only baselines, an expanded 12-trace file-backed seed suite, deterministic synthetic email/files/browser tool adapters, a config-driven experiment runner, artifact-derived reporting tables/figures, a non-authoritative model-assisted intent proposal interface, and design-only user comprehension protocol docs.
-- Next: Continue toward deeper source verification and paper/artifact packaging.
+- Now: Core docs specify the PAPF architecture and paper plan; `src/papf/` includes deterministic evaluation, hardened run serialization, a file-backed benchmark loader, centralized policy/schema validation, runtime redaction evidence, recovery/partial-success scoring, comparable broad-access/prompt-only baselines, an expanded 12-trace file-backed seed suite, deterministic synthetic email/files/browser tool adapters, a config-driven experiment runner, artifact-derived reporting tables/figures, a non-authoritative model-assisted intent proposal interface, design-only user comprehension protocol docs, and a strengthened verified related-work map.
+- Next: Continue toward paper/artifact packaging.
 - Open questions: Clarification versus safe refusal under ambiguity, partial-success scoring, and whether the planned non-expert comprehension protocol should be run as an actual user study.
 
 ## Invariants / Constraints
@@ -76,12 +76,13 @@
 - 2026-04-29 [CODE]: Completed Task 020 by adding artifact-derived reporting, generated paper-ready metrics/baseline/failure/provenance tables plus SVG figures, and regenerated the default experiment run with PAPF and baseline artifacts under metric schema `papf.metrics.v3`.
 - 2026-04-29 [CODE]: Completed Task 021 by adding a non-authoritative intent proposer interface, deterministic fake proposer, raw proposal schema validation before capability compilation, boundary documentation, and contract tests proving invalid proposals cannot mint capabilities.
 - 2026-04-29 [CODE]: Completed Task 022 by adding a design-only non-expert comprehension protocol and matched permission prompt examples; both explicitly report no user-study results or statistics.
+- 2026-04-29 [CODE]: Completed Task 023 by strengthening `docs/lit_matrix.md`, `docs/related_work.md`, and `references.bib` with verified source coverage for agent-specific authorization middleware, agent IFC, agent permission UX, delegated authorization scopes, and agent audit/provenance.
 
 ### Now
-- 2026-04-29 [CODE]: Project has an executable PAPF evaluation path, serialized run artifacts, a file-backed PAPF seed case loader, expanded seed suite coverage, schema/policy validation gates, redaction evidence enforcement, recovery scoring, baseline runners, synthetic tool runtime, config-driven experiment execution, artifact-derived paper reporting, an optional non-authoritative intent proposal layer, and a design-only user comprehension protocol while preserving the hard-coded smoke fixture.
+- 2026-04-29 [CODE]: Project has an executable PAPF evaluation path, serialized run artifacts, a file-backed PAPF seed case loader, expanded seed suite coverage, schema/policy validation gates, redaction evidence enforcement, recovery scoring, baseline runners, synthetic tool runtime, config-driven experiment execution, artifact-derived paper reporting, an optional non-authoritative intent proposal layer, a design-only user comprehension protocol, and a strengthened verified related-work base while preserving the hard-coded smoke fixture.
 
 ### Next
-- 2026-04-29 [CODE]: Continue with Task 023 deeper source verification or Task 024 paper/artifact packaging.
+- 2026-04-29 [CODE]: Continue with Task 024 paper/artifact packaging.
 - 2026-04-27 [CODE]: Keep the security-critical path deterministic while expanding benchmark loaders, baselines, and experiment reporting.
 
 ## Working set
@@ -186,7 +187,7 @@
 - 2026-04-27 [CODE]: SUPERSEDED by D013: Should evaluation run serialization be JSONL, CSV, or both?
 - 2026-04-27 [CODE]: SUPERSEDED by D012 for now: Should the CAR seed cases from Task 007 be retained here, renamed, or moved out of the PAPF workspace?
 - 2026-04-27 [ASSUMPTION]: Should the first benchmark release be domain-specific or cross-domain?
-- 2026-04-27 [CODE]: Should a follow-up literature pass focus specifically on agent-specific auditability/provenance and agent-permission UX, which remain the weakest verified clusters?
+- 2026-04-27 [CODE]: SUPERSEDED by Task 023: Should a follow-up literature pass focus specifically on agent-specific auditability/provenance and agent-permission UX, which remain the weakest verified clusters?
 - 2026-04-27 [CODE]: Should the first narrow slice stay exactly `email + files + browser`, or should browser support be deferred if fixture complexity slows the first runtime milestone?
 - 2026-04-27 [CODE]: SUPERSEDED by `papf_pipeline_research/results/Nonexpert_comprehension_protocol.json`: How should the project measure non-expert comprehension alongside the automated benchmark without overclaiming a user-centered result?
 - 2026-04-27 [CODE]: When the compiler cannot identify a sufficiently narrow scope, should the runtime require clarification or default to safe refusal?
@@ -271,3 +272,6 @@
 - 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest discover -s tests -v` -> 77 tests passed after Task 021.
 - 2026-04-29 [TOOL]: `$env:PYTHONDONTWRITEBYTECODE='1'; python -B -m py_compile ...` -> Python sources in `src` and `tests` compiled successfully after Task 021.
 - 2026-04-29 [TOOL]: `rg -n "%|\bresults?\b|\bstatistics?\b|effect size|significance|participants? (reported|showed|found)|we found|we show|demonstrate|proves?|validated|improves?|reduces?|understandable" docs/user_study_protocol.md docs/permission_prompt_examples.md` -> matches were future-work, disallowed-claim, or neutral prompt wording; no empirical results or statistics were reported.
+- 2026-04-29T03:16:51-07:00 [TOOL]: `Get-Date -Format o` -> timestamp for Task 023 source-verification pass.
+- 2026-04-29 [TOOL]: Verified primary source pages for Progent, AgentSpec, MiniScope, Securing AI Agents with IFC/Fides, Towards Automating Data Access Permissions in AI Agents, IsolateGPT, LLM Agents for Interactive Workflow Provenance, Verifiability-First Agents, GNAP RFC 9635, GNAP RS Connections RFC 9767, and current MCP authorization context.
+- 2026-04-29 [TOOL]: PowerShell citation-key check over `docs/lit_matrix.md` and `docs/related_work.md` -> all citation-like doc keys exist in `references.bib`.
