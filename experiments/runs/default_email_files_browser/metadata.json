@@ -1,6 +1,6 @@
 {
-  "git_status_summary": "6 changed paths",
-  "metric_schema_version": "papf.metrics.v1",
+  "git_status_summary": "12 changed paths",
+  "metric_schema_version": "papf.metrics.v2",
   "run_ids": [
     "run_clean",
     "run_temptation",
@@ -20,5 +20,5 @@
     "attack",
     "recovery"
   ],
-  "timestamp": "2026-04-29T09:03:04.927370+00:00"
+  "timestamp": "2026-04-29T09:25:50.270102+00:00"
 }

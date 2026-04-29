@@ -40,6 +40,8 @@ class EvaluationSuiteResult:
                 "false_allow_count": result.metrics.false_allow_count,
                 "false_deny_count": result.metrics.false_deny_count,
                 "consent_prompts": result.metrics.consent_prompts,
+                "redacted_access_count": result.metrics.redacted_access_count,
+                "unredacted_disclosure_count": result.metrics.unredacted_disclosure_count,
                 "auditability_completeness": result.metrics.auditability_completeness,
             }
             for result in self.results

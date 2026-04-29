@@ -8,6 +8,7 @@ from papf.benchmark.models import BenchmarkTask, EnvironmentBundle
 from papf.benchmark.traces import TraceScenario, email_files_browser_scenarios, run_trace_scenario
 from papf.benchmark.validators import validate_task_bundle
 from papf.enforcement.models import EnforcementResult
+from papf.enforcement.redaction import RedactionArtifact
 from papf.evaluation.metrics import score_trace
 from papf.evaluation.results import EvaluationCaseResult, EvaluationSuiteResult
 
@@ -92,10 +93,11 @@ def build_audit_log(
             evidence_refs=tuple(result.decision.policy_decision_id for result in results),
         )
     )
-    return RunAuditLog(run_id=run_id, events=tuple(events))
+    return RunAuditLog(run_id=run_id, events=tuple(events), redaction_artifacts=_redaction_artifacts(results))
 
 
 def _policy_event(run_id: str, task_id: str, event_index: int, result: EnforcementResult) -> AuditEvent:
+    artifact_refs = _redaction_artifact_refs(result)
     return AuditEvent(
         audit_event_id=f"{run_id}_audit_{event_index:03d}",
         run_id=run_id,
@@ -108,7 +110,8 @@ def _policy_event(run_id: str, task_id: str, event_index: int, result: Enforceme
         summary=f"{result.request.action.value} request evaluated",
         outcome=result.decision.decision.value,
         explanation=result.decision.decision_reason,
-        evidence_refs=(result.decision.policy_decision_id,),
+        related_redaction_artifact_refs=artifact_refs,
+        evidence_refs=(result.decision.policy_decision_id, *artifact_refs),
     )
 
 
@@ -117,6 +120,7 @@ def _tool_event(run_id: str, task_id: str, event_index: int, result: Enforcement
     related_data_refs = ()
     if result.resolved_scope is not None:
         related_data_refs = (result.resolved_scope.selector_value,)
+    artifact_refs = _redaction_artifact_refs(result)
     return AuditEvent(
         audit_event_id=f"{run_id}_audit_{event_index:03d}",
         run_id=run_id,
@@ -127,7 +131,26 @@ def _tool_event(run_id: str, task_id: str, event_index: int, result: Enforcement
         related_call_id=result.request.call_id,
         related_rule_ids=result.decision.matched_rule_ids,
         related_data_refs=related_data_refs,
+        related_redaction_artifact_refs=artifact_refs,
         summary=f"{result.request.tool_name}.{result.request.action.value} {result.execution_status.value}",
         outcome=result.execution_status.value,
-        evidence_refs=(result.request.call_id, result.decision.policy_decision_id),
+        evidence_refs=(result.request.call_id, result.decision.policy_decision_id, *artifact_refs),
     )
+
+
+def _redaction_artifact_refs(result: EnforcementResult) -> tuple[str, ...]:
+    if result.redaction_artifact is None:
+        return ()
+    return (result.redaction_artifact.redaction_artifact_id,)
+
+
+def _redaction_artifacts(results: tuple[EnforcementResult, ...]) -> tuple[RedactionArtifact, ...]:
+    artifacts: list[RedactionArtifact] = []
+    seen: set[str] = set()
+    for result in results:
+        artifact = result.redaction_artifact
+        if artifact is None or artifact.redaction_artifact_id in seen:
+            continue
+        artifacts.append(artifact)
+        seen.add(artifact.redaction_artifact_id)
+    return tuple(artifacts)

@@ -6,6 +6,7 @@ from dataclasses import dataclass
 
 from papf.common import Action, DecisionLabel, ExecutionStatus, ScopeSpec
 from papf.policy.models import PolicyDecision
+from papf.enforcement.redaction import RedactionArtifact
 
 
 @dataclass(frozen=True)
@@ -24,11 +25,15 @@ class EnforcementResult:
     decision: PolicyDecision
     execution_status: ExecutionStatus
     resolved_scope: ScopeSpec | None = None
+    redaction_artifact: RedactionArtifact | None = None
 
     @property
     def may_execute(self) -> bool:
+        if self.execution_status not in {ExecutionStatus.EXECUTED, ExecutionStatus.SIMULATED}:
+            return False
+        if self.decision.decision == DecisionLabel.ALLOW_WITH_REDACTION:
+            return self.redaction_artifact is not None
         return self.decision.decision in {
             DecisionLabel.ALLOW,
             DecisionLabel.ALLOW_WITH_NARROWED_SCOPE,
-            DecisionLabel.ALLOW_WITH_REDACTION,
         }

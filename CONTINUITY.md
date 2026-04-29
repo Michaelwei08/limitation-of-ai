@@ -4,9 +4,9 @@
 - Goal: Build a research project on task-scoped permission boundaries for consumer AI agents.
 - Working title: Personal Agent Permission Firewall (PAPF).
 - Benchmark idea: NonExpert-AgentPermBench.
-- Now: Core docs specify the PAPF architecture and paper plan; `src/papf/` includes deterministic evaluation, hardened run serialization, a file-backed benchmark loader, and centralized policy/schema validation.
-- Next: Start `tasks/014_redaction_evidence.md` for verifiable redaction artifacts, or expand the file-backed seed suite under `tasks/017_expand_benchmark_suite.md`.
-- Open questions: Clarification versus safe refusal under ambiguity, redaction evidence design, partial-success scoring, and whether the planned non-expert comprehension protocol should become an actual user study.
+- Now: Core docs specify the PAPF architecture and paper plan; `src/papf/` includes deterministic evaluation, hardened run serialization, a file-backed benchmark loader, centralized policy/schema validation, and runtime redaction evidence.
+- Next: Start `tasks/015_recovery_scoring.md` for partial-success/recovery quality, or expand the file-backed seed suite under `tasks/017_expand_benchmark_suite.md`.
+- Open questions: Clarification versus safe refusal under ambiguity, partial-success scoring, and whether the planned non-expert comprehension protocol should become an actual user study.
 
 ## Invariants / Constraints
 - 2026-04-27 [USER]: Permission enforcement must happen outside the LLM.
@@ -67,12 +67,13 @@
 - 2026-04-29 [CODE]: Hardened Task 011 serialization path validation, documented output artifact formats in the default config, added deterministic-output regression coverage, and regenerated default metadata.
 - 2026-04-29 [CODE]: Completed Task 012 by adding a YAML/JSON PAPF benchmark loader, a synthetic file-backed email/files/browser seed case, and loader tests for missing refs, invalid enum labels, and synthetic-data enforcement.
 - 2026-04-29 [CODE]: Completed Task 013 by adding centralized policy/schema validators, fail-closed policy/capability checks before compile/evaluation, and negative tests for duplicates, invalid labels, unsafe grants, missing refs, resource mismatches, and broad capabilities.
+- 2026-04-29 [CODE]: Completed Task 014 by adding `RedactionArtifact`, enforcing artifact presence for `allow_with_redaction`, linking artifacts from audit events, adding redacted/unredacted metric fields, and bumping serialized metric schema to `papf.metrics.v2`.
 
 ### Now
-- 2026-04-29 [CODE]: Project has an executable PAPF evaluation path, serialized default run artifacts, a file-backed PAPF seed case loader, and schema/policy validation gates while preserving the hard-coded smoke fixture.
+- 2026-04-29 [CODE]: Project has an executable PAPF evaluation path, serialized default run artifacts, a file-backed PAPF seed case loader, schema/policy validation gates, and redaction evidence enforcement while preserving the hard-coded smoke fixture.
 
 ### Next
-- 2026-04-29 [CODE]: Run Task 014 to add verifiable redaction evidence, or Task 017 to expand the loader-backed benchmark suite.
+- 2026-04-29 [CODE]: Run Task 015 to add recovery/partial-success scoring, or Task 017 to expand the loader-backed benchmark suite.
 - 2026-04-27 [CODE]: Keep the security-critical path deterministic while expanding benchmark loaders, baselines, and experiment reporting.
 
 ## Working set
@@ -136,7 +137,9 @@
 - `tasks/023_deeper_source_verification.md`
 - `tasks/024_paper_draft_and_artifact.md`
 - `src/papf/evaluation/serialization.py`
+- `src/papf/enforcement/redaction.py`
 - `tests/test_evaluation_serialization.py`
+- `tests/test_redaction_evidence.py`
 - `src/papf/benchmark/loader.py`
 - `src/papf/benchmark/_loader_builders.py`
 - `src/papf/policy/validators.py`
@@ -155,7 +158,7 @@
 - 2026-04-27 [CODE]: Should the first narrow slice stay exactly `email + files + browser`, or should browser support be deferred if fixture complexity slows the first runtime milestone?
 - 2026-04-27 [CODE]: SUPERSEDED by `papf_pipeline_research/results/Nonexpert_comprehension_protocol.json`: How should the project measure non-expert comprehension alongside the automated benchmark without overclaiming a user-centered result?
 - 2026-04-27 [CODE]: When the compiler cannot identify a sufficiently narrow scope, should the runtime require clarification or default to safe refusal?
-- 2026-04-27 [CODE]: What concrete artifact should prove `allow_with_redaction` at runtime so evaluators can verify that redaction really occurred?
+- 2026-04-27 [CODE]: SUPERSEDED by Task 014: What concrete artifact should prove `allow_with_redaction` at runtime so evaluators can verify that redaction really occurred?
 - 2026-04-27 [CODE]: Should the first paper explicitly omit comprehension claims, or reserve a placeholder section that frames a future user-study protocol without presenting results?
 
 ## Receipts
@@ -210,3 +213,6 @@
 - 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest tests.test_policy_validation -v` -> 13 policy validation tests passed after Task 013.
 - 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest discover -s tests -v` -> 47 tests passed after Task 013 validation additions.
 - 2026-04-29 [TOOL]: PowerShell stdin compile script with `python -B -` -> compiled all `src` and `tests` Python files in memory after Task 013.
+- 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest tests.test_redaction_evidence -v` -> 3 redaction evidence tests passed.
+- 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest discover -s tests -v` -> 50 tests passed after Task 014 redaction evidence additions.
+- 2026-04-29 [TOOL]: PowerShell stdin compile script with `python -B -` -> compiled all `src` and `tests` Python files in memory after Task 014.

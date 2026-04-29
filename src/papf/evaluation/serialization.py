@@ -13,7 +13,7 @@ from typing import Any
 from papf.evaluation.results import EvaluationCaseResult, EvaluationSuiteResult
 from papf.evaluation.runner import evaluate_default_suite
 
-METRIC_SCHEMA_VERSION = "papf.metrics.v1"
+METRIC_SCHEMA_VERSION = "papf.metrics.v2"
 
 
 @dataclass(frozen=True)
@@ -144,8 +144,32 @@ def _audit_rows(results: tuple[EvaluationCaseResult, ...]) -> tuple[dict[str, An
                     "related_call_id": event.related_call_id,
                     "related_rule_ids": list(event.related_rule_ids),
                     "related_data_refs": list(event.related_data_refs),
+                    "related_redaction_artifact_refs": list(event.related_redaction_artifact_refs),
                     "outcome": event.outcome,
                     "evidence_refs": list(event.evidence_refs),
+                    "removed_field_labels": [],
+                    "rationale": event.explanation,
+                }
+            )
+        for artifact in result.audit_log.redaction_artifacts:
+            rows.append(
+                {
+                    "run_id": artifact.run_id,
+                    "task_id": artifact.task_id,
+                    "scenario_id": result.scenario_id,
+                    "suite_id": result.suite_id,
+                    "audit_event_id": artifact.redaction_artifact_id,
+                    "event_index": None,
+                    "event_type": "redaction_artifact",
+                    "actor": "tool_runtime",
+                    "related_call_id": artifact.call_id,
+                    "related_rule_ids": [],
+                    "related_data_refs": list(artifact.source_refs),
+                    "related_redaction_artifact_refs": [artifact.redaction_artifact_id],
+                    "outcome": artifact.output_ref,
+                    "evidence_refs": [artifact.policy_decision_id or "", artifact.output_ref],
+                    "removed_field_labels": list(artifact.removed_field_labels),
+                    "rationale": artifact.rationale,
                 }
             )
     return tuple(rows)

@@ -4,7 +4,7 @@
   "artifact_formats": ["metadata_json", "metrics_jsonl", "metrics_csv", "audit_summaries_jsonl"],
   "audit_summary_policy": "no_raw_personal_payloads",
   "mode": "papf",
-  "metric_schema_version": "papf.metrics.v1",
+  "metric_schema_version": "papf.metrics.v2",
   "output_dir": "experiments/runs/default_email_files_browser",
   "suite_ids": ["clean", "temptation", "attack", "recovery"],
   "synthetic_data_only": true
