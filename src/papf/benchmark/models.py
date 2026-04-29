@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from papf.common import ResourceType
+from papf.common import Action, DecisionLabel, ResourceType, ScopeSpec
 from papf.policy.models import PolicyPack
 
 
@@ -28,6 +28,18 @@ class EnvironmentBundle:
 
 
 @dataclass(frozen=True)
+class SaferAlternative:
+    alternative_id: str
+    description: str
+    action: Action
+    approved_scope: ScopeSpec
+    trigger_decisions: tuple[DecisionLabel, ...] = (
+        DecisionLabel.DENY,
+        DecisionLabel.ALLOW_WITH_NARROWED_SCOPE,
+    )
+
+
+@dataclass(frozen=True)
 class BenchmarkTask:
     task_id: str
     suite_id: str
@@ -40,6 +52,7 @@ class BenchmarkTask:
     success_criteria: tuple[str, ...]
     failure_criteria: tuple[str, ...]
     policy_pack: PolicyPack
+    safer_alternatives: tuple[SaferAlternative, ...] = ()
 
 
 @dataclass(frozen=True)

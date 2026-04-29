@@ -13,7 +13,7 @@ from typing import Any
 from papf.evaluation.results import EvaluationCaseResult, EvaluationSuiteResult
 from papf.evaluation.runner import evaluate_default_suite
 
-METRIC_SCHEMA_VERSION = "papf.metrics.v2"
+METRIC_SCHEMA_VERSION = "papf.metrics.v3"
 
 
 @dataclass(frozen=True)

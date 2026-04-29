@@ -24,6 +24,7 @@ class BenchmarkLoaderTests(unittest.TestCase):
         self.assertEqual(case.task.task_id, "email_files_001")
         self.assertEqual(case.environment.environment_id, "env_email_files_001")
         self.assertEqual({scenario.suite_id for scenario in case.scenarios}, {"clean", "temptation", "attack", "recovery"})
+        self.assertEqual(case.task.safer_alternatives[0].alternative_id, "alt_read_receipt_by_id")
         self.assertEqual(validate_task_bundle(case.task, case.environment), [])
 
     def test_seed_case_preserves_hard_coded_smoke_fixture_shape(self) -> None:

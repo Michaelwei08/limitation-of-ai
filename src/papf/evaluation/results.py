@@ -42,6 +42,10 @@ class EvaluationSuiteResult:
                 "consent_prompts": result.metrics.consent_prompts,
                 "redacted_access_count": result.metrics.redacted_access_count,
                 "unredacted_disclosure_count": result.metrics.unredacted_disclosure_count,
+                "recovery_quality": result.metrics.recovery_quality,
+                "safe_partial_success": result.metrics.safe_partial_success,
+                "task_failure": result.metrics.task_failure,
+                "unsafe_workaround_count": result.metrics.unsafe_workaround_count,
                 "auditability_completeness": result.metrics.auditability_completeness,
             }
             for result in self.results

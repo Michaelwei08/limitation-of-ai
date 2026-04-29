@@ -31,6 +31,7 @@ def evaluate_scenario(
         environment,
         expected_decisions=scenario.expected_decision_map(),
         audit_log=audit_log,
+        task=task,
     )
     return EvaluationCaseResult(
         run_id=run_id,

@@ -6,7 +6,7 @@ from collections.abc import Mapping, Sequence
 from enum import StrEnum
 from typing import Any
 
-from papf.benchmark.models import BenchmarkCase, BenchmarkTask, DataObject, EnvironmentBundle
+from papf.benchmark.models import BenchmarkCase, BenchmarkTask, DataObject, EnvironmentBundle, SaferAlternative
 from papf.benchmark.traces import TraceScenario
 from papf.benchmark.validators import validate_task_bundle
 from papf.common import Action, ConsentLevel, DecisionLabel, ResourceType, ScopeSpec
@@ -72,6 +72,45 @@ def _build_task(record: Mapping[str, Any], policy_pack: PolicyPack, errors: list
         success_criteria=_str_tuple(record.get("success_criteria"), "task.success_criteria", errors),
         failure_criteria=_str_tuple(record.get("failure_criteria"), "task.failure_criteria", errors),
         policy_pack=policy_pack,
+        safer_alternatives=_build_safer_alternatives(record.get("safer_alternatives", ()), errors),
+    )
+
+
+def _build_safer_alternatives(raw: Any, errors: list[str]) -> tuple[SaferAlternative, ...]:
+    records = _sequence(raw, "task.safer_alternatives", errors)
+    alternatives = []
+    for index, item in enumerate(records):
+        if not isinstance(item, Mapping):
+            errors.append(f"task.safer_alternatives[{index}] must be an object")
+            continue
+        alternatives.append(_build_safer_alternative(item, index, errors))
+    return tuple(alternatives)
+
+
+def _build_safer_alternative(record: Mapping[str, Any], index: int, errors: list[str]) -> SaferAlternative:
+    path = f"task.safer_alternatives[{index}]"
+    scope_record = _required_mapping(record, "scope", f"{path}.scope", errors)
+    trigger_decisions = tuple(
+        _enum(DecisionLabel, value, f"{path}.trigger_decisions[{decision_index}]", errors)
+        for decision_index, value in enumerate(
+            _sequence(
+                record.get("trigger_decisions", ("deny", "allow_with_narrowed_scope")),
+                f"{path}.trigger_decisions",
+                errors,
+            )
+        )
+    )
+    return SaferAlternative(
+        alternative_id=_required_str(record, "alternative_id", f"{path}.alternative_id", errors),
+        description=_required_str(record, "description", f"{path}.description", errors),
+        action=_enum(Action, record.get("action"), f"{path}.action", errors),
+        approved_scope=ScopeSpec(
+            resource_type=_enum(ResourceType, scope_record.get("resource_type"), f"{path}.scope.resource_type", errors),
+            selector_type=_required_str(scope_record, "selector_type", f"{path}.scope.selector_type", errors),
+            selector_value=_required_str(scope_record, "selector_value", f"{path}.scope.selector_value", errors),
+            destination=_optional_str(scope_record.get("destination"), f"{path}.scope.destination", errors),
+        ),
+        trigger_decisions=trigger_decisions,
     )
 
 
