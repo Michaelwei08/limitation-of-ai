@@ -40,3 +40,10 @@ class BenchmarkTask:
     success_criteria: tuple[str, ...]
     failure_criteria: tuple[str, ...]
     policy_pack: PolicyPack
+
+
+@dataclass(frozen=True)
+class BenchmarkCase:
+    task: BenchmarkTask
+    environment: EnvironmentBundle
+    scenarios: tuple["TraceScenario", ...]

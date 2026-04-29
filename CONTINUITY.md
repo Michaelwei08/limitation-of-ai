@@ -4,8 +4,8 @@
 - Goal: Build a research project on task-scoped permission boundaries for consumer AI agents.
 - Working title: Personal Agent Permission Firewall (PAPF).
 - Benchmark idea: NonExpert-AgentPermBench.
-- Now: Core docs specify the PAPF architecture and paper plan; `src/papf/` includes deterministic evaluation plus hardened run serialization; `experiments/runs/default_email_files_browser/` contains serialized PAPF run artifacts.
-- Next: Start `tasks/012_benchmark_loader.md` to move from hard-coded fixtures to file-backed PAPF benchmark cases, or `tasks/013_schema_policy_validation.md` to harden validation first.
+- Now: Core docs specify the PAPF architecture and paper plan; `src/papf/` includes deterministic evaluation, hardened run serialization, and a file-backed benchmark loader; `benchmarks/papf_seed_cases/` mirrors the current email/files/browser fixture.
+- Next: Start `tasks/013_schema_policy_validation.md` to harden validation, or expand the file-backed seed suite under `tasks/017_expand_benchmark_suite.md`.
 - Open questions: Clarification versus safe refusal under ambiguity, redaction evidence design, partial-success scoring, and whether the planned non-expert comprehension protocol should become an actual user study.
 
 ## Invariants / Constraints
@@ -65,12 +65,13 @@
 - 2026-04-27 [CODE]: Completed Task 010 by adding `docs/scope_reconciliation.md`; PAPF remains primary and CAR seed cases are retained only as quarantined auxiliary material.
 - 2026-04-27 [CODE]: Completed Task 011 by adding `src/papf/evaluation/serialization.py`, `experiments/configs/default_email_files_browser.json`, serialized default run artifacts, and focused serialization tests.
 - 2026-04-29 [CODE]: Hardened Task 011 serialization path validation, documented output artifact formats in the default config, added deterministic-output regression coverage, and regenerated default metadata.
+- 2026-04-29 [CODE]: Completed Task 012 by adding a YAML/JSON PAPF benchmark loader, a synthetic file-backed email/files/browser seed case, and loader tests for missing refs, invalid enum labels, and synthetic-data enforcement.
 
 ### Now
-- 2026-04-27 [CODE]: Project has an executable PAPF evaluation path, serialized default run artifacts, and a scope decision that prevents CAR seed cases from contaminating PAPF evidence.
+- 2026-04-29 [CODE]: Project has an executable PAPF evaluation path, serialized default run artifacts, and a file-backed PAPF seed case loader while preserving the hard-coded smoke fixture.
 
 ### Next
-- 2026-04-27 [CODE]: Run Task 012 to add file-backed PAPF benchmark loading, or Task 013 to harden schema/policy validation before loader expansion.
+- 2026-04-29 [CODE]: Run Task 013 to harden schema/policy validation before larger loader-backed suite expansion.
 - 2026-04-27 [CODE]: Keep the security-critical path deterministic while expanding benchmark loaders, baselines, and experiment reporting.
 
 ## Working set
@@ -135,6 +136,10 @@
 - `tasks/024_paper_draft_and_artifact.md`
 - `src/papf/evaluation/serialization.py`
 - `tests/test_evaluation_serialization.py`
+- `src/papf/benchmark/loader.py`
+- `src/papf/benchmark/_loader_builders.py`
+- `benchmarks/papf_seed_cases/email_files_browser.yaml`
+- `tests/test_benchmark_loader.py`
 - `experiments/configs/`
 - `experiments/runs/`
 - `paper/`
@@ -196,3 +201,6 @@
 - 2026-04-29 [TOOL]: `python -m unittest discover -s tests -v` -> failed because `papf` is not importable without `PYTHONPATH=src` in the current src-layout workspace.
 - 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; python -m unittest discover -s tests -v` -> 25 tests passed after serialization hardening and determinism coverage.
 - 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; python -m compileall -q src tests` -> Python sources compiled successfully after serialization hardening.
+- 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; python -m unittest tests.test_benchmark_loader -v` -> 7 loader tests passed after replacing temp-directory scratch files with deterministic test scratch file cleanup.
+- 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest discover -s tests -v` -> 34 tests passed after Task 012 loader additions.
+- 2026-04-29 [TOOL]: `python -B - <<compile script>>` -> compiled 32 Python files in memory without writing bytecode.
