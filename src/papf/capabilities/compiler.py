@@ -6,6 +6,7 @@ from papf.capabilities.models import Capability, CapabilityBundle
 from papf.common import ConsentLevel, DecisionLabel, ScopeSpec
 from papf.intent.models import TaskIntent
 from papf.policy.models import PolicyPack
+from papf.policy.validators import require_valid_policy_pack
 
 
 def compile_capabilities_from_policy(intent: TaskIntent, policy_pack: PolicyPack) -> CapabilityBundle:
@@ -16,6 +17,7 @@ def compile_capabilities_from_policy(intent: TaskIntent, policy_pack: PolicyPack
     """
 
     intent.require_valid()
+    require_valid_policy_pack(policy_pack)
     active: list[Capability] = []
     dormant: list[Capability] = []
     notes: list[str] = []

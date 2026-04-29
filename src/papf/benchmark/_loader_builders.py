@@ -12,6 +12,7 @@ from papf.benchmark.validators import validate_task_bundle
 from papf.common import Action, ConsentLevel, DecisionLabel, ResourceType, ScopeSpec
 from papf.enforcement.models import ToolRequest
 from papf.policy.models import PolicyPack, PolicyRule
+from papf.policy.validators import validate_trace_scenario
 
 
 def build_benchmark_case_from_mapping(raw_case: Mapping[str, Any]) -> BenchmarkCase:
@@ -51,7 +52,8 @@ def build_benchmark_case_from_mapping(raw_case: Mapping[str, Any]) -> BenchmarkC
             errors.append(f"traces[{index}] must be an object")
 
     errors.extend(validate_task_bundle(task, environment))
-    errors.extend(_validate_policy_pack(policy_pack, environment.data_ids()))
+    for scenario in scenarios:
+        errors.extend(validate_trace_scenario(scenario))
     if errors:
         raise ValueError("; ".join(errors))
     return BenchmarkCase(task=task, environment=environment, scenarios=scenarios)
@@ -219,19 +221,6 @@ def _validate_synthetic_marker(raw_case: Mapping[str, Any]) -> list[str]:
     if raw_case.get("synthetic") is not True:
         return ["benchmark case synthetic must be true"]
     return []
-
-
-def _validate_policy_pack(policy_pack: PolicyPack, data_ids: set[str]) -> list[str]:
-    errors: list[str] = []
-    rule_ids = set()
-    for rule in policy_pack.rules:
-        if rule.rule_id in rule_ids:
-            errors.append(f"duplicate policy rule_id: {rule.rule_id}")
-        rule_ids.add(rule.rule_id)
-        missing_refs = sorted(set(rule.allow_refs) - data_ids)
-        if missing_refs:
-            errors.append(f"policy rule {rule.rule_id} references missing data objects: {', '.join(missing_refs)}")
-    return errors
 
 
 def _required_mapping(record: Mapping[str, Any], key: str, path: str, errors: list[str]) -> Mapping[str, Any]:

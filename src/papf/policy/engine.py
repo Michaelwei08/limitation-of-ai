@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 from papf.capabilities.models import CapabilityBundle, capability_matches_request
 from papf.common import ConsentLevel, DecisionLabel, ScopeSpec
 from papf.policy.models import PolicyDecision, PolicyPack, PolicyRule
+from papf.policy.validators import require_valid_capability_bundle, require_valid_policy_pack
 
 if TYPE_CHECKING:
     from papf.enforcement.models import ToolRequest
@@ -20,6 +21,8 @@ def evaluate_policy(
     capabilities: CapabilityBundle,
     policy_pack: PolicyPack,
 ) -> PolicyDecision:
+    require_valid_policy_pack(policy_pack)
+    require_valid_capability_bundle(capabilities)
     rules = _matching_rules(policy_pack, request)
     explicit_deny = [rule for rule in rules if rule.effect == DecisionLabel.DENY]
     if explicit_deny:
