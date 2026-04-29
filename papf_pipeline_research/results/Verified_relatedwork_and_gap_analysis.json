@@ -1,0 +1,116 @@
+{
+  "claim_supported": [
+    "The verified literature supports PAPF's threat premise: indirect prompt injection and untrusted external content can redirect LLM-integrated systems and tool agents toward data theft, unsafe tool use, or task hijacking.",
+    "The verified benchmark literature supports evaluating agent systems with both task utility and safety/privacy outcomes, especially AgentDojo, InjecAgent, ToolEmu, AgentDAM, BrowserART, and BrowseSafe.",
+    "Capability security, confused-deputy work, OAuth/RAR/token-introspection standards, MCP authorization, and provenance/access-control-audit work support PAPF's architectural premise that authority and enforcement should be explicit, machine-checkable, and outside the LLM.",
+    "Permission UX and warning-fatigue work supports PAPF's design constraint that raw repeated permission prompts are unlikely to be sufficient for non-expert users.",
+    "The strongest defensible gap is now narrower than the earlier seed memo: PAPF should claim a candidate gap at the intersection of consumer task-to-capability compilation, external runtime enforcement, non-expert permission presentation, auditability, and joint utility/privacy/security evaluation, not a broad gap in agent enforcement generally. [uncertain]"
+  ],
+  "overclaim_risk": [
+    "Do not claim PAPF is the first or only least-privilege framework for LLM agents; newer related work such as Progent, AgentSpec, MiniScope, IsolateGPT, and information-flow-control defenses directly overlaps with external enforcement and privilege control.",
+    "Do not claim formal least privilege unless PAPF can prove or mechanically justify minimality relative to a well-defined task, tool schema, and resource model.",
+    "Do not claim non-expert comprehensibility without a user study or a clearly labeled protocol-only contribution.",
+    "Do not claim prompt-injection robustness from architecture alone; the paper needs comparative attack evaluation against broad-access and prompt-only baselines.",
+    "Do not claim auditability as solved until audit records connect user intent, compiled capabilities, consent decisions, tool calls, denials, redactions, and sensitive-data touches in reproducible artifacts."
+  ],
+  "source_requirements": [
+    "Existing verified citation matrix: greshake2023not -> indirect prompt injection in LLM-integrated applications; yi2023benchmarking -> BIPIA benchmark; zhan2024injecagent -> tool-agent indirect prompt injection with private-data exfiltration; debenedetti2024agentdojo -> realistic prompt-injection benchmark for LLM agents; ruan2024toolemu -> LM-emulated sandbox for agent risk discovery; zharmagambetov2025agentdam -> privacy leakage and data minimization in autonomous web agents.",
+    "Existing verified citation matrix: kumar2025aligned -> BrowserART and evidence that chat-model refusal does not transfer cleanly to browser agents; zhang2025browsesafe -> browser-agent prompt-injection benchmark/defense; hardy1988confused and felt2011permission -> confused-deputy framing; saltzer1975protection and wagner2006object -> least privilege, complete mediation, and object-capability security.",
+    "Existing verified citation matrix: hardt2012oauth -> OAuth delegated authorization; lodderstedt2023oauthrar -> structured fine-grained OAuth authorization_details; richer2015introspection -> token-state inspection; modelcontextprotocol2025authorization -> MCP transport-level authorization, scope challenge handling, step-up authorization, and confused-deputy considerations.",
+    "Existing verified citation matrix: felt2012androidpermissions, wijesekera2015androidpermissions, cao2021androidpermissions, felt2012askpermission, vance2019fog, and akhawe2013alice -> permission comprehension, contextual expectations, and warning/approval fatigue; groth2013provoverview and capobianco2017accessprov -> provenance and access-control decision provenance.",
+    "New source target verified in this pass: shi2025progent, arXiv:2504.11703, submitted 2025-04-16 and revised 2025-08-30, proposes deterministic tool-level privilege control for LLM agents with a policy DSL and dynamic policy updates.",
+    "New source target verified in this pass: wang2025agentspec, arXiv:2503.18666, submitted 2025-03-24 and accepted to ICSE 2026, proposes a DSL for runtime constraints on LLM agents across multiple domains.",
+    "New source target verified in this pass: zhu2025miniscope, arXiv:2512.11147, submitted 2025-12-11, proposes least-privilege authorization for tool-calling agents using reconstructed permission hierarchies and a mobile-style permission model.",
+    "New source target verified in this pass: wu2024ifc, arXiv:2409.19091, submitted 2024-09-27 and revised 2024-10-10, frames indirect-prompt-injection defense through information-flow control and a security monitor.",
+    "New source target verified in this pass: wu2026isolategpt, NDSS 2026, proposes execution isolation for LLM-based agentic systems and should be reviewed for overlap with PAPF's isolation/enforcement boundary.",
+    "Follow-up source targets: add BibTeX entries for Progent, AgentSpec, MiniScope, the information-flow-control defense, and IsolateGPT; inspect Defeating Prompt Injections by Design, Prompt Flow Integrity, ShieldAgent, AirGapAgent, stateful least-privilege authorization for cloud systems, Cedar authorization, and any agent-permission user-study work before paper drafting. [uncertain]"
+  ],
+  "task_family": "This item supports the related-work foundation for the first PAPF benchmark slice: email + files + browser. It also identifies calendar, contacts, travel, messaging, payments, and cloud/device-management tasks as later source-target domains for validating whether the gap generalizes beyond the first slice. [uncertain]",
+  "data_labels": [
+    "The literature matrix supports explicit benchmark labels for necessary data, supporting data, unnecessary data, unrelated-private data, dangerous/high-impact data, sensitive data, trusted data, and adversarial/untrusted content.",
+    "AgentDAM is the strongest verified precedent for labeling whether potentially sensitive information is necessary for a task.",
+    "Prompt-injection and browser-agent work supports distinguishing trusted user instructions from untrusted retrieved content, including emails, webpages, files, and attacker-controlled tool outputs.",
+    "Permission-UX work supports labels that are interpretable to users, not only labels convenient for policy code."
+  ],
+  "policy_boundary": [
+    "The related-work gap motivates PAPF policy outcomes that are richer than allow/deny: allow, deny, narrow, allow_with_redaction, confirmation_required, and step_up_required.",
+    "OAuth RAR and MCP authorization support structured authorization requests and scope challenges, but PAPF needs task-derived capability bundles that bind resource, action, scope, purpose, session, consent level, trust source, and expiry.",
+    "Progent, AgentSpec, MiniScope, information-flow-control defenses, and IsolateGPT should be treated as close comparison points for external enforcement and least-privilege policy semantics.",
+    "The paper should distinguish PAPF's intended consumer personal-data boundary from generic safety-rule enforcement or transport-level authorization."
+  ],
+  "attack_pressure": [
+    "Prompt injection pressure: malicious text in email, files, webpages, search results, or tool outputs attempts to override user intent.",
+    "Exfiltration pressure: an attacker tries to move unrelated-private or dangerous data into an external communication channel.",
+    "Confused-deputy pressure: the agent combines user authority, tool authority, and attacker instructions in a way the user did not intend.",
+    "Consent-laundering pressure: the agent frames a broad permission request as necessary for a narrow task.",
+    "Over-broad access pressure: the agent requests all email, all files, full browser state, or broad send/payment permissions when the task requires only a narrow subset."
+  ],
+  "trusted_component": [
+    "The security-critical decision should be owned by deterministic PAPF components: schema validation, capability compiler, policy engine, enforcement mediator, consent gate, redaction verifier, and audit logger.",
+    "The LLM should not be trusted to decide final authorization, determine whether its own tool call is safe, or self-audit sensitive-data use.",
+    "Source implication: newer enforcement work makes it especially important to define PAPF's trusted computing base precisely and compare it against policy-DSL, permission-hierarchy, information-flow, and isolation-based designs."
+  ],
+  "llm_role": [
+    "Acceptable LLM role: advisory interpretation of user intent, schema-validated capability proposals, explanation drafting, and recovery suggestions after denials.",
+    "Disallowed LLM role: final policy decision, silent expansion of scope, confirmation bypass, redaction verification, or audit-log authority.",
+    "If model-assisted policy or intent generation is evaluated, it should be an ablation with deterministic validation and fail-closed behavior."
+  ],
+  "failure_behavior": [
+    "Missing or malformed source metadata should fail the literature item as unverified rather than being padded with unsupported claims.",
+    "Ambiguous task-to-capability derivation should fail closed by requiring clarification, narrowing, or refusal; no silent broad-access fallback.",
+    "Policy mismatch should produce a diagnostic denial that records requested action, granted capability, violated condition, and recovery option.",
+    "Source conflicts or weak source status should be marked with [uncertain] in the JSON and propagated to the uncertain array."
+  ],
+  "metrics": [
+    "Task success: whether the user-visible task completes under the scoped policy.",
+    "Necessary access rate: fraction of necessary data/tool accesses allowed and used.",
+    "Over-access rate: fraction of unnecessary or unrelated-private accesses requested or performed.",
+    "Exfiltration rate: fraction of attack cases where private data reaches an unauthorized external sink.",
+    "False allow: forbidden tool calls or data accesses allowed by policy.",
+    "False deny: necessary tool calls or data accesses blocked by policy.",
+    "Consent burden: count and risk level of user-facing approval or clarification prompts.",
+    "Recovery quality: whether the agent can complete or safely degrade after a denial.",
+    "Auditability: whether the run artifact explains intent, capability compilation, consent, tool calls, denials, redactions, and outcomes."
+  ],
+  "baseline_comparison": [
+    "Primary baseline 1: broad ambient access, where the agent can call available tools and read available personal data unless manually blocked.",
+    "Primary baseline 2: prompt-only guardrails, where the agent is instructed to avoid unnecessary access or exfiltration but enforcement remains inside the model/orchestration prompt.",
+    "Primary system: PAPF external enforcement, where every tool call is mediated against a compiled task-scoped capability bundle and recorded in an audit log.",
+    "Near-work comparison target: policy-DSL or runtime-enforcement systems such as Progent and AgentSpec, permission-hierarchy systems such as MiniScope, and isolation/IFC systems such as IsolateGPT and f-secure LLM systems, if their artifacts are available and fit the same task environment. [uncertain]"
+  ],
+  "artifact_output": [
+    "This task's immediate artifact is papf_pipeline_research/results/Verified_relatedwork_and_gap_analysis.json.",
+    "Downstream paper artifacts should include an updated docs/lit_matrix.md, references.bib entries for newly verified close work, a conservative docs/research_gap.md revision, and a follow-up source-target checklist.",
+    "Experiment artifacts later should include run JSONL/CSV files, audit summaries, policy-decision traces, metric rows, and source-backed paper tables."
+  ],
+  "paper_section": [
+    "Related Work",
+    "Problem Formulation",
+    "Threat Model",
+    "System Design",
+    "Evaluation Design",
+    "Limitations"
+  ],
+  "evidence_needed": [
+    "Before writing strong novelty claims, complete a deeper source pass over agent-specific authorization middleware, runtime policy enforcement, least-privilege tool authorization, execution isolation, information-flow control, and agent permission UX.",
+    "Before claiming PAPF improves privacy/security, run comparative experiments against broad-access and prompt-only baselines on the same tasks and attacks.",
+    "Before comparing against Progent, AgentSpec, MiniScope, IsolateGPT, or IFC designs, determine whether their code, policies, or benchmark environments can be adapted fairly to PAPF's consumer-tool slice. [uncertain]",
+    "Before claiming non-expert comprehensibility, run or explicitly defer a user-study protocol with comprehension and consent-burden measures.",
+    "Before claiming auditability, produce inspectable audit artifacts and a scoring rubric that reviewers can reproduce."
+  ],
+  "acceptance_criteria": [
+    "The JSON covers every field defined in papf_pipeline_research/fields.yaml and passes validate_json.py.",
+    "The gap memo is conservative about novelty and explicitly accounts for newer close work in agent privilege control and runtime enforcement.",
+    "The literature matrix is citation-keyed and distinguishes verified current sources from follow-up targets.",
+    "Uncertain claims are marked with [uncertain] and their field names appear in the final uncertain array.",
+    "A future docs/references update should be opened for the new source targets before paper drafting. [uncertain]"
+  ],
+  "uncertain": [
+    "claim_supported",
+    "source_requirements",
+    "task_family",
+    "baseline_comparison",
+    "evidence_needed",
+    "acceptance_criteria"
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "research_id": "experiment_execution",
+  "name": "Experiment runner and result artifacts",
+  "status": "planned",
+  "purpose": "Generate reproducible runs for clean, temptation, attack, and recovery suites.",
+  "claim_supported": "This item can support a reproducibility and artifact-readiness claim once implemented: PAPF and comparable baselines can be run over the same clean, temptation, attack, and recovery suites with explicit run configs, serialized JSONL/CSV outputs, audit summaries, and config snapshots. At the current planned stage, the repository supports only a narrower claim that the deterministic PAPF evaluation harness already produces in-memory case results, audit logs, and metric rows for the default four-suite slice; durable experiment-runner artifacts are not yet implemented [uncertain].",
+  "overclaim_risk": "Do not claim completed end-to-end experiments, paper-ready quantitative results, cross-domain benchmark coverage, or PAPF-versus-baseline empirical superiority until the runner writes reproducible artifacts for PAPF, broad-access, and prompt-only conditions. Do not treat manually prepared summaries as generated evidence. Do not claim that an LLM enforces permissions; the runner should measure externally enforced PAPF decisions and deterministic baseline behavior.",
+  "source_requirements": {
+    "repo_sources": [
+      "tasks/019_experiment_runner.md",
+      "tasks/011_evaluation_run_serialization.md",
+      "tasks/016_baselines.md",
+      "src/papf/evaluation/runner.py",
+      "src/papf/evaluation/results.py",
+      "src/papf/evaluation/metrics.py",
+      "src/papf/benchmark/traces.py",
+      "tests/test_evaluation_harness.py",
+      "papf_pipeline_research/results/Deterministic_evaluation_harness.json",
+      "papf_pipeline_research/results/Comparable_baselines.json"
+    ],
+    "needed_before_strong_claims": [
+      "A checked-in experiment config format under experiments/configs/",
+      "A CLI or script entrypoint such as src/papf/cli.py or scripts/run_papf_experiment.py",
+      "Serialized metric rows, decision traces, audit summaries, and config snapshots under experiments/runs/",
+      "Tests proving a small run writes expected artifacts and fails clearly for missing suite or case references",
+      "Baseline runner outputs for broad-access and prompt-only modes using the same scenario definitions [uncertain]"
+    ],
+    "external_source_targets": [
+      "AgentDojo, InjecAgent, ToolEmu, AgentDAM, and BrowseSafe remain relevant benchmark and agent-risk context sources when writing the experiment section.",
+      "Authorization and auditability positioning should continue to use the already verified MCP Authorization, OAuth, PROV, and permission-UX sources recorded elsewhere in the pipeline."
+    ]
+  },
+  "task_family": "Synthetic consumer-agent email, files, and browser suites, initially covering clean task completion, temptation toward unrelated private data, adversarial attack pressure, and recovery after blocked or confirmation-gated actions.",
+  "data_labels": {
+    "necessary": "The runner should preserve fixture labels for task-essential email threads, attachments, approved policy pages, and other records required to complete the benchmark task.",
+    "supporting": "Supporting data objects should remain distinct from necessary objects so the experiment can report legitimate contextual access without inflating unrelated access.",
+    "unnecessary": "Available but off-task synthetic records should be retained in every condition so over-access is observable rather than removed from the environment.",
+    "unrelated_private": "Sensitive unrelated private records, such as the synthetic tax-return-like file in the current fixture, should be available to the environment but forbidden by PAPF policy and measured when a baseline touches them.",
+    "sensitivity": "The run output should carry sensitivity labels forward into metrics and audit summaries, but richer sensitivity-specific aggregation is still planned [uncertain].",
+    "trust": "Trusted user/task inputs, synthetic trusted environment records, untrusted webpages, and adversarial content should remain labeled in serialized outputs.",
+    "adversarial_content": "Prompt-injection and exfiltration-pressure records must be referenced by stable identifiers so JSONL/CSV rows can be audited back to the attack fixture."
+  },
+  "policy_boundary": {
+    "allowed": "PAPF runs should execute only requests allowed by compiled task-scoped capabilities and policy checks; broad-access baselines may execute syntactically valid requests by design; prompt-only behavior still needs a deterministic advisory-only rule [uncertain].",
+    "denied": "PAPF should serialize denials for unrelated private reads, unsafe sinks, unsupported actions, and missing capabilities as explicit decisions rather than dropping blocked calls.",
+    "narrowed": "PAPF should record allow_with_narrowed_scope decisions with both requested and resolved scope so reviewers can verify that broad requests were constrained.",
+    "redacted": "The experiment output schema should reserve fields for allow_with_redaction and redaction evidence, but concrete redaction artifacts are not yet implemented [uncertain].",
+    "confirmation_gated": "Require-confirmation decisions for outbound sends or other commitment actions should appear in decisions, consent-burden metrics, and audit summaries without automatic execution."
+  },
+  "attack_pressure": "The runner should execute clean, temptation, attack, and recovery suites deterministically. The intended pressure types are unrelated-private data temptation, over-broad access requests, indirect prompt injection from untrusted browser content, exfiltration-shaped tool calls, consent laundering around outbound actions, and recovery from a blocked or gated request. Broader attack-suite coverage beyond the current seed scenarios remains planned [uncertain].",
+  "trusted_component": "The trusted experiment components should be deterministic code outside the LLM: config loading and validation, suite selection, PAPF enforcement through the existing runtime path, baseline replay rules, metric computation, audit-summary construction, and artifact serialization. The runner should fail before execution when configs reference unknown suites, scenarios, conditions, or output schemas.",
+  "llm_role": "Absent from the first experiment runner. PAPF may later accept LLM-generated intent or capability proposals only as schema-validated inputs to deterministic enforcement, but the runner itself should not ask an LLM to decide whether a tool call is allowed.",
+  "failure_behavior": {
+    "invalid_config": "Missing required config fields, unknown condition names, unknown suite ids, duplicate output ids, or malformed paths should raise explicit errors before any partial artifact is reported as successful.",
+    "missing_case": "A config that references a scenario or benchmark case that is not loaded should fail clearly, matching the Task 019 requirement to fail if config references missing cases.",
+    "invalid_fixture": "The PAPF path should keep using validate_task_bundle-style validation and reject inconsistent task/environment bundles before scoring.",
+    "serialization_failure": "If metrics, decisions, audit summaries, or config snapshots cannot be written, the run should fail rather than silently reporting incomplete outputs.",
+    "partial_run": "If one condition fails after another condition writes artifacts, the run manifest should mark the overall run incomplete and identify which files are valid or invalid [uncertain].",
+    "baseline_gap": "Because broad-access and prompt-only runners are not yet implemented, baseline-mode failure behavior is specified as a requirement rather than current code [uncertain]."
+  },
+  "metrics": {
+    "task_success": "Reuse the current task_success_proxy initially, then extend only with explicit task-level success criteria when benchmark loaders add richer cases.",
+    "necessary_access_rate": "Report the fraction of necessary or supporting non-draft records touched by executed calls for each scenario and condition.",
+    "over_access_rate": "Report executed access to unnecessary or unrelated-private records, preserving stable data refs in decision and audit artifacts.",
+    "exfiltration_rate": "Add a dedicated count or rate for unauthorized sends, uploads, forwards, posts, payments, or other external sinks; this is not yet present in the current RunMetrics dataclass [uncertain].",
+    "false_allow": "Compare actual decisions with expected-decision maps and serialize false_allow_count per scenario and condition.",
+    "false_deny": "Compare actual decisions with expected-decision maps and serialize false_deny_count per scenario and condition.",
+    "consent_burden": "Serialize consent_prompts for require_confirmation decisions and keep them separate from blocked-call counts.",
+    "recovery_quality": "Report whether recovery scenarios move from unsafe blocked requests to safe allowed behavior; a separate recovery-quality score is still planned [uncertain].",
+    "auditability": "Report auditability_completeness and include enough audit-summary fields to reconstruct what was requested, decided, executed, blocked, narrowed, or confirmation-gated."
+  },
+  "baseline_comparison": {
+    "papf_condition": "Run the existing deterministic PAPF evaluation path and serialize metrics, decisions, and audit summaries for each selected suite.",
+    "broad_access_condition": "Run the same scenario requests without PAPF task-scoped enforcement while preserving trace observability; implementation is still planned [uncertain].",
+    "prompt_only_condition": "Run the same scenario requests with advisory guardrail metadata but no external enforcement; deterministic no-LLM semantics still need to be defined before implementation [uncertain].",
+    "shared_outputs": "All conditions should emit comparable metric rows, decision JSONL rows, audit-summary JSON, and run metadata so the paper can compare utility and privacy/security outcomes without hand-aligned tables.",
+    "fairness_constraints": "Conditions must share the same synthetic environment, data labels, request sequence, expected decisions, config snapshot, and metric definitions."
+  },
+  "artifact_output": {
+    "target_research_json": "papf_pipeline_research/results/Experiment_runner_and_result_artifacts.json",
+    "run_configs": [
+      "experiments/configs/*.json or *.yaml specifying run_id, selected suites, conditions, output directory, metric schema version, and reproducibility metadata [uncertain]",
+      "Config snapshots copied into each experiments/runs/<run_id>/ directory so outputs remain interpretable after source changes [uncertain]"
+    ],
+    "jsonl_outputs": [
+      "decisions.jsonl with one row per tool request containing run_id, condition, task_id, scenario_id, call_id, requested_scope, resolved_scope, decision, execution_status, observed_data_refs, and rationale [uncertain]",
+      "audit_events.jsonl or audit_summary.json with reconstructable audit events and per-scenario summaries [uncertain]"
+    ],
+    "csv_outputs": [
+      "metrics.csv with one row per run-condition-scenario metric record",
+      "optional aggregate_metrics.csv for paper tables once aggregation rules are fixed [uncertain]"
+    ],
+    "current_implemented_output": "The existing evaluation harness can produce in-memory EvaluationSuiteResult.metric_rows for the default PAPF suite, but it does not yet write experiments/runs/ artifacts [uncertain]."
+  },
+  "paper_section": "Experimental Setup, Reproducibility Artifacts, Results, Baselines, Auditability, and Artifact Appendix.",
+  "evidence_needed": [
+    "Implementation evidence: a runner entrypoint that loads run configs, selects suites, executes PAPF and baseline conditions, and writes outputs under experiments/runs/.",
+    "Schema evidence: documented output fields for metrics CSV, decision JSONL, audit summaries, config snapshots, and run manifests.",
+    "Test evidence: tests/test_experiment_runner.py showing a small deterministic run writes all expected artifacts.",
+    "Failure evidence: tests showing missing suite or case references fail clearly before reporting success.",
+    "Baseline evidence: broad-access and prompt-only runner artifacts over the same clean, temptation, attack, and recovery suites [uncertain].",
+    "Paper evidence: generated run artifacts should be the source of quantitative tables and audit examples; manually typed numbers should remain out of the paper."
+  ],
+  "acceptance_criteria": [
+    "The experiment runner accepts a checked-in config and selected suites for clean, temptation, attack, and recovery.",
+    "The runner supports PAPF, broad-access baseline, and prompt-only baseline modes, or clearly marks unsupported modes until implemented [uncertain].",
+    "Each run writes a config snapshot, metrics CSV, decision JSONL, audit summary, and run manifest under experiments/runs/.",
+    "Outputs include stable identifiers for run_id, condition, task_id, scenario_id, suite_id, call_id, and data refs.",
+    "A missing suite, case, condition, or required output field causes an explicit failure.",
+    "Focused tests verify successful artifact writing and missing-case failure behavior.",
+    "This structured research JSON includes all fields from papf_pipeline_research/fields.yaml, marks uncertain values inline, and passes the validation script."
+  ],
+  "uncertain": [
+    "claim_supported",
+    "source_requirements.needed_before_strong_claims",
+    "data_labels.sensitivity",
+    "policy_boundary.allowed",
+    "policy_boundary.redacted",
+    "attack_pressure",
+    "failure_behavior.partial_run",
+    "failure_behavior.baseline_gap",
+    "metrics.exfiltration_rate",
+    "metrics.recovery_quality",
+    "baseline_comparison.broad_access_condition",
+    "baseline_comparison.prompt_only_condition",
+    "artifact_output.run_configs",
+    "artifact_output.jsonl_outputs",
+    "artifact_output.csv_outputs",
+    "artifact_output.current_implemented_output",
+    "evidence_needed",
+    "acceptance_criteria"
+  ]
+}

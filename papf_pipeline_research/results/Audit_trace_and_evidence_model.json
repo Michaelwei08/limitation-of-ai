@@ -1,0 +1,93 @@
+{
+  "research_id": "auditability",
+  "name": "Audit trace and evidence model",
+  "status": "started",
+  "purpose": "Make permission decisions, tool requests, data touches, confirmations, and outcomes inspectable through an append-only audit log, an auditability completeness metric, and a planned redaction evidence artifact.",
+  "claim_supported": "The current PAPF project supports a bounded design-and-implementation claim: auditability can be represented as structured run evidence that links task start, policy decisions, tool execution or blocking, data-touch references, and task completion. Existing code implements immutable AuditEvent records, append-only RunAuditLog.append behavior, policy and tool audit-event emission in the evaluation runner, and an auditability_completeness metric over required event identifiers. This supports claims about inspectable deterministic synthetic traces, not about production forensic completeness or user-facing audit usefulness.",
+  "overclaim_risk": "The project must avoid claiming that auditability is solved for real consumer agents, that redaction has been independently verified, or that audit traces are comprehensible to non-experts before the redaction artifact, serialized runs, and user-facing review protocol exist. It should also avoid treating audit logs as enforcement by themselves; the log records decisions and evidence, while the security-critical decision must still be made by the external PAPF policy and enforcement components.",
+  "source_requirements": [
+    "Repository implementation evidence: src/papf/audit/models.py defines AuditEvent and RunAuditLog, src/papf/evaluation/runner.py emits task_start, policy_checked, tool_executed, tool_blocked, and task_completed events, and src/papf/evaluation/metrics.py computes auditability_completeness.",
+    "Repository schema evidence: docs/system_design.md defines audit and traceability as an append-only trace over task intent, capabilities, policy checks, confirmations, tool execution, data-touch summaries, and outcomes.",
+    "Repository benchmark evidence: docs/benchmark_schema_plan.md defines the proposed audit record schema and auditability metric as completeness of evidence needed to reconstruct the request, rule, data touched, and decision rationale.",
+    "Related-work evidence still needed for paper claims: provenance standards such as PROV, access-control decision provenance such as ACCESSPROV, delegated-authorization inspection analogues such as OAuth token introspection, and agent benchmark sources already tracked in the related-work files.",
+    "Implementation evidence still needed before strong redaction claims: a RedactionArtifact schema and tests showing allow_with_redaction cannot execute without linked redaction evidence [uncertain]."
+  ],
+  "task_family": "The audit trace model applies across PAPF consumer-agent task families, with the implemented first slice covering email, files, and browser-linked retrieval in synthetic benchmark runs.",
+  "data_labels": {
+    "necessary": "Audit events should reference necessary data touched by allowed tool calls, such as the reimbursement email thread, receipt attachment, approved policy page, or derived draft artifact.",
+    "supporting": "Supporting data such as scenario identifiers, policy decision identifiers, and synthetic resource references should appear as evidence_refs or related_data_refs without copying raw personal payloads.",
+    "unnecessary": "Unnecessary but available data should be visible in attempted or blocked tool requests when relevant to over-access analysis, while raw contents should remain outside the audit log.",
+    "unrelated_private": "Unrelated private data references should be recorded as blocked or denied data-touch attempts when they explain a policy decision, but the audit event should store identifiers and summaries rather than sensitive payloads.",
+    "sensitivity": "The audit model should preserve enough sensitivity metadata through resource references to distinguish ordinary, sensitive, and dangerous data when computing privacy and security outcomes.",
+    "trust": "Tool outputs, emails, webpages, files, and adversarial content remain untrusted; the audit trace records that they were touched or blocked but does not treat their natural-language instructions as policy authority.",
+    "adversarial_content": "Prompt-injection or exfiltration pressure should be represented through linked tool-call, policy-decision, and data-reference evidence so the evaluator can see whether adversarial content caused an off-task request or disclosure attempt."
+  },
+  "policy_boundary": {
+    "allowed": "Allowed requests should produce linked policy_checked and tool_executed audit events with the matched policy decision id, related rule ids, resolved data refs, and simulated execution outcome.",
+    "denied": "Denied requests should produce linked policy_checked and tool_blocked events with the denial reason, matched or missing rule context, related call id, and any requested data reference needed to explain the block.",
+    "narrowed": "Narrowed requests should retain both the attempted tool request and the resolved narrower scope so the audit trace can distinguish over-broad asking from constrained execution.",
+    "redacted": "allow_with_redaction should require a redaction evidence artifact that links source refs, removed field labels, output refs, rationale, and decision ids, but this artifact is planned rather than fully implemented [uncertain].",
+    "confirmation_gated": "Confirmation-gated actions should generate explicit confirmation_requested and confirmation_resolved events before any user-visible commitment executes; current traces represent require_confirmation decisions but a full confirmation event pair is not yet implemented [uncertain]."
+  },
+  "attack_pressure": "The audit evidence model is meant to expose prompt injection, exfiltration attempts, confused-deputy behavior, consent laundering, and over-broad access pressure by preserving what the agent requested, which policy rule applied, whether execution was allowed, blocked, narrowed, redacted, or confirmation-gated, what data refs were touched, and what outcome occurred. The audit log should make failed and blocked attacks visible rather than only recording successful tool calls.",
+  "trusted_component": "The trusted security-critical components are the deterministic PAPF control plane and evaluator: capability compiler, policy engine, enforcement mediator, consent gate, redaction verifier when implemented, audit logger, and metric computation. The audit logger records append-only evidence, but the policy engine and enforcement mediator own the final permission decision.",
+  "llm_role": "The LLM has no authority to edit, suppress, or certify the audit log. A future LLM may summarize audit traces for users, propose explanations, or suggest recovery steps, but those outputs must be derived from structured audit records and must not replace machine-checkable event data.",
+  "failure_behavior": {
+    "missing_audit_fields": "Audit completeness should score incomplete events lower or reject them in stricter validators; the implemented metric currently counts an event complete when audit_event_id, run_id, task_id, event_type, actor, and outcome are present.",
+    "malformed_event_linkage": "Events whose run_id does not match the RunAuditLog are rejected by RunAuditLog.append with a clear ValueError.",
+    "missing_policy_decision": "A tool execution record without a policy decision reference should be treated as an auditability failure because it cannot prove complete mediation.",
+    "missing_data_touch": "Executed read, browse, upload, forward, or send actions should record observed or resolved data references when applicable; missing data-touch evidence should reduce auditability and weaken over-access or exfiltration scoring.",
+    "redaction_without_artifact": "A decision labeled allow_with_redaction should fail closed or be scored as unsatisfied if no linked redaction artifact exists [uncertain].",
+    "confirmation_without_resolution": "A confirmation-gated action should remain blocked unless a structured confirmation resolution is recorded; unresolved confirmation should count against task success or recovery rather than silently executing."
+  },
+  "metrics": {
+    "task_success": "Audit evidence supports task_success_proxy by making false allows, false denies, over-access, and unresolved confirmation visible in the run record.",
+    "necessary_access": "Necessary access can be computed by comparing executed resolved data refs against necessary or supporting labels in the synthetic environment.",
+    "over_access": "Over-access can be computed from executed data refs labeled available_unnecessary or unrelated_private.",
+    "exfiltration": "Exfiltration should be measured from external disclosure actions such as send, forward, upload, post, or payment release that execute without authorization; the current metric set does not yet include a dedicated exfiltration-rate field [uncertain].",
+    "false_allow": "False allow is computed by comparing expected restricted decisions against actual allowed, narrowed, or redacted execution decisions.",
+    "false_deny": "False deny is computed by comparing expected allowed decisions against actual deny or require_confirmation decisions.",
+    "consent_burden": "Consent burden is currently represented as the count of policy decisions with confirmation_required; richer prompt severity or duplicate-prompt weighting remains future work [uncertain].",
+    "recovery_quality": "Recovery quality should use audit evidence to show whether a safer alternative followed a denial and still achieved an acceptable outcome; a dedicated recovery score is planned but not fully implemented [uncertain].",
+    "auditability": "auditability_completeness is implemented as the fraction of audit events containing required identifiers and outcome fields; the target metric should later expand to verify event linkage, policy-decision references, data-touch references, confirmation records, and redaction artifacts [uncertain]."
+  },
+  "baseline_comparison": "The same audit trace schema should be emitted for PAPF, broad ambient-access, and prompt-only guardrail baselines so each baseline can be compared on what it requested, what it touched, what it disclosed, what it blocked, and what evidence was missing. PAPF traces currently exist through the deterministic evaluation harness, but equivalent baseline audit traces and serialization are not implemented yet [uncertain].",
+  "artifact_output": {
+    "append_only_audit_log": "Implemented in memory as RunAuditLog with immutable AuditEvent tuples and append returning a new log instance.",
+    "auditability_completeness_metric": "Implemented in score_trace as auditability_completeness over required audit-event fields.",
+    "redaction_evidence_artifact": "Planned artifact should include artifact_id, run_id, task_id, policy_decision_id, source_data_refs, removed_field_labels, output_ref, rationale, verifier, and non-payload evidence hash or summary; exact schema and enforcement are not implemented [uncertain].",
+    "persistent_run_output": "Future run artifacts should serialize audit logs, tool traces, policy decisions, metric rows, and reproducibility metadata to experiments/runs; this requested JSON is a research artifact rather than a full run export [uncertain]."
+  },
+  "paper_section": "System Design, Benchmark Schema, Evaluation Metrics, Threat Model, Artifact Description, and Limitations.",
+  "evidence_needed": [
+    "Implementation evidence: audit events for task start, capability compilation, policy checks, confirmation requests and resolutions, tool execution or blocking, data-touch summaries, redaction artifacts, and task outcome.",
+    "Metric evidence: tests showing auditability_completeness fails on missing identifiers, missing policy-decision links, missing data-touch refs, unresolved confirmations, and missing redaction artifacts [uncertain].",
+    "Serialization evidence: reproducible JSONL or JSON run files that preserve event ordering, ids, evidence_refs, metric rows, and synthetic fixture versions [uncertain].",
+    "Baseline evidence: broad ambient-access and prompt-only guardrail runs using the same audit schema [uncertain].",
+    "Citation evidence: related work on provenance, access-control audit, delegated authorization, prompt-injection benchmarks, and permission UX.",
+    "User-facing evidence: direct user-study or review-task evidence before claiming non-expert comprehensibility of audit explanations [uncertain]."
+  ],
+  "acceptance_criteria": [
+    "Every required field from papf_pipeline_research/fields.yaml is present in this JSON artifact.",
+    "The audit model describes append-only event ordering with stable run, task, call, policy decision, rule, data, and evidence references.",
+    "The auditability metric is defined as a computable completeness measure rather than a qualitative claim.",
+    "Permission decisions, tool requests, data touches, confirmations, redaction evidence, and outcomes are represented as inspectable event families.",
+    "Unimplemented or unresolved parts, especially redaction evidence, confirmation event pairs, baseline audit traces, and richer auditability scoring, are marked with [uncertain].",
+    "The validation script passes with complete field coverage for this JSON artifact."
+  ],
+  "uncertain": [
+    "source_requirements",
+    "policy_boundary.redacted",
+    "policy_boundary.confirmation_gated",
+    "failure_behavior.redaction_without_artifact",
+    "metrics.exfiltration",
+    "metrics.consent_burden",
+    "metrics.recovery_quality",
+    "metrics.auditability",
+    "baseline_comparison",
+    "artifact_output.redaction_evidence_artifact",
+    "artifact_output.persistent_run_output",
+    "evidence_needed",
+    "acceptance_criteria"
+  ]
+}

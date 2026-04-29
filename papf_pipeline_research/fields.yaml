@@ -1,0 +1,81 @@
+topic: "Personal Agent Permission Firewall full research and implementation pipeline"
+field_categories:
+  - category: "research_positioning"
+    fields:
+      - name: "claim_supported"
+        description: "What empirical or source-backed claim this item can support."
+        detail_level: "moderate"
+        required: true
+      - name: "overclaim_risk"
+        description: "What the project must avoid claiming before sufficient evidence exists."
+        detail_level: "moderate"
+        required: true
+      - name: "source_requirements"
+        description: "Primary sources, citations, or benchmark references needed."
+        detail_level: "detailed"
+        required: true
+  - category: "benchmark_design"
+    fields:
+      - name: "task_family"
+        description: "Consumer-agent domain such as email, files, browser, calendar, contacts, travel, or payments."
+        detail_level: "brief"
+        required: true
+      - name: "data_labels"
+        description: "Necessary, supporting, unnecessary, unrelated-private, sensitivity, trust, and adversarial-content labels."
+        detail_level: "detailed"
+        required: true
+      - name: "policy_boundary"
+        description: "Allowed, denied, narrowed, redacted, or confirmation-gated action envelopes."
+        detail_level: "detailed"
+        required: true
+      - name: "attack_pressure"
+        description: "Prompt injection, exfiltration, confused deputy, consent laundering, or over-broad access pressure."
+        detail_level: "moderate"
+        required: true
+  - category: "runtime_system"
+    fields:
+      - name: "trusted_component"
+        description: "Which deterministic PAPF component owns the security-critical decision."
+        detail_level: "moderate"
+        required: true
+      - name: "llm_role"
+        description: "Whether the LLM role is absent, advisory, or schema-validated proposal only."
+        detail_level: "moderate"
+        required: true
+      - name: "failure_behavior"
+        description: "How missing, ambiguous, or malformed input fails closed with diagnostic output."
+        detail_level: "detailed"
+        required: true
+  - category: "evaluation"
+    fields:
+      - name: "metrics"
+        description: "Task success, necessary access, over-access, exfiltration, false allow, false deny, consent burden, recovery quality, auditability."
+        detail_level: "detailed"
+        required: true
+      - name: "baseline_comparison"
+        description: "How PAPF compares to broad ambient access and prompt-only guardrails in the same environment."
+        detail_level: "detailed"
+        required: true
+      - name: "artifact_output"
+        description: "Run files, audit summaries, metric rows, figures, and reproducibility metadata."
+        detail_level: "moderate"
+        required: true
+  - category: "paper_pipeline"
+    fields:
+      - name: "paper_section"
+        description: "Which paper section the item supports."
+        detail_level: "brief"
+        required: true
+      - name: "evidence_needed"
+        description: "Implementation, experiment, citation, or user-study evidence required before writing strong claims."
+        detail_level: "detailed"
+        required: true
+      - name: "acceptance_criteria"
+        description: "Concrete completion criteria for task closure."
+        detail_level: "moderate"
+        required: true
+uncertain:
+  - "Whether the first public benchmark should remain narrow or add one more consumer domain before paper submission."
+  - "Whether non-expert comprehension should be deferred entirely or included as a small protocol-only appendix."
+  - "Whether redaction evidence should be a derived artifact, an audit attachment, or both."
+  - "Whether CAR seed cases belong in this PAPF workspace."

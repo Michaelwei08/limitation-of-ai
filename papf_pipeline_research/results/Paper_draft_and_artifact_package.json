@@ -1,0 +1,217 @@
+{
+  "research_id": "paper_and_artifact",
+  "name": "Paper draft and artifact package",
+  "status": "planned",
+  "purpose": "Produce a defensible security/privacy systems paper with reproducible artifacts.",
+  "claim_supported": "The current repository can support a bounded paper-package claim: PAPF is framed as a security/privacy systems artifact that compiles task intent into externally enforced capabilities, mediates tool calls through deterministic policy checks, emits audit evidence, and has an initial synthetic email, files, and browser evaluation slice. The package can draft the method, threat model, limitations, artifact README, and a preliminary evaluation section using PAPF-only deterministic harness rows. It cannot yet support a final comparative paper claim against broad-access or prompt-only baselines because durable run serialization, baseline runs, generated paper tables, redaction evidence, and several metrics remain incomplete [uncertain].",
+  "overclaim_risk": "The paper package must not claim broad consumer-agent generality, formal least privilege, production security, non-expert comprehension, completed baseline superiority, or general prompt-injection robustness. The safe claim is narrower: a prototype architecture and evaluation substrate show how task-scoped permission boundaries can be enforced outside the LLM and measured on a synthetic email, files, and browser slice. Comparative results, user comprehension, redaction guarantees, and broad-domain conclusions must remain explicitly deferred or marked incomplete [uncertain].",
+  "source_requirements": {
+    "repo_sources": [
+      "AGENTS.md",
+      "README.md",
+      "docs/research_brief.md",
+      "docs/system_design.md",
+      "docs/implementation_plan.md",
+      "docs/benchmark_spec.md",
+      "docs/benchmark_schema_plan.md",
+      "docs/paper_outline.md",
+      "docs/paper_plan.md",
+      "docs/figures_and_tables_plan.md",
+      "docs/related_work.md",
+      "docs/lit_matrix.md",
+      "references.bib",
+      "src/papf/",
+      "tests/test_runtime_foundation.py",
+      "tests/test_trace_runner.py",
+      "tests/test_evaluation_harness.py",
+      "papf_pipeline_research/results/Taskscoped_permissionboundary_problem_formulation.json",
+      "papf_pipeline_research/results/Verified_relatedwork_and_gap_analysis.json",
+      "papf_pipeline_research/results/Benchmark_schema_and_synthetic_data_model.json",
+      "papf_pipeline_research/results/Deterministic_PAPF_runtime_foundation.json",
+      "papf_pipeline_research/results/Email_files_browser_benchmark_slice.json",
+      "papf_pipeline_research/results/Audit_trace_and_evidence_model.json",
+      "papf_pipeline_research/results/Deterministic_evaluation_harness.json",
+      "papf_pipeline_research/results/Comparable_baselines.json",
+      "papf_pipeline_research/results/Experiment_runner_and_result_artifacts.json",
+      "papf_pipeline_research/results/Results_analysis_figures_and_tables.json",
+      "papf_pipeline_research/results/Nonexpert_comprehension_protocol.json",
+      "papf_pipeline_research/results/Optional_modelassisted_proposal_layers.json"
+    ],
+    "external_sources_to_cite": [
+      "Prompt-injection and tool-agent benchmark sources such as AgentDojo, InjecAgent, ToolEmu, BrowserART, BrowseSafe, and AgentDAM.",
+      "Authorization and least-privilege foundations such as OAuth, OAuth Rich Authorization Requests, token introspection, MCP Authorization, confused-deputy work, least privilege, object-capability security, and provenance/audit literature.",
+      "Close agent-enforcement work such as Progent, AgentSpec, MiniScope, information-flow-control defenses, and IsolateGPT must be reviewed and cited before strong novelty language [uncertain].",
+      "Permission-UX and warning-fatigue work must ground any discussion of non-expert comprehension, but no comprehension result should be claimed without study evidence [uncertain]."
+    ],
+    "needed_before_submission": [
+      "Source-checked bibliography entries for newly identified close work [uncertain].",
+      "Serialized experiment artifacts under experiments/runs/ [uncertain].",
+      "Implemented broad-access and prompt-only baseline outputs [uncertain].",
+      "Generated paper tables and figures derived from run artifacts rather than hand-entered values [uncertain].",
+      "Artifact README with exact setup, test, and reproduction commands [uncertain]."
+    ]
+  },
+  "task_family": "The first paper and artifact package should stay centered on the synthetic consumer-agent email, files, and browser slice. Later domains such as calendar, contacts, travel, payments, messaging, and cloud or device management can be listed as future benchmark extensions rather than evaluated domains [uncertain].",
+  "data_labels": {
+    "necessary": [
+      "Task-essential email thread data, such as the reimbursement email thread.",
+      "Task-essential file data, such as the specific receipt attachment needed for the reply."
+    ],
+    "supporting": [
+      "Approved merchant policy webpage.",
+      "Draft reply object or task output object that supports completion."
+    ],
+    "unnecessary": [
+      "Off-task webpages, files, or records that are available in the environment but not needed for task completion."
+    ],
+    "unrelated_private": [
+      "Synthetic private files such as the tax-return-like record that should remain outside the reimbursement task."
+    ],
+    "sensitivity": "The paper should describe ordinary, sensitive, dangerous, and unrelated-private labels. Current metric rows mainly use relevance labels, so sensitivity-stratified results should be deferred until implemented [uncertain].",
+    "trust": "The artifact should preserve distinctions among trusted user instructions, trusted synthetic environment records, untrusted webpages, and adversarial content.",
+    "adversarial_content": "Prompt-injection and exfiltration-pressure records should have stable identifiers so paper examples, audit traces, and metrics can be traced back to the benchmark fixture."
+  },
+  "policy_boundary": {
+    "allowed": [
+      "Read the task-relevant email thread.",
+      "Read the task-relevant receipt file.",
+      "Browse the approved merchant policy page.",
+      "Draft the task-relevant reimbursement reply."
+    ],
+    "denied": [
+      "Read unrelated private files.",
+      "Browse adversarial or off-task webpages for this task.",
+      "Upload, send, forward, or otherwise disclose task data to unauthorized sinks.",
+      "Execute malformed, unsupported, or unscoped tool requests."
+    ],
+    "narrowed": [
+      "A broad but safely resolvable request may be narrowed to the single allowed resource, with requested and resolved scope recorded."
+    ],
+    "redacted": "Redaction should be part of the method and artifact checklist, but enforceable redaction evidence is not yet implemented and should not be claimed as an observed result [uncertain].",
+    "confirmation_gated": [
+      "Outbound commitment actions such as sending a draft reply require explicit confirmation and count toward consent burden."
+    ]
+  },
+  "attack_pressure": {
+    "prompt_injection": "Untrusted browser or document content attempts to override task instructions or induce unsafe tool use.",
+    "exfiltration": "The agent is pressured to upload, send, forward, or otherwise disclose personal data to unauthorized destinations.",
+    "confused_deputy": "A valid user task is used as cover for accessing unrelated private data or crossing tool boundaries.",
+    "consent_laundering": "The agent frames broad access or outbound commitment as necessary for a narrow task.",
+    "over_broad_access": "The agent requests directory-wide, account-wide, or cross-resource access when the task needs only a narrow subset.",
+    "current_scope": "The current attack coverage is limited to the first synthetic email, files, and browser slice and should not be generalized to all consumer-agent threats [uncertain]."
+  },
+  "trusted_component": "The trusted security-critical components are deterministic PAPF modules outside the LLM: schema validation, task-intent records, capability compilation, policy evaluation, runtime enforcement mediation, confirmation gating, audit logging, metric computation, and artifact serialization. The paper should define this trusted computing base precisely and explain that neither prompts nor chain-of-thought enforce permissions.",
+  "llm_role": "The LLM role in the core paper method is absent from enforcement. If included, the LLM may only provide advisory intent proposals, explanations, or recovery suggestions that are schema-validated and checked by deterministic PAPF components. The paper must state that the LLM cannot grant authority, expand scope, bypass confirmation, verify redaction, or edit audit evidence.",
+  "failure_behavior": {
+    "ambiguous_task": "If task intent cannot be converted into a narrow capability bundle, the system should require clarification or refuse rather than defaulting to broad access.",
+    "missing_policy_or_capability": "Tool calls without a matching active capability should be denied with a diagnostic reason and audit record.",
+    "malformed_inputs": "Malformed task fixtures, unknown data refs, invalid tool actions, or inconsistent expected-decision maps should fail validation before scoring.",
+    "missing_artifacts": "If run artifacts, baseline rows, or generated tables are missing, the artifact README and paper text must mark the result incomplete rather than infer values [uncertain].",
+    "citation_gap": "Claims without verified citations should remain in TODO or limitation text, not in final claim language.",
+    "redaction_gap": "Any redaction claim should fail closed unless the runtime emits verifiable redaction evidence [uncertain]."
+  },
+  "metrics": {
+    "task_success": "Report whether the user-visible task completes or safely degrades under the scoped policy.",
+    "necessary_access_rate": "Report executed access to necessary or supporting resources relative to the resources required for the task.",
+    "over_access_rate": "Report executed access to unnecessary or unrelated-private resources.",
+    "exfiltration_rate": "Report unauthorized external disclosure through upload, send, forward, post, payment, or similar sinks once the metric is implemented [uncertain].",
+    "false_allow": "Count forbidden or confirmation-gated calls that a condition executes contrary to the expected policy outcome.",
+    "false_deny": "Count necessary calls that are incorrectly blocked relative to the expected policy outcome.",
+    "consent_burden": "Count required confirmations or clarification prompts, separated from denials and task failures.",
+    "recovery_quality": "Measure whether the agent can continue through a safer allowed path after denial, narrowing, or confirmation gating; scalar recovery quality is still planned [uncertain].",
+    "auditability": "Report whether the artifact records task intent, capability bundle, policy decision, requested scope, resolved scope, touched data refs, confirmation state, execution status, and rationale.",
+    "current_rows": "Current PAPF-only deterministic harness rows cover clean, temptation, attack, and recovery scenarios with total calls, executed calls, blocked calls, task success proxy, necessary access rate, over-access rate, false allow count, false deny count, consent prompts, and auditability completeness.",
+    "paper_ready_status": "The evaluation section can include preliminary PAPF-only prototype evidence, but final comparative results require baseline and serialization work [uncertain]."
+  },
+  "baseline_comparison": {
+    "papf_condition": "Use deterministic external enforcement, scope narrowing, confirmation gating, and audit logging.",
+    "broad_access_baseline": "Replay the same traces without task-scoped capability checks while preserving observability. This baseline is specified but not implemented [uncertain].",
+    "prompt_only_baseline": "Replay the same traces with advisory guardrail instructions but no external enforcement. The deterministic no-LLM behavior rule is specified as a need, not implemented [uncertain].",
+    "fairness_constraints": [
+      "All conditions must share the same synthetic environment, data labels, request traces, expected-decision maps, and metric definitions.",
+      "Baselines must not receive sanitized or easier traces.",
+      "Paper tables must not compare observed PAPF rows against estimated baseline numbers."
+    ],
+    "paper_use": "Until baseline runners emit comparable rows, the paper should present baseline design and mark numeric comparative results incomplete [uncertain]."
+  },
+  "artifact_output": {
+    "target_research_json": "papf_pipeline_research/results/Paper_draft_and_artifact_package.json",
+    "paper_draft_package": [
+      "paper/ draft skeleton for Introduction, Problem Setting and Threat Model, PAPF Design, Benchmark and Evaluation Substrate, Experimental Setup, Results, Limitations, Related Work, and Conclusion [uncertain].",
+      "Method text should be aligned to docs/system_design.md and deterministic runtime modules.",
+      "Threat model text should identify trusted components, untrusted content, attacker goals, non-goals, and failure modes.",
+      "Evaluation text should use generated artifacts only and label PAPF-only prototype rows separately from missing baseline comparisons.",
+      "Limitations should cover synthetic data, narrow domain scope, no formal minimality proof, no non-expert comprehension result, incomplete redaction evidence, incomplete baselines, and limited attack coverage."
+    ],
+    "artifact_readme": [
+      "Artifact README should describe repository layout, environment setup, test commands, evaluation commands, expected outputs, and known incomplete artifacts [uncertain].",
+      "README should include reproducibility metadata such as Python version, PYTHONPATH requirement, test command, validation command, and artifact output paths [uncertain].",
+      "README should distinguish checked-in prototype evidence from planned experiments and prevent reviewers from treating missing baseline files as omitted results."
+    ],
+    "expected_run_artifacts": [
+      "experiments/runs/<run_id>/config_snapshot.json or yaml [uncertain].",
+      "experiments/runs/<run_id>/metrics.csv [uncertain].",
+      "experiments/runs/<run_id>/decisions.jsonl [uncertain].",
+      "experiments/runs/<run_id>/audit_summary.json [uncertain].",
+      "paper/tables generated from run artifacts [uncertain].",
+      "paper/figures for architecture, capability compilation, policy decisions, and metric summaries [uncertain]."
+    ],
+    "current_available_artifacts": [
+      "Structured research JSON outputs for prior pipeline items.",
+      "Deterministic PAPF runtime foundation under src/papf/.",
+      "Focused tests for runtime, trace runner, and evaluation harness.",
+      "PAPF-only metric rows embedded in Results_analysis_figures_and_tables.json."
+    ]
+  },
+  "paper_section": [
+    "Method",
+    "Problem Setting and Threat Model",
+    "PAPF Design",
+    "Benchmark and Evaluation Substrate",
+    "Experimental Setup",
+    "Evaluation",
+    "Limitations",
+    "Artifact Appendix",
+    "Related Work"
+  ],
+  "evidence_needed": [
+    "Implementation evidence: deterministic PAPF modules, validators, trace runner, evaluation harness, and tests already exist for the first slice.",
+    "Experiment evidence: serialized PAPF, broad-access, and prompt-only runs over identical clean, temptation, attack, and recovery scenarios are still needed [uncertain].",
+    "Metric evidence: dedicated exfiltration-rate and scalar recovery-quality metrics are still needed before those can appear as final numeric paper columns [uncertain].",
+    "Artifact evidence: an Artifact README, run manifests, config snapshots, generated tables, generated figures, and reproduction commands are still needed [uncertain].",
+    "Citation evidence: verified references must be mapped to threat-model, related-work, and novelty claims, especially for close enforcement systems [uncertain].",
+    "Human-subject evidence: a non-expert comprehension study is needed before claiming users understand the permission bundles [uncertain]."
+  ],
+  "acceptance_criteria": [
+    "The paper draft package states the method and threat model without relying on the LLM for enforcement.",
+    "The evaluation section distinguishes implemented PAPF-only prototype evidence from missing comparative baseline evidence.",
+    "The limitations section explicitly lists synthetic data, narrow task scope, no formal least-privilege proof, no user-comprehension result, incomplete redaction evidence, and incomplete baseline artifacts.",
+    "The artifact README gives enough setup and reproduction detail for a reviewer to run tests and regenerate available outputs [uncertain].",
+    "Every quantitative claim in the paper draft is traceable to generated run artifacts or explicitly marked unavailable [uncertain].",
+    "Every citation-backed claim maps to a real bibliography entry or remains a TODO [uncertain].",
+    "The JSON covers every required field from fields.yaml, marks uncertain values inline, includes the uncertain array, and passes validate_json.py."
+  ],
+  "uncertain": [
+    "claim_supported",
+    "overclaim_risk",
+    "source_requirements.external_sources_to_cite",
+    "source_requirements.needed_before_submission",
+    "task_family",
+    "data_labels.sensitivity",
+    "policy_boundary.redacted",
+    "attack_pressure.current_scope",
+    "failure_behavior.missing_artifacts",
+    "failure_behavior.redaction_gap",
+    "metrics.exfiltration_rate",
+    "metrics.recovery_quality",
+    "metrics.paper_ready_status",
+    "baseline_comparison.broad_access_baseline",
+    "baseline_comparison.prompt_only_baseline",
+    "baseline_comparison.paper_use",
+    "artifact_output.paper_draft_package",
+    "artifact_output.artifact_readme",
+    "artifact_output.expected_run_artifacts",
+    "evidence_needed",
+    "acceptance_criteria"
+  ]
+}

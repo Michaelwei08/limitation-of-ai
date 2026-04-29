@@ -1,0 +1,144 @@
+topic: "Personal Agent Permission Firewall full research and implementation pipeline"
+current_date: "2026-04-27"
+assumptions:
+  time_range: "since 2024"
+  no_existing_field_file: true
+  execution_defaults:
+    batch_size: 4
+    items_per_agent: 1
+    output_dir: "./results"
+items:
+  - id: problem_framing
+    name: "Task-scoped permission-boundary problem formulation"
+    status: "partially_done"
+    purpose: "Define why consumer agents need scoped authority enforced outside the LLM."
+    key_outputs:
+      - "Threat model"
+      - "Non-goals"
+      - "Claim boundaries"
+  - id: literature_gap
+    name: "Verified related-work and gap analysis"
+    status: "partially_done"
+    purpose: "Ground PAPF against prompt injection, delegated authorization, permission UX, provenance, and agent benchmarks."
+    key_outputs:
+      - "Citation-keyed literature matrix"
+      - "Research gap memo"
+      - "Follow-up source targets"
+  - id: benchmark_schema
+    name: "Benchmark schema and synthetic data model"
+    status: "partially_done"
+    purpose: "Represent tasks, data labels, policies, tool traces, audit events, and metric hooks."
+    key_outputs:
+      - "Task schema"
+      - "Policy schema"
+      - "Environment/data-object schema"
+      - "Trace schema"
+  - id: runtime_foundation
+    name: "Deterministic PAPF runtime foundation"
+    status: "partially_done"
+    purpose: "Compile task intent into capabilities and mediate every tool call through external policy enforcement."
+    key_outputs:
+      - "Intent records"
+      - "Capability bundle"
+      - "Policy engine"
+      - "Enforcement result"
+  - id: first_slice
+    name: "Email + files + browser benchmark slice"
+    status: "partially_done"
+    purpose: "Provide attack-relevant synthetic tasks that expose over-access, prompt injection, exfiltration, consent, and recovery."
+    key_outputs:
+      - "Clean scenario"
+      - "Temptation scenario"
+      - "Attack scenario"
+      - "Recovery scenario"
+  - id: auditability
+    name: "Audit trace and evidence model"
+    status: "started"
+    purpose: "Make permission decisions, tool requests, data touches, confirmations, and outcomes inspectable."
+    key_outputs:
+      - "Append-only audit log"
+      - "Auditability completeness metric"
+      - "Redaction evidence artifact"
+  - id: evaluation_harness
+    name: "Deterministic evaluation harness"
+    status: "started"
+    purpose: "Run fixtures through the PAPF pipeline and produce structured metric rows."
+    key_outputs:
+      - "Evaluation runner"
+      - "Metric rows"
+      - "Experiment run serialization"
+  - id: baselines
+    name: "Comparable baselines"
+    status: "planned"
+    purpose: "Compare PAPF against broad ambient access and prompt-only guardrails in the same synthetic environment."
+    key_outputs:
+      - "Broad-access baseline"
+      - "Prompt-only baseline"
+      - "Shared trace outputs"
+  - id: experiment_execution
+    name: "Experiment runner and result artifacts"
+    status: "planned"
+    purpose: "Generate reproducible runs for clean, temptation, attack, and recovery suites."
+    key_outputs:
+      - "Run configs"
+      - "JSONL/CSV outputs"
+      - "Audit summaries"
+  - id: analysis_and_figures
+    name: "Results analysis, figures, and tables"
+    status: "planned"
+    purpose: "Turn run artifacts into paper-ready evidence without inventing numbers."
+    key_outputs:
+      - "Main metrics table"
+      - "Baseline comparison table"
+      - "Failure-case table"
+      - "Architecture and policy examples"
+  - id: model_assisted_extensions
+    name: "Optional model-assisted proposal layers"
+    status: "planned"
+    purpose: "Evaluate whether LLM intent proposals or explanations help without weakening external enforcement."
+    key_outputs:
+      - "Schema-validated intent proposer"
+      - "Explanation generator"
+      - "Ablation results"
+  - id: user_comprehension
+    name: "Non-expert comprehension protocol"
+    status: "planned"
+    purpose: "Measure whether users understand task-scoped permission bundles; do not claim this from automated tests."
+    key_outputs:
+      - "Study protocol"
+      - "Prompt materials"
+      - "Comprehension rubric"
+  - id: paper_and_artifact
+    name: "Paper draft and artifact package"
+    status: "planned"
+    purpose: "Produce a defensible security/privacy systems paper with reproducible artifacts."
+    key_outputs:
+      - "Method and threat model"
+      - "Evaluation section"
+      - "Limitations"
+      - "Artifact README"
+execution:
+  batch_size: 4
+  items_per_agent: 1
+  output_dir: "./results"
+source_check:
+  date: "2026-04-27"
+  sources:
+    - name: "AgentDojo"
+      url: "https://agentdojo.spylab.ai/"
+      relevance: "Extensible prompt-injection benchmark for tool-using agents over untrusted data."
+    - name: "InjecAgent"
+      url: "https://arxiv.org/abs/2403.02691"
+      relevance: "Indirect prompt-injection benchmark for tool-integrated LLM agents."
+    - name: "ToolEmu"
+      url: "https://huggingface.co/papers/2309.15817"
+      relevance: "LM-emulated sandbox for identifying agent risks."
+    - name: "AgentDAM"
+      url: "https://huggingface.co/papers/2503.09780"
+      relevance: "Privacy leakage and data-minimization evaluation for autonomous web agents."
+    - name: "BrowseSafe"
+      url: "https://huggingface.co/papers/2511.20597"
+      relevance: "Browser-agent prompt-injection benchmark and defenses."
+    - name: "MCP Authorization"
+      url: "https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization"
+      relevance: "Current delegated authorization pattern for tool servers; useful analogue, not sufficient PAPF enforcement by itself."

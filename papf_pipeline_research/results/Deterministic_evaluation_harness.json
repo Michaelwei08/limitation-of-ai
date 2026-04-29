@@ -1,0 +1,89 @@
+{
+  "claim_supported": "The deterministic evaluation harness can run the current synthetic PAPF email, files, and browser fixture through validation, trace execution, external policy enforcement, audit-event construction, and metric-row generation. Existing implementation and tests support a bounded claim that clean, temptation, attack, and recovery scenarios produce structured case results with deterministic metric rows for task-success proxy, necessary access, over-access, false allow, false deny, consent burden, and auditability completeness. Persistent experiment run serialization is part of the requested research item but is not yet implemented in the codebase [uncertain].",
+  "overclaim_risk": "The project must not claim a complete experiment pipeline, production-grade benchmark infrastructure, broad cross-domain generality, or final paper-ready empirical results from this harness alone. The harness currently evaluates a small deterministic fixture suite; it does not yet include full benchmark loading, broad-access or prompt-only baselines, durable JSONL or CSV experiment outputs, figure-generation inputs, human comprehension evidence, or real agent/model behavior. It should also avoid claiming that the LLM enforces permissions, because the evaluated security-critical path is deterministic and external to the LLM.",
+  "source_requirements": [
+    "Repository implementation: src/papf/evaluation/runner.py defines evaluate_scenario, evaluate_default_suite, and audit-log construction.",
+    "Repository implementation: src/papf/evaluation/results.py defines EvaluationCaseResult, EvaluationSuiteResult, and metric_rows.",
+    "Repository implementation: src/papf/evaluation/metrics.py defines RunMetrics and score_trace.",
+    "Repository tests: tests/test_evaluation_harness.py checks clean success, unrelated-private denial, scope narrowing, send-confirmation gating, false allow and false deny detection, audit completeness, and default-suite metric rows.",
+    "Fixture and trace sources: src/papf/benchmark/fixtures.py and src/papf/benchmark/traces.py define the current email, files, browser task and the clean, temptation, attack, and recovery scenarios.",
+    "Planned serialization task: tasks/011_evaluation_run_serialization.md records JSONL or CSV run serialization as a follow-up rather than current implementation [uncertain].",
+    "External paper context should continue to cite verified agent-safety and authorization sources already recorded elsewhere in the pipeline, including AgentDojo, InjecAgent, ToolEmu, AgentDAM, BrowseSafe, MCP Authorization, object-capability security, and permission-UX work."
+  ],
+  "task_family": "Synthetic consumer-agent email, files, and browser retrieval tasks.",
+  "data_labels": {
+    "necessary": "The harness consumes fixture labels for task-specific records such as the relevant email thread, receipt attachment, approved merchant policy page, and draft object needed for the reimbursement-style task.",
+    "supporting": "Supporting fixture records can count toward necessary-access scoring when they are legitimate context for task completion and are not email drafts.",
+    "unnecessary": "Available but off-task records are used to detect over-access when an executed result touches data whose relevance label is available_unnecessary.",
+    "unrelated_private": "Private local-file-style records, such as the synthetic tax-return reference, must remain untouched and are counted as over-access if executed.",
+    "sensitivity": "Metric computation uses environment relevance labels directly; richer sensitivity-level scoring is planned through benchmark-schema expansion rather than fully exercised by this harness [uncertain].",
+    "trust": "The harness treats fixture requests, webpages, and tool outputs as synthetic data objects rather than trusted instructions; untrusted adversarial browser content is evaluated through expected policy outcomes.",
+    "adversarial_content": "Attack traces include prompt-injection or exfiltration pressure through requests that attempt to misuse browser or file access outside the task boundary."
+  },
+  "policy_boundary": {
+    "allowed": "Requests that match active compiled capabilities and policy allow rules execute in simulated form and contribute to executed-call and necessary-access metrics.",
+    "denied": "Requests for unrelated private data, disallowed exfiltration, unsupported actions, or missing active capabilities are blocked and can be scored as correct denials or false denials depending on expected decisions.",
+    "narrowed": "Broad but uniquely resolvable requests can be evaluated as allow_with_narrowed_scope, and the harness records the narrowed decision in the result object and audit trace.",
+    "redacted": "The metric comparison treats allow_with_redaction as an allowed decision label, but this harness does not yet produce concrete redaction evidence artifacts [uncertain].",
+    "confirmation_gated": "Dormant or high-risk commitment actions such as sending an email are represented as require_confirmation and counted in consent_prompts rather than silently executed."
+  },
+  "attack_pressure": "The harness covers clean task execution, temptation toward unrelated private data, adversarial attack pressure from untrusted content or exfiltration-shaped requests, and recovery pressure where a blocked or confirmation-gated path is followed by safer behavior. This is enough to exercise deterministic scoring for false allow, false deny, over-access, and consent prompts, but it remains a seed suite rather than a comprehensive attack benchmark [uncertain].",
+  "trusted_component": "The trusted security-critical decision path is the deterministic PAPF evaluation stack: validate_task_bundle, run_trace_scenario, enforce_request and policy evaluation under the trace runner, build_audit_log, score_trace, and EvaluationSuiteResult.metric_rows. The harness observes and scores external policy decisions; it does not delegate enforcement authority to an LLM.",
+  "llm_role": "Absent from the current harness. Future LLM use may propose task intent, recovery explanations, or candidate capabilities, but any such output must be schema-validated and then evaluated by the deterministic PAPF pipeline before it affects metric rows or tool execution.",
+  "failure_behavior": {
+    "invalid_fixture": "evaluate_scenario calls validate_task_bundle and raises ValueError with joined validation errors when the benchmark task and environment bundle are invalid.",
+    "policy_denial": "Denied enforcement results remain in the structured case result, produce tool_blocked audit events, and contribute to blocked_calls, false_allow_count, false_deny_count, or task_success_proxy depending on expected decisions.",
+    "confirmation_required": "Confirmation-gated results do not execute automatically; they increment consent_prompts and prevent task_success_proxy from being true unless the scenario is designed without unresolved confirmation.",
+    "audit_missing": "score_trace returns auditability_completeness as 0.0 when no audit log is provided, making missing audit evidence explicit rather than silently successful.",
+    "unknown_expected_decision": "Expected-decision comparison ignores calls that have no expected label, so fixture authors must provide explicit expected decisions for complete false-allow and false-deny scoring [uncertain].",
+    "serialization_gap": "Because durable experiment serialization is not yet implemented, file-output failure modes for JSONL, CSV, metadata snapshots, and audit summaries are not yet defined [uncertain]."
+  },
+  "metrics": {
+    "metric_rows": "EvaluationSuiteResult.metric_rows returns one structured row per scenario with run_id, task_id, scenario_id, suite_id, total_calls, executed_calls, blocked_calls, task_success_proxy, necessary_access_rate, over_access_rate, false_allow_count, false_deny_count, consent_prompts, and auditability_completeness.",
+    "task_success": "The current task_success_proxy is true only when there are no false allows, no false denies, no over-accesses, and no unresolved confirmation-required decisions.",
+    "necessary_access": "necessary_access_rate is the fraction of necessary or supporting non-draft fixture records that appear in executed result scopes.",
+    "over_access": "over_access_rate is the share of executed observed references labeled available_unnecessary or unrelated_private.",
+    "exfiltration": "Exfiltration is represented indirectly through denied or restricted upload, forwarding, browser, or off-task access traces; a dedicated exfiltration-rate field is not yet implemented [uncertain].",
+    "false_allow": "false_allow_count compares actual decisions against expected scenario decisions and counts cases where an expected deny or require_confirmation receives allow, allow_with_narrowed_scope, or allow_with_redaction.",
+    "false_deny": "false_deny_count compares actual decisions against expected scenario decisions and counts cases where an expected allowed decision receives deny or require_confirmation.",
+    "consent_burden": "consent_prompts counts enforcement results where the policy decision requires confirmation.",
+    "recovery_quality": "Recovery is currently exercised by the recovery scenario and by confirmation-gated behavior, but there is no separate recovery-quality score yet [uncertain].",
+    "auditability": "auditability_completeness is the fraction of audit events containing required audit_event_id, run_id, task_id, event_type, actor, and outcome fields."
+  },
+  "baseline_comparison": "The correct baseline plan is to run the same fixtures and expected-decision maps against broad ambient access and prompt-only guardrail baselines, then compare utility and privacy/security metrics row by row. That comparison is not implemented in the current harness [uncertain]. Until baseline code exists, the harness can support PAPF-internal regression tests and seed metric rows, but not comparative claims about improvement over baselines.",
+  "artifact_output": {
+    "implemented": "The harness produces in-memory EvaluationCaseResult objects, RunAuditLog objects, EnforcementResult traces, RunMetrics objects, and structured metric rows from evaluate_default_suite.",
+    "requested_output": "This research JSON is serialized to papf_pipeline_research/results/Deterministic_evaluation_harness.json.",
+    "planned": "Durable experiment serialization to experiments/runs, including JSONL or CSV metric rows, audit summaries, run metadata, git status summary, scenario identifiers, and metric schema version, is planned in tasks/011_evaluation_run_serialization.md but not yet implemented [uncertain]."
+  },
+  "paper_section": "Experimental Setup, Evaluation Metrics, Results Infrastructure, Threat Model, and Limitations.",
+  "evidence_needed": [
+    "Implementation evidence: keep src/papf/evaluation/runner.py, src/papf/evaluation/results.py, and src/papf/evaluation/metrics.py as the cited harness modules.",
+    "Test evidence: tests/test_evaluation_harness.py must continue to pass and should be expanded when serialization, baselines, or recovery-quality scoring are added.",
+    "Artifact evidence: add a durable serialization layer that writes metric rows, audit summaries, and reproducibility metadata under experiments/runs [uncertain].",
+    "Baseline evidence: implement broad ambient access and prompt-only guardrail baselines over the same scenarios before making comparative performance claims [uncertain].",
+    "Benchmark evidence: expand beyond the current seed fixture only after benchmark loaders and schema validation are stable [uncertain].",
+    "Paper evidence: use generated metric rows and audit summaries rather than hand-written examples when reporting any quantitative result."
+  ],
+  "acceptance_criteria": [
+    "All required fields from papf_pipeline_research/fields.yaml are present in this JSON file.",
+    "Uncertain values are marked inline with [uncertain] and listed in the final uncertain array.",
+    "The JSON accurately distinguishes implemented harness behavior from planned experiment serialization.",
+    "The output is written to papf_pipeline_research/results/Deterministic_evaluation_harness.json.",
+    "The validation command using ~/.codex/skills/research/validate_json.py passes with complete field coverage."
+  ],
+  "uncertain": [
+    "claim_supported",
+    "source_requirements",
+    "data_labels.sensitivity",
+    "policy_boundary.redacted",
+    "attack_pressure",
+    "failure_behavior.unknown_expected_decision",
+    "failure_behavior.serialization_gap",
+    "metrics.exfiltration",
+    "metrics.recovery_quality",
+    "baseline_comparison",
+    "artifact_output.planned",
+    "evidence_needed"
+  ]
+}

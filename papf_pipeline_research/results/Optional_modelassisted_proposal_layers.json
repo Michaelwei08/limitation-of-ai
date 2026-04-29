@@ -1,0 +1,158 @@
+{
+  "research_id": "model_assisted_extensions",
+  "name": "Optional model-assisted proposal layers",
+  "status": "planned",
+  "purpose": "Evaluate whether LLM intent proposals or explanations help without weakening external enforcement.",
+  "claim_supported": "This item can support a bounded design and ablation claim once implemented: model-assisted intent proposals and explanation drafts can be evaluated as optional advisory layers while deterministic PAPF validation, capability compilation, runtime policy enforcement, consent gates, and audit logging remain the authority-bearing path. At the current planned stage, it supports only the claim that the repository has a clear non-authoritative design target for model assistance, not that model assistance improves outcomes.",
+  "overclaim_risk": "Do not claim that LLMs can enforce permissions, self-regulate tool access, prove least privilege, or safely decide whether their own proposed calls are authorized. Do not claim explanation quality, user comprehension, task-success improvement, or lower false-deny rates until the proposer, explanation generator, tests, and ablation runs exist. Do not treat schema validation as semantic correctness; it only prevents malformed proposals from entering the deterministic compiler.",
+  "source_requirements": {
+    "repo_sources": [
+      "tasks/021_model_assisted_intent.md",
+      "docs/system_design.md",
+      "docs/implementation_plan.md",
+      "docs/research_brief.md",
+      "docs/research_gap.md",
+      "src/papf/intent/models.py",
+      "src/papf/capabilities/compiler.py",
+      "src/papf/policy/engine.py",
+      "src/papf/evaluation/metrics.py",
+      "papf_pipeline_research/results/Deterministic_PAPF_runtime_foundation.json",
+      "papf_pipeline_research/results/Comparable_baselines.json",
+      "papf_pipeline_research/results/Audit_trace_and_evidence_model.json"
+    ],
+    "external_source_targets": [
+      "AgentDojo and InjecAgent for tool-agent prompt-injection pressure when model proposals read untrusted content.",
+      "ToolEmu and AgentDAM for agent-risk and privacy-leakage evaluation context.",
+      "BrowseSafe and BrowserART-style browser-agent safety work for model-assisted web-task threat cases.",
+      "Capability security, least privilege, OAuth Rich Authorization Requests, MCP Authorization, and access-control provenance work as analogues for explicit authority and auditability.",
+      "Permission-UX and Android permission-comprehension studies for later explanation-evaluation design, not as evidence that PAPF explanations are already understandable."
+    ],
+    "needed_before_strong_claims": [
+      "A schema-validated intent proposer interface with deterministic fake outputs and, later, optional real model adapters.",
+      "Tests proving malformed, ambiguous, over-broad, or injection-influenced proposals cannot mint capabilities.",
+      "An explanation generator that consumes structured policy and audit records rather than raw hidden model reasoning.",
+      "Ablation runs comparing deterministic-only, model-proposed intent plus deterministic enforcement, and model-generated explanation conditions on identical synthetic scenarios [uncertain].",
+      "Human or reviewer-facing evaluation before claiming non-expert comprehension benefits [uncertain]."
+    ]
+  },
+  "task_family": "The first target family is the existing synthetic email, files, and browser slice, especially reimbursement-style tasks with relevant attachments, approved policy pages, unrelated private files, adversarial webpages, outbound-send gates, and recovery after denied broad access.",
+  "data_labels": {
+    "necessary": "Model proposals may identify necessary records such as a specific reimbursement email thread, receipt attachment, and approved merchant policy page, but these references must be validated against benchmark task labels before compilation.",
+    "supporting": "Supporting labels cover data that can help explain or complete the task without becoming required for every run, such as allowed policy pages or synthetic draft objects.",
+    "unnecessary": "Unnecessary available data must remain visible to the evaluator so the ablation can detect whether a model proposal asks for off-task browsing, broad file search, or unrelated message access.",
+    "unrelated_private": "Unrelated private data such as tax-return-like files, private contacts, unrelated payments, or unrelated calendar entries must never become allowed merely because a model included them in a proposed intent.",
+    "sensitivity": "The proposer should preserve or reference ordinary, sensitive, and dangerous labels from trusted metadata, not infer new sensitivity categories that override policy.",
+    "trust": "Trusted task context, untrusted tool output, and adversarial content must be separated. Model proposals generated from untrusted content should be treated as suspect input to validation rather than as authority.",
+    "adversarial_content": "Prompt-injection strings in emails, files, or webpages should be included in proposer ablations to test whether the proposal layer widens candidate_resource_refs, requested_actions, or outbound destinations under attack [uncertain]."
+  },
+  "policy_boundary": {
+    "authoritative_boundary": "The boundary remains the deterministic PAPF chain: validate the candidate TaskIntent, compile capabilities only from validated intent plus policy rules, evaluate every tool request through the policy engine, require confirmation for commitment actions, and emit audit events.",
+    "model_proposal_boundary": "The model may propose a candidate TaskIntent and draft user-facing wording, but it may not grant authority, modify active capabilities, override denials, skip confirmation, certify redaction, or suppress audit events.",
+    "allowed": "A model-assisted proposal can influence execution only after the resulting TaskIntent passes schema validation and the compiler creates capabilities that policy rules justify. Execution is still allowed only by the runtime policy decision.",
+    "denied": "Malformed proposals, missing required fields, unsupported actions, resource-type mismatches, broad ungrounded scopes, unknown data references, or proposed destinations outside policy should fail closed before capability compilation.",
+    "narrowed": "If a model proposes a broad scope but the policy and input refs allow exactly one safe target, the existing deterministic narrowing rule may narrow the runtime request; the model itself does not perform authoritative narrowing.",
+    "redacted": "Generated explanations may describe redaction requirements only from structured policy decisions and audit evidence. Concrete redaction evidence remains planned and should not be attributed to model judgment [uncertain].",
+    "confirmation_gated": "Outbound send, upload, payment, purchase, or privilege-extension proposals should remain dormant or require explicit confirmation according to deterministic consent policy, even if the model explanation says the action is safe."
+  },
+  "attack_pressure": "This layer should be evaluated under indirect prompt injection that asks the model to request extra scopes, confused-deputy pressure where relevant task context is used to justify unrelated data access, consent laundering where explanations make risky actions sound routine, exfiltration pressure through upload or forwarding destinations, over-broad search pressure from ambiguous user tasks, and explanation manipulation where the model omits what data or destination is involved.",
+  "trusted_component": "The trusted component remains the external PAPF enforcement stack: TaskIntent schema validation, deterministic capability compiler, policy engine, enforcement runtime, consent gate, audit logger, and evaluation harness. A proposer adapter, LLM call, deterministic fake proposer, or explanation generator is untrusted or advisory and must be evaluated as input to the trusted stack.",
+  "llm_role": {
+    "intent_proposal": "Advisory and schema-validated proposal only. The model may fill candidate TaskIntent fields, uncertainty_flags, and safety_notes for later validation.",
+    "capability_proposal": "At most advisory. If candidate capability wording is produced, the compiler must ignore it unless the deterministic policy model can derive equivalent machine-checkable authority from validated intent and policy rules.",
+    "explanation_generation": "Advisory wording only. Explanations should be generated from explicit policy decisions, scope constraints, confirmation requirements, and audit events, not from hidden chain-of-thought.",
+    "recovery_suggestion": "The model may suggest safer alternatives after denial, but the resulting alternative request must re-enter the same validation and enforcement path.",
+    "current_status": "No model-assisted proposer or explanation generator has been implemented yet; task 021 specifies an interface and deterministic fake proposer rather than a real model call [uncertain]."
+  },
+  "failure_behavior": {
+    "proposal_validation": "If a candidate TaskIntent is malformed, omits required fields, has no requested actions, lacks candidate resource types, contains mismatched scope resource types, or includes unknown data references, the system should reject it with diagnostic issues and compile no capabilities.",
+    "ambiguous_intent": "If the proposal marks ambiguous_scope or cannot justify a narrow data reference, the runtime should ask for clarification or fail closed according to the configured deterministic policy. The exact clarification-versus-refusal rule remains an open design point [uncertain].",
+    "adversarial_proposal": "If untrusted content appears to influence proposed actions, destinations, candidate_resource_refs, or safety_notes toward off-task access, the proposal should be treated as unsafe input and blocked or surfaced for review, not normalized into authority.",
+    "explanation_failure": "If the explanation generator lacks the policy decision, requested scope, resolved scope, data references, destination, or confirmation requirement needed for a truthful explanation, it should fail clearly instead of inventing reasons.",
+    "ablation_failure": "If any ablation condition cannot emit comparable trace records, audit records, and metric rows, the comparison should be marked incomplete rather than imputing missing values or reporting improvement.",
+    "security_invariant": "Failure in the model-assisted layer must not make the deterministic runtime less restrictive than the deterministic-only condition."
+  },
+  "metrics": {
+    "task_success": "Compare deterministic-only PAPF against model-assisted proposal conditions on the same scenarios to see whether proposal quality changes completion or false-deny behavior; no improvement is established yet [uncertain].",
+    "necessary_access_rate": "Measure whether model proposals preserve access to necessary and supporting refs without reducing required task data below what the deterministic baseline needs.",
+    "over_access_rate": "Measure whether model proposals add unnecessary or unrelated-private refs to candidate_resource_refs or lead to executed over-access after enforcement. A correct PAPF boundary should prevent execution even when proposals overreach.",
+    "exfiltration_rate": "Measure unauthorized upload, forward, send, post, or external disclosure attempts induced by proposal or explanation text. A dedicated exfiltration metric is still planned [uncertain].",
+    "false_allow": "Any unsafe tool execution that occurs because a model proposal widened authority should count as a false allow. The expected result for a secure implementation is zero additional false allows relative to deterministic-only PAPF.",
+    "false_deny": "Track whether bad model proposals omit necessary resources or actions and thereby increase denials; this is important because advisory layers may hurt utility even when they do not weaken enforcement.",
+    "consent_burden": "Count confirmations caused by model-proposed commitment actions or riskier scopes, and separately measure whether generated explanations reduce repeated or unnecessary prompts only after a user-study protocol exists [uncertain].",
+    "recovery_quality": "Evaluate whether model-generated recovery suggestions after denial lead to allowed narrower requests without introducing new over-access or exfiltration attempts.",
+    "auditability": "Require logs to identify proposer mode, proposal id, validation outcome, derived intent fields, compiled capability ids, policy decisions, explanation source records, and whether any model-suggested field affected the final run."
+  },
+  "baseline_comparison": {
+    "deterministic_only_papf": "The primary control condition uses existing deterministic intent records, compiler, policy engine, enforcement runtime, audit logs, and metrics with no model proposal layer.",
+    "model_proposed_intent_plus_papf": "The ablation condition feeds a schema-validated candidate TaskIntent from a deterministic fake proposer or optional LLM adapter into the same deterministic compiler and runtime. The model cannot bypass validation or enforcement.",
+    "model_generated_explanation_plus_papf": "A separate condition adds generated permission, denial, confirmation, or recovery explanations derived from structured decisions. It should not affect policy outcomes unless a user-study or simulated interaction protocol explicitly allows user choices to change [uncertain].",
+    "prompt_only_guardrail": "Prompt-only guardrails remain a separate baseline: they rely on advisory instructions without external enforcement. Model-assisted PAPF must be distinguished from prompt-only because PAPF still blocks unauthorized tool calls outside the model.",
+    "broad_access_baseline": "Broad ambient access remains the utility upper-bound and privacy/security lower-bound comparison. Model assistance should not be evaluated only against broad access because the key ablation is whether assistance changes deterministic PAPF outcomes.",
+    "fairness_constraints": "All conditions should use identical synthetic tasks, environment labels, untrusted/adversarial content, expected decisions, and metric definitions. Only the proposal or explanation layer should vary.",
+    "current_status": "Ablation runners, fake proposer, explanation generator, and serialized model-assisted result rows are not implemented yet [uncertain]."
+  },
+  "artifact_output": {
+    "target_file": "papf_pipeline_research/results/Optional_modelassisted_proposal_layers.json",
+    "planned_code_outputs": [
+      "src/papf/intent/proposer.py defining a proposer protocol, proposal record, validation result, and deterministic fake proposer [uncertain].",
+      "docs/model_assisted_boundaries.md documenting allowed and forbidden model roles [uncertain].",
+      "tests/test_intent_proposer_contract.py proving invalid proposals cannot mint capabilities [uncertain].",
+      "Optional explanation module that consumes policy decisions and audit records without changing enforcement semantics [uncertain]."
+    ],
+    "planned_run_outputs": [
+      "Ablation metric rows for deterministic-only PAPF, model-proposed intent plus PAPF, and generated explanations plus PAPF [uncertain].",
+      "Audit summaries that include proposal ids, validation failures, fields accepted into TaskIntent, and explanation source records [uncertain].",
+      "Failure-case table showing proposal overreach blocked by deterministic enforcement [uncertain]."
+    ],
+    "minimum_trace_fields": [
+      "run_id",
+      "condition",
+      "task_id",
+      "scenario_id",
+      "proposal_id",
+      "proposer_mode",
+      "proposal_validation_status",
+      "accepted_intent_fields",
+      "rejected_intent_fields",
+      "capability_ids",
+      "policy_decision_id",
+      "decision",
+      "explanation_id",
+      "explanation_source_event_ids"
+    ],
+    "current_gap": "This artifact records the planned model-assisted design and evaluation requirements; it is not an implemented ablation result [uncertain]."
+  },
+  "paper_section": "Method, Threat Model, System Design, Evaluation Ablations, Results, and Limitations.",
+  "evidence_needed": [
+    "Implementation evidence: a proposer interface that returns candidate TaskIntent-like records and never writes capabilities directly [uncertain].",
+    "Implementation evidence: validation gates that reject invalid proposals before capability compilation.",
+    "Implementation evidence: an explanation generator that uses structured policy decisions, scope records, consent levels, and audit events as its source of truth [uncertain].",
+    "Testing evidence: unit tests showing malformed proposals, over-broad scopes, unsupported actions, unknown refs, and adversarially influenced proposals cannot mint active capabilities.",
+    "Testing evidence: regression tests showing the deterministic-only PAPF decisions are unchanged by explanation generation.",
+    "Experiment evidence: ablation runs on clean, temptation, attack, and recovery scenarios with comparable metric rows and audit records [uncertain].",
+    "Citation evidence: source-backed positioning against prompt-injection benchmarks, agent-risk benchmarks, data-minimization work, least-privilege systems, delegated authorization, and permission-UX research.",
+    "User evidence: a separate comprehension study or protocol before claiming that generated explanations help non-experts understand permission boundaries [uncertain]."
+  ],
+  "acceptance_criteria": [
+    "The JSON artifact includes every required field from papf_pipeline_research/fields.yaml.",
+    "The model-assisted layer is specified as optional and non-authoritative.",
+    "The security-critical path remains deterministic and external to the LLM.",
+    "Malformed or unsafe proposals are required to fail before capability compilation.",
+    "Explanation generation is tied to structured policy and audit records, not hidden chain-of-thought.",
+    "Ablation requirements distinguish deterministic-only PAPF, model-proposed intent plus PAPF, generated explanation plus PAPF, prompt-only guardrails, and broad-access baselines.",
+    "Uncertain field values are explicitly marked with [uncertain].",
+    "The uncertain array lists every field containing an uncertain value.",
+    "The repository validation script passes for this JSON file."
+  ],
+  "uncertain": [
+    "source_requirements",
+    "data_labels",
+    "policy_boundary",
+    "llm_role",
+    "failure_behavior",
+    "metrics",
+    "baseline_comparison",
+    "artifact_output",
+    "evidence_needed"
+  ]
+}

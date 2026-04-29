@@ -1,0 +1,138 @@
+{
+  "research_id": "user_comprehension",
+  "name": "Non-expert comprehension protocol",
+  "status": "planned",
+  "purpose": "Measure whether users understand task-scoped permission bundles; do not claim this from automated tests.",
+  "claim_supported": "This item can support a protocol-design claim: PAPF has a planned human-subject study protocol for measuring whether non-expert users understand task-scoped permission bundles, distinguish necessary from unnecessary access, recognize risky permissions, and choose safer permission scopes. At the current planned stage, it cannot support an empirical comprehension claim because no participants have been recruited and no user-study data have been collected.",
+  "overclaim_risk": "Do not claim that PAPF is understandable, improves user comprehension, reduces consent fatigue, or helps non-experts make safer permission decisions until the protocol is approved if required, run with participants, analyzed, and reported with limitations. Do not infer human comprehension from deterministic benchmark tests, policy-validity tests, or automated audit traces. Do not treat preferred prompt wording as evidence of comprehension before user data exists.",
+  "source_requirements": {
+    "repo_sources": [
+      "tasks/022_user_comprehension_protocol.md",
+      "docs/benchmark_spec.md",
+      "docs/system_design.md",
+      "docs/paper_plan.md",
+      "papf_pipeline_research/results/Benchmark_schema_and_synthetic_data_model.json",
+      "papf_pipeline_research/results/Audit_trace_and_evidence_model.json",
+      "papf_pipeline_research/results/Comparable_baselines.json"
+    ],
+    "external_source_targets": [
+      "Human-subjects guidance from the applicable institutional review process before recruiting participants [uncertain]",
+      "Prior usable-security and permission-comprehension studies for measuring user understanding of app or browser permissions",
+      "Consent and privacy guidance for collecting study responses without real personal data",
+      "Plain-language permission and risk-communication references for non-expert-facing prompt wording"
+    ],
+    "needed_before_strong_claims": [
+      "Final study protocol with participant criteria, task materials, consent text, comprehension questions, debriefing plan, and data-handling plan",
+      "Pre-registered or clearly documented analysis plan for primary and secondary comprehension outcomes [uncertain]",
+      "Pilot-tested permission-bundle prompts and comparator prompts [uncertain]",
+      "Participant data, exclusion criteria, scoring rubric, inter-rater checks for free-response items, and statistical analysis before any empirical claim"
+    ]
+  },
+  "task_family": "Cross-domain consumer-agent permission prompts using the existing PAPF focus domains: email, files, browser retrieval, calendar, contacts, travel, payments, messaging, and cloud or device management. The first protocol should use the implemented email, files, and browser slice for concrete examples, then add one or two additional domains only if prompt materials remain understandable.",
+  "data_labels": {
+    "necessary": "Data the agent must access to complete the displayed task, such as the reimbursement email thread and the specific receipt attachment.",
+    "supporting": "Data that may help complete the task but is not itself sensitive or required, such as a trusted policy page or a task-specific draft record.",
+    "unnecessary": "Data available in the environment but not needed for the task, such as unrelated browser pages or extra local files.",
+    "unrelated_private": "Synthetic private data that a non-expert should identify as outside the task scope, such as tax documents, personal contacts, or unrelated calendar events.",
+    "sensitivity": "Each prompt material should label examples by ordinary, sensitive, and dangerous data exposure so the rubric can distinguish ordinary misunderstanding from high-risk misunderstanding.",
+    "trust": "Prompt materials should distinguish trusted task inputs from untrusted or adversarial content so participants can be asked whether a permission should follow a webpage or email instruction.",
+    "adversarial_content": "At least one scenario should include an indirect prompt-injection or exfiltration lure in untrusted content; the exact wording should be pilot tested for realism without coaching participants [uncertain].",
+    "participant_visible_terms": "The displayed materials should translate internal labels into user-facing language such as needed for this task, optional context, unrelated private data, untrusted webpage, and action that sends information outside your account."
+  },
+  "policy_boundary": {
+    "study_conditions": [
+      "Task-scoped permission bundle: concise explanation of the user task, specific data categories, allowed actions, blocked data, and confirmation-gated actions.",
+      "Raw tool permissions: low-level tool or API-style permission text such as read email, read files, open browser, or send message.",
+      "Generic warning: broad safety reminder without task-specific data boundaries."
+    ],
+    "allowed": "Participants should see examples where access is allowed only to task-relevant records and should answer which records the agent may read or use.",
+    "denied": "Participants should see examples where unrelated private data, dangerous destinations, or untrusted injected instructions are denied and should identify why.",
+    "narrowed": "Participants should see a broad request rewritten into a narrower permission bundle, then answer what changed and whether unrelated data remains accessible.",
+    "redacted": "If redaction is included, participants should answer what information is hidden, what remains usable, and whether the action still leaks sensitive data. The final redaction examples depend on the future redaction-evidence design [uncertain].",
+    "confirmation_gated": "Participants should identify actions that require explicit user confirmation, such as sending an email, uploading a file, making a payment, or changing cloud or device settings.",
+    "wording_status": "The exact prompt wording, reading level, risk-tier labels, and visual layout require pilot testing before being treated as final [uncertain]."
+  },
+  "attack_pressure": "The protocol should test whether non-experts can recognize over-broad access requests, indirect prompt injection from untrusted browser or email content, exfiltration to an external destination, confused-deputy framing where a valid task is used to justify unrelated data access, and consent laundering where a generic warning makes a dangerous action appear routine. Attack materials should be synthetic and non-deceptive beyond the task vignette; the exact attack wording remains pilot-dependent [uncertain].",
+  "trusted_component": "The trusted study component is the human-subject protocol and scoring rubric, not the LLM. For the underlying PAPF system being explained, security-critical enforcement remains external and deterministic through capability compilation, policy checks, runtime mediation, confirmation gates, and audit logging. Study software, if implemented, should randomize materials, record responses, and score closed-form answers without granting any real data access.",
+  "llm_role": "No LLM should generate, adapt, or grade participant-specific permission decisions during the study unless that role is separately validated and excluded from security-critical enforcement. An LLM may be used offline to draft candidate prompt wording, but final materials must be human-reviewed, versioned, and frozen before data collection. Free-response grading should use a human-coded rubric or a clearly validated auxiliary process, not hidden model judgment [uncertain].",
+  "failure_behavior": {
+    "protocol_failure": "If consent text, participant criteria, task wording, randomization, data retention, or ethics review requirements are incomplete, the study should not be run.",
+    "material_failure": "If a task vignette does not clearly specify the user goal, synthetic data objects, requested permission bundle, and action outcome, the item should be excluded or revised before analysis.",
+    "response_failure": "Incomplete responses, failed attention checks, duplicate submissions, and participants who do not meet inclusion criteria should be handled by pre-specified exclusion rules [uncertain].",
+    "scoring_failure": "If a free-response answer cannot be reliably coded, it should be marked ambiguous and reviewed under the rubric rather than silently converted to a correct or incorrect score.",
+    "claim_failure": "If no participant data exists or data quality is insufficient, the paper should report only the planned protocol and must not report comprehension effects.",
+    "privacy_failure": "The study must use synthetic tasks and must not collect real emails, calendars, contacts, files, payment data, browser histories, credentials, or private documents."
+  },
+  "metrics": {
+    "task_success": "For the human study, task success is the participant's ability to choose the permission option that would let the agent complete the stated task without unnecessary access.",
+    "necessary_access": "Measure whether participants correctly identify records and actions that are necessary for the task.",
+    "over_access": "Measure whether participants correctly reject unnecessary or unrelated-private data access in each condition.",
+    "exfiltration": "Measure whether participants recognize when a proposed action sends data outside the intended account, service, or task boundary.",
+    "false_allow": "Count cases where a participant says an unsafe, unrelated, or over-broad permission should be allowed.",
+    "false_deny": "Count cases where a participant rejects access that is genuinely needed for task completion.",
+    "consent_burden": "Measure perceived burden using number of prompts, time-on-task, self-reported confidence, and subjective workload items [uncertain].",
+    "non_expert_comprehension_score": "Primary planned score: percent correct across closed-form questions covering allowed data, blocked data, confirmation gates, external disclosure, and adversarial instruction recognition. Thresholds and weighting require pre-specification [uncertain].",
+    "recovery_quality": "Measure whether participants choose a safer narrowed permission after an unsafe permission request is denied or flagged.",
+    "auditability": "Measure whether participants can interpret a short audit summary showing what the agent accessed, what was blocked, and why.",
+    "analysis_plan": "Compare task-scoped permission bundles against raw tool permissions and generic warnings using within-subject or between-subject assignment; the final design and sample size remain [uncertain]."
+  },
+  "baseline_comparison": {
+    "task_scoped_bundle_condition": "Participants view PAPF-style prompts that name the task, narrow data categories, allowed actions, blocked data, confirmation gates, and plain-language reasons.",
+    "raw_tool_permission_condition": "Participants view permission requests framed as tool or API capabilities, such as read email, read files, browse web, send email, upload file, or create calendar event.",
+    "generic_warning_condition": "Participants view a broad cautionary warning without concrete task-scoped data boundaries.",
+    "comparison_goal": "The study tests whether task-scoped bundles improve correct identification of necessary access, unnecessary access, risky outbound actions, and untrusted-content instructions relative to the comparators.",
+    "fairness_constraints": "All conditions must use the same underlying tasks, synthetic data objects, action outcomes, and comprehension questions; only the permission presentation should vary.",
+    "current_status": "The comparison is protocol-only. No participant data, effect sizes, or statistical results exist yet [uncertain]."
+  },
+  "artifact_output": {
+    "target_file": "papf_pipeline_research/results/Nonexpert_comprehension_protocol.json",
+    "planned_protocol_outputs": [
+      "docs/user_study_protocol.md with participant criteria, study flow, ethics notes, data handling, task materials, and analysis plan",
+      "docs/permission_prompt_examples.md with task-scoped, raw-tool, and generic-warning prompt variants",
+      "Comprehension rubric for closed-form and free-response items",
+      "Synthetic task vignettes and answer key",
+      "Optional survey instrument or form export with randomized condition order [uncertain]"
+    ],
+    "study_records_if_run": [
+      "Anonymized participant response rows",
+      "Condition assignment",
+      "Question-level correctness",
+      "Time-on-task and self-reported confidence if collected",
+      "Exclusion flags and rubric-coded free responses",
+      "Aggregate metric rows and reproducibility metadata"
+    ],
+    "current_gap": "This JSON defines the planned protocol output; it does not create participant-facing docs or collect study data [uncertain]."
+  },
+  "paper_section": "User Study Method, Human Evaluation, Permission Prompt Design, Limitations, and Future Work.",
+  "evidence_needed": [
+    "Protocol evidence: finalized study design covering participant assumptions, task flow, prompt materials, comprehension questions, answer keys, ethics notes, and data-handling plan.",
+    "Prompt-material evidence: task-scoped permission bundles, raw tool permissions, and generic warnings matched over identical synthetic tasks.",
+    "Rubric evidence: scoring rules for necessary access, over-access, exfiltration recognition, confirmation-gate recognition, recovery, confidence, and audit-summary interpretation.",
+    "Ethics evidence: institutional review or documented determination that the study is exempt or otherwise appropriate before recruitment [uncertain].",
+    "Pilot evidence: pilot feedback showing that wording is understandable and that questions are not accidentally leading [uncertain].",
+    "Empirical evidence: participant responses and analysis before making any claim that PAPF improves non-expert comprehension [uncertain].",
+    "Citation evidence: usable-security and permission-comprehension literature to justify measures and compare against prior permission-prompt studies."
+  ],
+  "acceptance_criteria": [
+    "The JSON artifact includes every required field from papf_pipeline_research/fields.yaml.",
+    "The artifact explicitly states that this is a planned protocol, not a completed user study.",
+    "The protocol covers study design, prompt materials, and a comprehension rubric.",
+    "The comparison includes task-scoped permission bundles, raw tool permissions, and generic warnings.",
+    "The protocol measures necessary access, over-access, exfiltration recognition, consent burden, recovery quality, auditability, and non-expert comprehension.",
+    "All uncertain field values are marked with [uncertain].",
+    "The uncertain array lists every top-level field containing an uncertain value.",
+    "The repository validation script passes for this JSON file."
+  ],
+  "uncertain": [
+    "source_requirements",
+    "data_labels",
+    "policy_boundary",
+    "attack_pressure",
+    "llm_role",
+    "failure_behavior",
+    "metrics",
+    "baseline_comparison",
+    "artifact_output",
+    "evidence_needed"
+  ]
+}

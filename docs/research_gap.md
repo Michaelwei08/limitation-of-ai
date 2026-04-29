@@ -7,14 +7,14 @@
   2. runtime enforcement outside the LLM,
   3. permission boundaries that non-expert users can plausibly understand, and
   4. evaluation across both task utility and privacy/security failure modes.
-- The current seed map suggests a possible gap at that intersection. Existing work already covers important pieces of the problem, but the repo's current sources do not yet show a paper that fully combines all four.
+- The verified seed map still suggests a possible gap at that intersection. Existing work already covers important pieces of the problem, but the current checked sources do not yet show a paper that fully combines all four.
 - The most defensible near-term claim is therefore a candidate systems-and-evaluation contribution for consumer AI agents, not a claim that PAPF is categorically the first or only approach.
 - `UNCONFIRMED`: a deeper literature pass may surface adjacent work on agent authorization, policy enforcement, or user-facing permission mediation that narrows this gap.
 
 ## 2. What existing work already covers
 
-- Prompt injection and agent attack work already shows that agents can be steered by untrusted content and can leak or misuse data. The current map covers indirect prompt injection, BIPIA, InjecAgent, AgentDojo, BrowseSafe, and browser-agent alignment failures.
-- Tool-using agent safety benchmarks already show how to evaluate privacy leakage, unsafe tool use, and task robustness once tools are available to the agent. AgentDojo, ToolEmu, and AgentDAM are the clearest examples in the current seed set.
+- Verified prompt-injection work already shows that agents can be steered by untrusted content and can leak or misuse data. The current checked map covers indirect prompt injection, BIPIA, InjecAgent, AgentDojo, BrowseSafe, and browser-agent alignment failures.
+- Verified tool-using agent benchmarks already show how to evaluate privacy leakage, unsafe tool use, and task robustness once tools are available to the agent. AgentDojo, ToolEmu, and AgentDAM are the clearest examples in the current set.
 - Capability-security, least-privilege, and confused-deputy literature already provides the conceptual foundation for PAPF's architecture. Saltzer and Schroeder, object-capability security, and confused-deputy work explain why ambient authority is dangerous and why explicit authority boundaries matter.
 - OAuth, Rich Authorization Requests, token introspection, and the MCP authorization specification already provide deployed analogues for explicit, machine-checkable delegated authority outside the model.
 - Permission-UX and consent-fatigue work already shows that users often misunderstand permission requests, contextual expectations matter, and frequent warnings degrade decision quality.
@@ -25,7 +25,7 @@
 - The current seed literature does not yet show a complete pipeline from natural-language consumer task to narrow machine-checkable capability set across heterogeneous tools such as email, files, browser, messaging, and payments.
 - Current agent benchmarks mostly study what happens after an agent already has meaningful tool access. They are strong on attack exposure and outcome measurement, but much thinner on pre-access capability issuance and per-call external policy enforcement.
 - Capability and delegated-authorization work assumes resources, actions, and policy objects are already structured. PAPF's harder problem is deriving useful narrow authority from an ambiguous user task before the agent acts.
-- Permission-UX work in the current map is largely about app ecosystems or warnings, not multi-step autonomous agents that move across tools within a single task.
+- Permission-UX work in the current verified map is largely about app ecosystems or warnings, not multi-step autonomous agents that move across tools within a single task.
 - The audit/provenance cluster in the current repo is still generic. It does not yet establish an agent-specific audit model that links user intent, compiled capabilities, consent decisions, denied actions, and actual sensitive-data touches in one trace.
 - The current seed map suggests, but does not yet prove, that few papers evaluate all of the following together in one framework: task success, over-access, exfiltration, false allow, false deny, consent burden, recovery quality, and auditability.
 - `TODO`: targeted follow-up review on adjacent work in agent-specific authorization, policy engines for LLM tool use, information-flow control for assistants, and user-facing agent permission mediation.

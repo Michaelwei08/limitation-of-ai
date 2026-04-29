@@ -1,0 +1,9 @@
+{
+  "config_id": "default_email_files_browser",
+  "description": "Deterministic PAPF evaluation over the synthetic email + files + browser slice.",
+  "mode": "papf",
+  "metric_schema_version": "papf.metrics.v1",
+  "output_dir": "experiments/runs/default_email_files_browser",
+  "suite_ids": ["clean", "temptation", "attack", "recovery"],
+  "synthetic_data_only": true
+}

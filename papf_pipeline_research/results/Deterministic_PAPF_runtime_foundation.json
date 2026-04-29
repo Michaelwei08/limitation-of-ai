@@ -1,0 +1,76 @@
+{
+  "claim_supported": "The current PAPF runtime foundation supports a narrow, deterministic claim: validated task intent can be compiled into explicit capabilities, and every synthetic tool request in the first email, files, and browser slice can be mediated by an external policy engine before execution. Existing code and tests support claims about schema validation, narrow allow decisions, denial of unrelated private data, scope narrowing, send-confirmation gating, fixed-trace metrics, and audit-event completeness for deterministic synthetic scenarios. It does not yet support broad real-world deployment claims or claims that LLMs can self-enforce permissions.",
+  "overclaim_risk": "The project must avoid claiming formal least privilege, production-grade security, complete prompt-injection resistance, user comprehension, or general cross-domain coverage from this runtime foundation alone. The current implementation is a first deterministic slice over synthetic fixtures, not a proof that all consumer-agent tools can be safely mediated. It should also avoid presenting model-assisted intent parsing as authoritative; any LLM role remains advisory and non-security-critical.",
+  "source_requirements": [
+    "Repository implementation: src/papf/intent/models.py, src/papf/capabilities/compiler.py, src/papf/policy/engine.py, src/papf/enforcement/runtime.py, src/papf/evaluation/metrics.py, and src/papf/audit/models.py.",
+    "Repository tests: tests/test_runtime_foundation.py, tests/test_trace_runner.py, and tests/test_evaluation_harness.py.",
+    "Design sources already recorded in the pipeline outline: AgentDojo for tool-using prompt-injection benchmark context, InjecAgent for indirect prompt-injection pressure, ToolEmu for sandboxed agent risk evaluation, AgentDAM for privacy leakage and data-minimization evaluation, BrowseSafe for browser-agent prompt-injection pressure, and MCP Authorization as a delegated-authorization analogue.",
+    "Paper-ready claims still need citation-backed related-work framing and reproducible run artifacts beyond unit tests before being stated as empirical results."
+  ],
+  "task_family": "Email, files, and browser-linked retrieval in a synthetic consumer-agent environment.",
+  "data_labels": {
+    "necessary": "Task-specific email thread, receipt attachment, approved merchant policy page, and draft object needed to complete the reimbursement-reply task.",
+    "supporting": "Synthetic metadata and resource references that help bind capabilities to the user goal without exposing unrelated content.",
+    "unnecessary": "Available but off-task data that a broad agent could request but the task does not justify.",
+    "unrelated_private": "Private local files such as tax-return-like synthetic records that must be denied when requested for the reimbursement task.",
+    "sensitivity": "The runtime distinguishes ordinary task data from private or potentially sensitive personal data through environment labels consumed by metrics.",
+    "trust": "Email, files, and webpages are treated as tool outputs or data objects rather than trusted instructions; adversarial webpages and prompt-injection-bearing content remain untrusted.",
+    "adversarial_content": "Attack traces include untrusted browse or upload pressure intended to induce off-task disclosure or cross-tool exfiltration."
+  },
+  "policy_boundary": {
+    "allowed": "Narrow reads and drafts that match active capabilities and explicit policy allow_refs may execute in simulated form.",
+    "denied": "Requests with no matching policy rule, explicit deny rules, unrelated-private references, over-broad unmatched scopes, or missing active capabilities are blocked.",
+    "narrowed": "A broad request can be transformed into allow_with_narrowed_scope only when policy can reduce it to exactly one allowed data reference and the input references do not include unallowed candidates.",
+    "redacted": "The policy model has allow_with_redaction and redaction_requirements fields, but concrete redaction evidence is still not fully artifactized [uncertain].",
+    "confirmation_gated": "Higher-risk actions such as sending an email draft compile as dormant capabilities and return require_confirmation instead of executing automatically."
+  },
+  "attack_pressure": "The runtime foundation is designed to test over-broad access pressure, prompt-injection pressure from untrusted emails or webpages, cross-tool exfiltration attempts such as upload or forwarding, confused-deputy behavior where an agent tries to use a valid task as cover for unrelated data access, and consent pressure around commitment actions such as sending messages.",
+  "trusted_component": "The trusted security-critical path is deterministic PAPF control-plane code: TaskIntent validation, compile_capabilities_from_policy, evaluate_policy, enforce_request, audit-event emission, and deterministic metric computation. These components own capability issuance, policy matching, runtime decision labels, narrowing, redaction flags, confirmation gating, and denial reasons.",
+  "llm_role": "Absent from the current security-critical runtime. A future LLM may propose intent records, candidate capabilities, explanations, or recovery suggestions, but those outputs must remain schema-validated proposals and cannot directly grant, broaden, or execute authority.",
+  "failure_behavior": {
+    "malformed_intent": "TaskIntent.require_valid raises a clear ValueError when required task id, user goal, requested actions, resource types, or scope-resource consistency checks fail.",
+    "ambiguous_scope": "Ambiguous or broad scopes do not match narrow capabilities by default; policy may narrow only when the request can be reduced to a single allowed reference without unallowed input references.",
+    "missing_policy": "A request with no matching policy rule returns a deny decision with NO_MATCHING_POLICY_RULE.",
+    "missing_capability": "A request with a relevant policy rule but no active matching capability returns a deny decision with MISSING_ACTIVE_CAPABILITY unless it matches a dormant confirmation-gated capability.",
+    "risky_commitment": "A dormant capability with confirm or high_risk_confirm consent returns require_confirmation and blocked execution status rather than executing silently.",
+    "runtime_execution": "Allowed, narrowed, or redacted requests return simulated execution status in the current prototype; denied and confirmation-required requests return blocked status."
+  },
+  "metrics": {
+    "task_success": "Represented by task_success_proxy in deterministic traces; the proxy requires no false allows, no false denies, no over-access, and no unresolved confirmation requirement.",
+    "necessary_access": "Computed as the fraction of necessary or supporting non-draft data objects observed in executed results.",
+    "over_access": "Computed from executed references whose environment relevance is available_unnecessary or unrelated_private.",
+    "exfiltration": "Partially represented through denied upload, forward, browse, and off-task disclosure traces; a dedicated exfiltration-rate metric is planned [uncertain].",
+    "false_allow": "Computed by comparing actual decisions to scenario expected_decisions and counting cases where a restricted expected decision was allowed.",
+    "false_deny": "Computed by comparing actual decisions to scenario expected_decisions and counting cases where an allowed expected decision was denied or confirmation-gated.",
+    "consent_burden": "Computed as the number of policy decisions with confirmation_required.",
+    "recovery_quality": "Recovery is currently represented by traces that block ambiguous broad requests and then allow safer narrow alternatives, but a separate recovery-quality score is not fully implemented [uncertain].",
+    "auditability": "Computed as auditability_completeness, the fraction of audit events containing required identifiers, event type, actor, and outcome."
+  },
+  "baseline_comparison": "The intended comparison is PAPF external enforcement versus broad ambient access and prompt-only guardrail baselines in the same synthetic email, files, and browser environment. The current runtime foundation has PAPF traces and metric rows, while broad-access and prompt-only baselines are planned rather than implemented [uncertain]. Baseline comparison must reuse identical task fixtures, expected decisions, environment labels, and metric definitions to avoid attributing environment differences to PAPF.",
+  "artifact_output": "Current artifacts include runtime modules, tests, trace scenarios for clean, temptation, attack, and recovery cases, evaluation result records, metric-row generation, and audit logs in memory. The requested JSON file records the runtime-foundation research state. Persistent experiment run serialization to experiments/runs as JSONL, CSV, audit summaries, and reproducibility metadata remains planned [uncertain].",
+  "paper_section": "Method, System Design, Threat Model, Benchmark Setup, Evaluation Metrics, and Limitations.",
+  "evidence_needed": [
+    "Implementation evidence: stable schemas for TaskIntent, Capability, PolicyRule, ToolRequest, PolicyDecision, EnforcementResult, AuditEvent, and RunMetrics.",
+    "Experiment evidence: serialized PAPF and baseline runs for clean, temptation, attack, and recovery suites with deterministic metric rows.",
+    "Citation evidence: source-backed positioning against agent prompt-injection benchmarks, data-minimization and delegated-authorization systems, permission UX, and provenance or auditability work.",
+    "Ablation evidence: comparison against broad ambient access and prompt-only guardrails once baseline code exists [uncertain].",
+    "User-study evidence: required before making strong non-expert comprehension claims [uncertain].",
+    "Redaction evidence: required before claiming allow_with_redaction is fully verified rather than only represented in schema fields [uncertain]."
+  ],
+  "acceptance_criteria": [
+    "Intent validation rejects malformed task records with explicit diagnostics.",
+    "Capability compilation creates only explicit narrow capabilities from allowed policy references and separates confirmation-gated capabilities.",
+    "Every ToolRequest goes through enforce_request and receives an EnforcementResult with a PolicyDecision before simulated execution.",
+    "Necessary narrow reads and drafts are allowed, unrelated private data is denied, safe broad requests are narrowed only when uniquely justified, and send actions require confirmation.",
+    "Audit events and metric rows can be generated deterministically for clean, temptation, attack, and recovery traces.",
+    "Validation against papf_pipeline_research/fields.yaml passes for this JSON artifact."
+  ],
+  "uncertain": [
+    "policy_boundary.redacted",
+    "metrics.exfiltration",
+    "metrics.recovery_quality",
+    "baseline_comparison",
+    "artifact_output",
+    "evidence_needed"
+  ]
+}
