@@ -4,8 +4,8 @@
 - Goal: Build a research project on task-scoped permission boundaries for consumer AI agents.
 - Working title: Personal Agent Permission Firewall (PAPF).
 - Benchmark idea: NonExpert-AgentPermBench.
-- Now: Core docs specify the PAPF architecture and paper plan; `src/papf/` includes deterministic evaluation, hardened run serialization, a file-backed benchmark loader, centralized policy/schema validation, runtime redaction evidence, recovery/partial-success scoring, comparable broad-access/prompt-only baselines, an expanded 12-trace file-backed seed suite, deterministic synthetic email/files/browser tool adapters, a config-driven experiment runner, and artifact-derived reporting tables/figures.
-- Next: Continue toward model-assisted proposal layers, user comprehension protocol, deeper source verification, and paper/artifact packaging.
+- Now: Core docs specify the PAPF architecture and paper plan; `src/papf/` includes deterministic evaluation, hardened run serialization, a file-backed benchmark loader, centralized policy/schema validation, runtime redaction evidence, recovery/partial-success scoring, comparable broad-access/prompt-only baselines, an expanded 12-trace file-backed seed suite, deterministic synthetic email/files/browser tool adapters, a config-driven experiment runner, artifact-derived reporting tables/figures, and a non-authoritative model-assisted intent proposal interface.
+- Next: Continue toward user comprehension protocol, deeper source verification, and paper/artifact packaging.
 - Open questions: Clarification versus safe refusal under ambiguity, partial-success scoring, and whether the planned non-expert comprehension protocol should become an actual user study.
 
 ## Invariants / Constraints
@@ -74,12 +74,13 @@
 - 2026-04-29 [CODE]: Completed Task 018 by adding deterministic synthetic email, files, and browser adapters plus a runtime dispatcher that only executes after allowed, narrowed, or redacted enforcement results and returns observed data refs plus produced artifact refs.
 - 2026-04-29 [CODE]: Completed Task 019 by adding a JSON-config experiment runner CLI for PAPF, broad-access, and prompt-only modes over selected file-backed cases/suites, plus decisions/config-snapshot artifacts and missing-case validation.
 - 2026-04-29 [CODE]: Completed Task 020 by adding artifact-derived reporting, generated paper-ready metrics/baseline/failure/provenance tables plus SVG figures, and regenerated the default experiment run with PAPF and baseline artifacts under metric schema `papf.metrics.v3`.
+- 2026-04-29 [CODE]: Completed Task 021 by adding a non-authoritative intent proposer interface, deterministic fake proposer, raw proposal schema validation before capability compilation, boundary documentation, and contract tests proving invalid proposals cannot mint capabilities.
 
 ### Now
-- 2026-04-29 [CODE]: Project has an executable PAPF evaluation path, serialized run artifacts, a file-backed PAPF seed case loader, expanded seed suite coverage, schema/policy validation gates, redaction evidence enforcement, recovery scoring, baseline runners, synthetic tool runtime, config-driven experiment execution, and artifact-derived paper reporting while preserving the hard-coded smoke fixture.
+- 2026-04-29 [CODE]: Project has an executable PAPF evaluation path, serialized run artifacts, a file-backed PAPF seed case loader, expanded seed suite coverage, schema/policy validation gates, redaction evidence enforcement, recovery scoring, baseline runners, synthetic tool runtime, config-driven experiment execution, artifact-derived paper reporting, and an optional non-authoritative intent proposal layer while preserving the hard-coded smoke fixture.
 
 ### Next
-- 2026-04-29 [CODE]: Continue with Task 021 model-assisted intent proposal layers or later paper packaging tasks.
+- 2026-04-29 [CODE]: Continue with Task 022 user comprehension protocol or later source verification/paper packaging tasks.
 - 2026-04-27 [CODE]: Keep the security-critical path deterministic while expanding benchmark loaders, baselines, and experiment reporting.
 
 ## Working set
@@ -98,10 +99,13 @@
 - `docs/implementation_plan.md`
 - `docs/paper_plan.md`
 - `docs/figures_and_tables_plan.md`
+- `docs/model_assisted_boundaries.md`
 - `src/papf/`
+- `src/papf/intent/proposer.py`
 - `tests/test_runtime_foundation.py`
 - `tests/test_trace_runner.py`
 - `tests/test_evaluation_harness.py`
+- `tests/test_intent_proposer_contract.py`
 - `benchmarks/seed_cases/`
 - `docs/benchmark_case_design_notes.md`
 - `docs/scope_reconciliation.md`
@@ -260,3 +264,6 @@
 - 2026-04-29 [TOOL]: `python -B -c "from papf.evaluation.reporting import generate_reporting_artifacts; ..."` -> wrote `paper/tables/{main_metrics,baseline_comparison,failure_cases,run_provenance}.{csv,md}` and `paper/figures/{task_success_rate_by_mode,false_allows_by_mode}.svg`.
 - 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest discover -s tests -v` -> 72 tests passed after Task 020 reporting additions.
 - 2026-04-29 [TOOL]: `$env:PYTHONDONTWRITEBYTECODE='1'; python -B -m py_compile ...` -> Python sources in `src` and `tests` compiled successfully after Task 020.
+- 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest tests.test_intent_proposer_contract -v` -> 5 intent proposer contract tests passed.
+- 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest discover -s tests -v` -> 77 tests passed after Task 021.
+- 2026-04-29 [TOOL]: `$env:PYTHONDONTWRITEBYTECODE='1'; python -B -m py_compile ...` -> Python sources in `src` and `tests` compiled successfully after Task 021.
