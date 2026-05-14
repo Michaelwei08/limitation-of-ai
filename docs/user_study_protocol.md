@@ -40,6 +40,26 @@ evidence plan. It is addressed by the prototype trace evaluation, not by this
 participant protocol. Conversely, RQ1-RQ5 cannot be answered from prototype logs
 alone.
 
+## Planned Hypotheses
+
+The hypotheses below are planned tests for the prompt and consent study, not
+reported findings. They should be treated as unsupported until the study is
+reviewed if required, run with participants, analyzed under a finalized analysis
+plan, and reported with limitations.
+
+| Hypothesis | Dependent variables | Quantitative or qualitative measures | Baseline comparison | Status |
+| --- | --- | --- | --- | --- |
+| H1: PAPF-style prompts improve users' ability to identify overbroad or unsafe agent actions. | Permission-decision accuracy and unsafe-action recognition. | Correct allow/deny/narrow/confirm decisions, over-access rejection, false-allow rate, exfiltration recognition, untrusted-instruction recognition, and coded reasons for allowing or denying. | PAPF task-scoped permission prompts versus no granular permission prompt, broad app-level authorization, and generic LLM-generated confirmation prompts. | Planned; no participant evidence yet. |
+| H2: PAPF-style prompts increase perceived control over personal data. | Perceived ability to predict, limit, and review agent access or disclosure. | Perceived-control survey items, confidence calibration, auditability comprehension, perceived missing information, and optional interview/free-response explanations. | PAPF task-scoped permission prompts versus no granular permission prompt, broad app-level authorization, and generic LLM-generated confirmation prompts. | Planned; no participant evidence yet. |
+| H3: PAPF-style prompts increase decision time and may increase consent burden. | Friction, workload, and consent-burden outcomes. | Time to decision, perceived interruption or burden, workload, consent fatigue, prompt and confirmation counts, expandable-detail openings, and confusion-point comments. | PAPF task-scoped permission prompts versus no granular permission prompt, broad app-level authorization, and generic LLM-generated confirmation prompts; PAPF prompt-format variants compared for friction diagnostics. | Planned; no participant evidence yet. |
+| H4: Users prefer concise prompts with expandable details over verbose permission explanations. | Prompt preference and detail-level preference. | Prompt wording preference, detail-level preference, expandable-detail opening rate, perceived missing information, and qualitative comments about prompt terseness or excessive detail. | Expandable-explanation PAPF prompt versus detailed PAPF prompt, with minimal, risk-highlighted, and audit-log-preview variants as secondary pilot comparisons if retained. | Planned; no participant evidence yet. |
+
+Each hypothesis maps to at least one closed-form, timed, survey, interaction-log,
+or qualitative measure already listed in the Outcome Measures section. H1 and H2
+mainly test the human benefit side of the permission surface; H3 tests the
+friction cost; H4 tests the prompt-format design choice inside the PAPF
+condition.
+
 ## Study Conditions
 
 The planned study has two prompt-comparison layers. The main layer compares
