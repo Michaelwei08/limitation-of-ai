@@ -1,140 +1,97 @@
 # Related Work Map
 
-Verified against source pages on `2026-04-27` and `2026-04-29`. This remains a seed map rather than the final literature review, but the retained categories below now point only to checked sources with stable citation keys from [references.bib](../references.bib).
+Verified against source pages on `2026-04-27`, `2026-04-29`, and `2026-05-14`. This map is organized for the HCI/privacy paper framing: privacy permissions, consent, and human-centered security motivate the problem; systems and agent-safety work provide the enforcement and threat-model substrate.
 
-## Prompt injection and indirect prompt injection
-
-1. What this category studies
-   This category studies how malicious instructions, embedded directly in prompts or indirectly in retrieved content, can steer an LLM or agent away from the user's intent.
-2. Verified representative works
-   Greshake et al. provide an early indirect-prompt-injection threat framing for LLM-integrated applications (`greshake2023not`). Yi et al. introduce the BIPIA benchmark for indirect prompt injection in LLM systems (`yi2023benchmarking`). Zhan et al. extend the problem to tool-integrated agents with InjecAgent (`zhan2024injecagent`).
-3. How they relate to PAPF
-   This literature is directly relevant because PAPF assumes attackers can hide instructions in emails, files, or webpages that the agent may need to read during task execution.
-4. Gap left open
-   These works establish that prompt injection and exfiltration are real risks, but they do not by themselves define a user-comprehensible, task-scoped permission boundary enforced outside the model.
-
-## Tool-using agent safety and benchmarks
+## Privacy theory, permissions, and contextual consent
 
 1. What this category studies
-   This category studies safety failures that arise when language-model agents can invoke tools, act over realistic environments, or operate with broad autonomy.
+   This category studies privacy as an appropriate information-flow problem, not merely as secrecy or a one-time disclosure checkbox.
 2. Verified representative works
-   AgentDojo evaluates attacks and defenses in dynamic agent environments (`debenedetti2024agentdojo`). ToolEmu studies scalable risk discovery with LM-emulated tools (`ruan2024toolemu`). AgentDAM evaluates privacy leakage and unnecessary sensitive-data use in autonomous web agents (`zharmagambetov2025agentdam`).
+   Nissenbaum's contextual-integrity theory frames privacy as information flow governed by context-specific norms (`nissenbaum2004contextual`). Mobile permission work shows that users often miss, misunderstand, or contextualize access decisions differently than platform permission systems expect (`felt2012androidpermissions`, `wijesekera2015androidpermissions`, `lin2014mobilepreferences`, `cao2021androidpermissions`).
 3. How they relate to PAPF
-   These papers provide concrete evaluation precedents for benchmarking agents that read sensitive data, call tools, and sometimes fail in ways that matter for privacy and security.
+   PAPF inherits the HCI/privacy lesson that permission prompts must expose task context, data purpose, and downstream disclosure. A consumer agent's authority should be scoped to "this reimbursement task" rather than to ambient access over email, files, and browser data.
 4. Gap left open
-   Existing agent-safety benchmarks mostly evaluate behavior after meaningful tool access is already available. PAPF is positioned around the earlier control point: how authority is requested, narrowed, granted, denied, and enforced.
+   Prior mobile permission systems generally mediate single-app or single-platform resources. They do not solve cross-tool personal-agent authority, where a natural-language task must be translated into enforceable per-resource capabilities and presented to non-experts.
 
-## Agent-specific authorization middleware
+## Mobile and web permission UX
 
 1. What this category studies
-   This category studies runtime systems that constrain what an LLM agent may do, usually by mediating tool calls, checking structured policies, or isolating execution contexts outside the model.
+   This category studies whether people notice permission prompts, whether prompts match user expectations, and how timing, context, and rationale affect allow/deny behavior.
 2. Verified representative works
-   Progent enforces fine-grained privilege-control policies over LLM-agent tool calls with deterministic runtime checks (`shi2025progent`). AgentSpec provides a domain-specific language for specifying and enforcing runtime constraints on LLM agents (`wang2025agentspec`). MiniScope reconstructs permission hierarchies and infers least-privilege grants for tool-calling agents (`zhu2025miniscope`). IsolateGPT studies execution isolation for LLM-based agentic systems and third-party apps (`wu2025isolategpt`).
+   Felt et al. report low attention and comprehension for Android permissions (`felt2012androidpermissions`). Kelley et al. show that clearer privacy information at app-selection time can affect app choices (`kelley2013appdecision`). Lin et al. model mobile permission preferences by considering not only the permission type but also the purpose of use (`lin2014mobilepreferences`). Wijesekera et al. and Cao et al. study contextual expectations and large-scale permission behavior (`wijesekera2015androidpermissions`, `cao2021androidpermissions`). Harbach studies web permission prompts in Desktop Chrome and finds that user sentiment and decisions depend on interruption, capability type, and contextual cues (`harbach2024webpermission`).
 3. How they relate to PAPF
-   These are the closest prior works for PAPF's systems thesis because they move enforcement out of the LLM and toward an explicit runtime boundary.
+   These works support PAPF's decision to treat prompt wording, task goal, requested data, blocked data, external disclosure, redaction state, and confirmation reason as evaluation objects rather than cosmetic UI details.
 4. Gap left open
-   The gap is now narrower than the earlier seed map implied. PAPF should avoid claiming that no agent permission firewall exists. The remaining opportunity is a consumer-agent framing that combines task-derived personal-data scopes, non-expert permission prompts, per-tool enforcement, recovery from denial, and audit records in one benchmarked system.
+   Mobile and browser permission prompts usually ask about platform capabilities such as location, camera, or notifications. Personal AI agents need permission UX for composed workflows: reading one email, checking one file, consulting one web page, drafting a reply, and blocking unrelated cross-tool leakage.
 
-## Privacy leakage and data minimization in agents
-
-1. What this category studies  
-   This category studies whether agents use only the personal data necessary for task completion, rather than broadly consuming whatever sensitive context is available.
-2. Verified representative works  
-   AgentDAM is the clearest direct benchmark in the current verified set for unnecessary sensitive-data use by autonomous web agents (`zharmagambetov2025agentdam`).
-3. How they relate to PAPF  
-   PAPF's benchmark plan already distinguishes necessary, unnecessary, and dangerous data. AgentDAM provides a concrete precedent for treating over-access as a measurable failure mode, not only a policy principle.
-4. Gap left open  
-   The verified agent-specific literature here is still thin. It appears stronger on measuring leakage than on providing an externally enforced, cross-tool permission architecture for consumer assistants.
-
-## Browser-agent safety
-
-1. What this category studies  
-   This category studies safety failures specific to agents that browse the open web and can take actions inside browser sessions.
-2. Verified representative works  
-   Kumar et al. show that safety alignment in chat models does not necessarily transfer to browser agents (`kumar2025aligned`). BrowseSafe studies prompt-injection attacks and defenses for browser agents (`zhang2025browsesafe`).
-3. How they relate to PAPF  
-   Browser tasks are likely to be part of PAPF's benchmark, and browser agents are a concrete setting where prompt injection, over-access, and dangerous action capabilities meet.
-4. Gap left open  
-   These works focus on attack exposure, alignment transfer, or defensive filtering. They do not define a cross-tool permission firewall that scopes what a browser agent may read, extract, or transmit for a non-expert user.
-
-## Confused deputy
-
-1. What this category studies  
-   This category studies authority confusion, where a component serving one principal unintentionally spends authority that came from another source.
-2. Verified representative works  
-   Hardy's classic confused-deputy case study provides the canonical structural pattern (`hardy1988confused`). Felt et al. show a modern version of the same problem in browsers and smartphone operating systems (`felt2011permission`).
-3. How they relate to PAPF  
-   PAPF can be framed as an attempt to keep an LLM agent from becoming a confused deputy for personal data stores and high-impact tools.
-4. Gap left open  
-   These works explain why ambient authority is dangerous, but they do not solve task interpretation, non-expert approval, or multi-tool agent orchestration.
-
-## Capability security and least privilege
-
-1. What this category studies  
-   This category studies how authority can be represented explicitly, passed intentionally, and kept separate from ambient privilege.
-2. Verified representative works  
-   Saltzer and Schroeder articulate least privilege, complete mediation, and related design principles (`saltzer1975protection`). Wagner connects least privilege to object-capability security and avoidance of ambient authority (`wagner2006object`).
-3. How they relate to PAPF  
-   This is the clearest conceptual ancestor for PAPF's proposed capability compiler and external enforcement layer.
-4. Gap left open  
-   Capability-security work does not by itself explain how to derive narrow capabilities from ambiguous natural-language tasks or how to present those capabilities to non-expert users.
-
-## Information-flow control for agents
+## Privacy notices and consent burden
 
 1. What this category studies
-   This category studies confidentiality and integrity labels that constrain how information may flow through an agent planner and its tool calls.
+   This category studies notice-and-choice mechanisms, privacy-policy readability, standardized notice formats, and the cost of asking users to make repeated privacy decisions.
 2. Verified representative works
-   Costa et al. model security and expressiveness tradeoffs for AI-agent planners and present Fides, an IFC-style planner that tracks confidentiality and integrity labels while enforcing policies deterministically (`costa2025securing`).
+   McDonald and Cranor quantify the cost of reading privacy policies (`mcdonald2008cost`). Kelley et al. design a privacy "nutrition label" for clearer policy comparison (`kelley2009nutrition`). Schaub et al. systematize privacy-notice design dimensions and requirements (`schaub2015notices`). Almuhimedi et al. show that timely mobile privacy nudges can prompt users to revisit permissions (`almuhimedi2015location`).
 3. How they relate to PAPF
-   IFC gives PAPF a stronger formal vocabulary for data-flow restrictions than ordinary allow/deny tool lists, especially for prompt-injection and exfiltration cases.
+   PAPF's consent surfaces should avoid turning every tool call into a long policy. The relevant notice is a task-scoped summary of what the agent will read, what it will not read, what will leave the account, what will be redacted, and what the audit log will record.
 4. Gap left open
-   IFC does not replace the need to compile task-specific authority, explain data access to non-experts, or record user-facing audit trails. PAPF can cite IFC as a complementary enforcement strategy rather than as a complete permission UX.
+   Privacy-notice work generally targets websites, policies, apps, or device settings. PAPF's open HCI question is whether task-scoped notices can help non-expert users make safe agent-authorization decisions without producing consent fatigue.
 
-## OAuth, delegated authorization, and MCP
+## Human-centered security and consent fatigue
 
-1. What this category studies  
-   This category studies how a service receives limited authority from a resource owner and how that authority is represented, challenged, and inspected.
-2. Verified representative works  
-   OAuth 2.0 provides the basic delegated-authorization framework (`hardt2012oauth`). Rich Authorization Requests add structured fine-grained access requests (`lodderstedt2023oauthrar`). Token Introspection standardizes inspection of token state and authorization context (`richer2015introspection`). GNAP standardizes grant negotiation for software clients and resource owners (`richer2024gnap`), with a companion resource-server connection specification (`richer2025gnaprs`). The MCP authorization specification adapts OAuth-style transport authorization to MCP servers and clients (`modelcontextprotocol2025authorization`).
-3. How they relate to PAPF  
-   These are the closest deployed analogues to PAPF's idea that authority should be explicit, scoped, machine-checkable, and enforced outside the model.
-4. Gap left open  
-   These standards assume pre-modeled resources and APIs. PAPF's harder problem is inferring minimum necessary authority from natural-language consumer tasks across heterogeneous tools, then explaining that authority to non-experts and verifying each runtime access against the compiled task policy.
+1. What this category studies
+   This category studies security mechanisms that rely on user decisions, including warning comprehension, habituation, attention, and dangerous errors.
+2. Verified representative works
+   Whitten and Tygar show that a security mechanism can fail because novices cannot use it effectively (`whitten1999johnny`). Cranor's human-in-the-loop framework analyzes where user-mediated security decisions can break down (`cranor2008humanloop`). Felt et al. argue that systems should ask for permission only when interruption is justified (`felt2012askpermission`). Akhawe and Felt, Bravo-Lillo et al., and Vance et al. show that warning effectiveness depends on interface design, attention, and habituation (`akhawe2013alice`, `bravolillo2013attention`, `vance2019fog`).
+3. How they relate to PAPF
+   This literature motivates risk-adaptive consent: low-risk reads should not become repetitive approval prompts, while outbound sends, uploads, account changes, redaction bypasses, and off-task data access require more explicit user attention.
+4. Gap left open
+   Human-centered security work explains why naive prompts fail, but it does not provide an agent-specific control plane that combines non-expert consent, deterministic enforcement, recovery from denial, and audit evidence.
 
-## Permission UX
+## AI agent authorization and permission UX
 
-1. What this category studies  
-   This category studies whether users notice, understand, and correctly act on permission requests, especially when access decisions depend on context.
-2. Verified representative works  
-   Felt et al. study user attention and comprehension of Android permission warnings (`felt2012androidpermissions`). Wijesekera et al. examine contextual integrity in mobile permission use (`wijesekera2015androidpermissions`). Cao et al. study permission decisions, expectations, and explanations at larger scale (`cao2021androidpermissions`). Wu et al. directly study data-access permission decisions for AI agents and develop an automated permission-management assistant (`wu2026automatingpermissions`).
-3. How they relate to PAPF  
-   PAPF explicitly cares about non-expert comprehension and user expectations, not only backend correctness.
-4. Gap left open  
-   Agent-specific permission UX now has at least one close empirical source, but PAPF should not overclaim from it. The open question for this project is how to combine understandable prompts with enforceable task-scoped capabilities and measurable security outcomes.
+1. What this category studies
+   This category studies how LLM agents can be restricted by policies, monitors, isolation boundaries, or user-facing permission-management mechanisms.
+2. Verified representative works
+   Progent, AgentSpec, MiniScope, IsolateGPT, and agent IFC systems move constraints outside ordinary prompt instructions (`shi2025progent`, `wang2025agentspec`, `zhu2025miniscope`, `wu2025isolategpt`, `costa2025securing`). Wu et al. study data-access permission decisions for AI agents and build a permission-management assistant (`wu2026automatingpermissions`).
+3. How they relate to PAPF
+   These are the closest technical neighbors. PAPF should not claim that external enforcement or agent permissioning is absent from the literature.
+4. Gap left open
+   The remaining PAPF contribution is narrower and HCI/privacy-centered: consumer task-derived personal-data scopes, user-facing consent states, redaction and confirmation evidence, deterministic per-tool enforcement, recovery scoring, and audit-linked evaluation in one artifact.
 
-## Consent fatigue and approval fatigue
+## Prompt injection, tool-use risk, and browser agents
 
-1. What this category studies  
-   This category studies what happens when systems ask for consent too often, at the wrong time, or in a form users stop meaningfully processing.
-2. Verified representative works  
-   Felt et al. argue that not every permission should interrupt the user in the same way (`felt2012askpermission`). Vance et al. study habituation and warning generalization (`vance2019fog`). Akhawe and Felt show that warning effectiveness depends strongly on interface and context (`akhawe2013alice`).
-3. How they relate to PAPF  
-   This literature supports PAPF's risk-adaptive consent layer and its emphasis on reducing consent burden rather than showing more raw prompts.
-4. Gap left open  
-   The literature explains why repetitive approvals fail, but it does not yet provide an agent-specific interface for task-bound data and action grants that remain understandable under multi-step autonomy.
+1. What this category studies
+   This category studies how untrusted content and tool access create failures beyond ordinary chat alignment.
+2. Verified representative works
+   Greshake et al. and Yi et al. frame indirect prompt injection (`greshake2023not`, `yi2023benchmarking`). InjecAgent, AgentDojo, and ToolEmu benchmark tool-agent attacks and risks (`zhan2024injecagent`, `debenedetti2024agentdojo`, `ruan2024toolemu`). WebArena, Aligned LLMs Are Not Aligned Browser Agents, BrowseSafe, and AgentDAM cover browser-agent functionality, browser-agent safety, prompt injection, and privacy leakage (`zhou2024webarena`, `kumar2025aligned`, `zhang2025browsesafe`, `zharmagambetov2025agentdam`).
+3. How they relate to PAPF
+   This work supplies the threat model: untrusted webpages, emails, and files may try to redirect an agent into off-task reads, uploads, or disclosures.
+4. Gap left open
+   These papers mostly evaluate agent behavior after broad tool access is already available. PAPF uses those risks to motivate the earlier HCI/privacy question of what authority should be granted for the task and how users can inspect that boundary.
+
+## Delegated authorization, least privilege, and confused deputy
+
+1. What this category studies
+   This category studies explicit authority, complete mediation, structured grants, and failures caused by ambient privilege.
+2. Verified representative works
+   Saltzer and Schroeder articulate least privilege and complete mediation (`saltzer1975protection`). Hardy and Felt et al. describe confused-deputy and permission re-delegation failures (`hardy1988confused`, `felt2011permission`). Wagner explains object-capability security (`wagner2006object`). OAuth, Rich Authorization Requests, Token Introspection, GNAP, GNAP Resource Server Connections, and MCP authorization define deployed or emerging authorization substrates (`hardt2012oauth`, `lodderstedt2023oauthrar`, `richer2015introspection`, `richer2024gnap`, `richer2025gnaprs`, `modelcontextprotocol2025authorization`).
+3. How they relate to PAPF
+   These works support PAPF's enforcement design: authority should be explicit, narrow, inspectable, revocable or time-bounded, and checked at each tool call outside the LLM.
+4. Gap left open
+   Authorization protocols and capability systems usually assume pre-modeled API scopes. They do not decide which data is necessary for an ordinary user's natural-language task or how to explain that scoped authority in a permission prompt.
 
 ## Auditability, provenance, and traceability
 
-1. What this category studies  
-   This category studies how to record what happened, why it happened, and which data or policy inputs influenced the outcome.
-2. Verified representative works  
-   PROV-Overview defines a standard provenance model for interoperable records (`groth2013provoverview`). ACCESSPROV studies provenance for access-control enforcement decisions (`capobianco2017accessprov`). Souza et al. use LLM agents as an interface for querying workflow provenance data (`souza2025workflowprovenance`). Gupta proposes action attestations and lightweight audit agents for autonomous LLM systems, but this is an early arXiv preprint and performance claims should be treated as provisional (`gupta2025verifiability`). Token Introspection is also relevant because it standardizes machine-readable inspection of delegated-authorization context (`richer2015introspection`).
-3. How they relate to PAPF  
-   PAPF's architecture calls for audit and traceability outside the LLM, including records of what was requested, granted, denied, and accessed.
-4. Gap left open  
-   The verified sources here still do not define a mature user-facing consumer-agent audit model that links task intent, compiled capabilities, denials, grants, redactions, sensitive-data touches, and recovery attempts in one trace.
+1. What this category studies
+   This category studies records that explain what happened, which authority was used, and why an access-control decision was allowed or denied.
+2. Verified representative works
+   PROV-Overview defines interoperable provenance concepts (`groth2013provoverview`). ACCESSPROV tracks provenance for access-control decisions (`capobianco2017accessprov`). Souza et al. use LLM agents as interfaces over workflow provenance (`souza2025workflowprovenance`). Gupta proposes verifiability-first audit agents, but this is an arXiv preprint and performance claims should remain provisional (`gupta2025verifiability`).
+3. How they relate to PAPF
+   PAPF uses audit records to connect task intent, capabilities, policy checks, data touches, redaction artifacts, confirmation gates, denials, and recovery attempts.
+4. Gap left open
+   Existing provenance work does not yet provide a mature consumer-agent audit model that is both machine-checkable for enforcement and understandable enough for non-expert post-hoc review.
 
 ## Notes
 
-- The strongest verified precedents are currently in agent-specific runtime authorization, prompt injection, agent-safety benchmarks, delegated authorization, and mobile plus agent permission UX.
-- The weakest still-agent-specific cluster is user-facing agent-session auditability; available sources are either generic provenance, workflow-provenance interfaces, or early audit-agent preprints.
+- The related-work order should remain HCI/privacy first: contextual consent, permission UX, privacy notices, consent fatigue, and human-centered security define the research problem.
+- Systems and security work should be used as support for the enforceable boundary, not as the dominant paper framing.
+- Early arXiv and future-venue entries use eprint or acceptance metadata in [references.bib](../references.bib) and explicit source-status labels in [lit_matrix.md](lit_matrix.md); their empirical claims should not be treated as settled beyond their stated source status.
