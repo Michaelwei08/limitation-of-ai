@@ -40,7 +40,7 @@ Paragraph role: threat model. The threat model includes over-broad agent plans, 
 
 Paragraph role: definitions. The evaluation uses concrete failure metrics. Over-access means the run touches data labeled unnecessary or unrelated to the task. False allow means an action that should be denied or gated is allowed by the policy boundary. False deny means a necessary action is blocked. Consent burden counts confirmation prompts. Recovery quality captures whether the agent pursues a safer alternative after denial or narrowing. Auditability completeness captures whether the generated trace links runs, decisions, tool calls, data touches, and outcomes.
 
-Paragraph role: non-goals. The current prototype does not prove formal least privilege, does not integrate with real accounts, does not use real personal data, and does not claim that permission prompts are understandable to non-experts. Non-expert comprehension remains a design target represented by `docs/user_study_protocol.md` and `docs/permission_prompt_examples.md`; it is not an empirical result in this paper draft.
+Paragraph role: non-goals. The current prototype does not prove formal least privilege, does not integrate with real accounts, does not use real personal data, and does not report prompt-comprehension findings for non-experts. Non-expert comprehension remains a design target represented by `docs/user_study_protocol.md` and `docs/permission_prompt_examples.md`; it is not an empirical result in this paper draft.
 
 ## 3. PAPF Design
 
@@ -116,7 +116,7 @@ Paragraph role: baseline limitation. The current baselines now include two stron
 
 Paragraph role: scope limitation. The benchmark currently covers only a narrow email, files, and browser-linked slice. That slice is intentionally attack-rich, but it cannot establish generality over calendar, contacts, travel, payments, messaging, cloud management, or device administration. The paper should present the slice as a first systems artifact, not as a full consumer-agent benchmark release.
 
-Paragraph role: human factors limitation. PAPF is motivated by user-comprehensible permission boundaries, but comprehension is not validated by the automated benchmark. This is not a blocker for the current systems paper if the claim is scoped correctly. The paper can say that PAPF includes a planned protocol and prompt examples for later non-expert evaluation, but it should not report comprehension, consent-fatigue, or safer-user-choice effects until a separate participant study is reviewed, run, and analyzed.
+Paragraph role: human factors limitation. PAPF is designed to support user comprehension through task-scoped permission boundaries, but comprehension is not validated by the automated benchmark. This is not a blocker for the current systems paper if the claim is scoped correctly. The paper can say that PAPF includes a planned protocol and prompt examples for later non-expert evaluation, but it should not report comprehension, consent-fatigue, or safer-user-choice effects until a separate participant study is reviewed, run, and analyzed.
 
 Paragraph role: formal limitation. PAPF produces narrower externally enforced authority, but it does not prove optimal least privilege. Natural-language tasks can remain ambiguous, environment metadata can be incomplete, and a deterministic compiler can still choose scopes that are either too narrow or too broad. The current draft should therefore use "task-scoped" and "narrower than ambient access" rather than "minimal."
 
@@ -151,7 +151,7 @@ Paragraph role: future work. The next paper-development step is to strengthen re
 | Stronger external-enforcement baselines expose coarse-scope and static-rule tradeoffs. | `paper/tables/stronger_baseline_results.md` reports tool-scope and static-policy baseline rows derived from serialized artifacts. | supported within current run |
 | PAPF improves task success. | Generated metrics show lower PAPF task-success proxy than baselines. | unsupported; removed/negated |
 | PAPF grants are formally least-privilege. | No proof or optimality analysis exists. | unsupported; phrased as task-scoped/narrower |
-| PAPF permission prompts are understandable to non-experts. | Only a study protocol and prompt examples exist; no participant data. | needs evidence |
+| Non-expert comprehension of PAPF permission prompts. | Only a study protocol and prompt examples exist; no participant data. | needs evidence |
 | The artifact is reproducible from serialized runs. | Run artifacts, reporting generator, provenance table, and tests exist. | supported within current repo |
 | The result generalizes across consumer-agent domains. | Current benchmark covers only email, files, and browser-linked tasks. | unsupported; stated as limitation |
 

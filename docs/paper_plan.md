@@ -29,7 +29,7 @@ This document tracks the active plan for revising PAPF into an HCI/privacy paper
 
 1. Task-Scoped Consent for Personal AI Agents
 2. Human-Centered Permission Boundaries for Personal AI Agents
-3. Designing User-Comprehensible Permissions for Consumer AI Agents
+3. Designing for User Comprehension in Consumer AI-Agent Permissions
 4. External Enforcement and Consent UX for Privacy-Preserving AI Agents
 5. Personal Agent Permission Firewall: Task-Scoped Consent and External Enforcement
 
@@ -135,7 +135,7 @@ These are planning claims, not final accepted novelty claims.
 
 ### 15. Conclusion
 
-- Goal: close on enforceable, task-scoped, understandable permission systems for personal AI agents.
+- Goal: close on enforceable, task-scoped permission systems designed to support user comprehension for personal AI agents.
 - Required evidence: only claims supported by prototype traces or user-study data.
 - Notes: avoid ending primarily with benchmark claims.
 
@@ -169,7 +169,7 @@ The paper's evaluation should be ordered and worded as follows:
 | --- | --- | --- |
 | Broad personal-agent authorization creates privacy decision problems | Literature plus motivating examples | Partially supported by current literature map |
 | PAPF can enforce task-scoped authority outside the LLM | Prototype modules, tests, and trace artifacts | Supported by current artifact |
-| PAPF prompts are understood by ordinary users | User-study comprehension and audit-summary interpretation scores | Unsupported until study is run |
+| Ordinary-user comprehension of PAPF prompts | User-study comprehension and audit-summary interpretation scores | Unsupported until study is run |
 | PAPF prompts improve unsafe-action detection | User-study decision accuracy and false-allow rates | Unsupported until study is run |
 | PAPF improves privacy-preserving consent decisions | User-study comparison against raw tool permissions and generic warnings | Unsupported until study is run |
 | PAPF improves perceived control or trust | Survey and interview data | Unsupported until study is run |
@@ -203,7 +203,7 @@ The paper's evaluation should be ordered and worded as follows:
 
 ## Unsupported claims to avoid
 
-- PAPF prompts are understandable to non-experts.
+- Current non-expert comprehension of PAPF prompts.
 - PAPF improves privacy-preserving user decisions.
 - PAPF reduces real-world consent fatigue.
 - PAPF is deployment-ready for personal accounts.

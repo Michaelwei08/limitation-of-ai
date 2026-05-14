@@ -2,7 +2,7 @@
 
 ## Abstract
 
-Personal AI agents can act across email, files, browsers, calendars, and communication tools, but current authorization patterns often grant broad tool and data access before users can reason about the needs of the current task. This creates a privacy-usability problem: non-expert users need to understand what data an agent will access, what it will disclose, when sensitive content is redacted, and why high-risk actions require consent.
+Personal AI agents can act across email, files, browsers, calendars, and communication tools, but current authorization patterns often grant broad tool and data access before users can reason about the needs of the current task. This creates a privacy-usability problem: non-expert users need interface support for understanding what data an agent will access, what it will disclose, when sensitive content is redacted, and why high-risk actions require consent.
 
 We present Personal Agent Permission Firewall (PAPF), a task-scoped consent framework that enforces personal-agent authority outside the model. An LLM may propose task intent or user-facing explanations, but deterministic components validate task records, compile narrow capabilities, mediate every tool call, require confirmation for risky actions, verify redaction artifacts, and write audit traces. PAPF's interface design makes the task goal, requested access, external disclosure, redaction state, and confirmation rationale explicit enough to be evaluated as consent decisions rather than hidden system state.
 
@@ -42,7 +42,7 @@ PAPF turns privacy principles into enforceable mechanisms and measurable outcome
 | User consent | Require confirmation for commitment or disclosure actions instead of treating initial connector access as blanket approval. | Consent prompts, confirmation-gate ablations, allow/deny decision quality in the planned study. |
 | Transparency and accountability | Emit audit events that link intent, capabilities, enforcement decisions, redaction artifacts, tool calls, and outcomes. | Auditability completeness and post-hoc trace review measures. |
 
-The current prototype does not prove formal least privilege, does not integrate with real accounts, does not use real personal data, and does not claim that permission prompts are understandable to non-experts. Non-expert comprehension remains a design target represented by `docs/user_study_protocol.md` and `docs/permission_prompt_examples.md`, not an empirical result.
+The current prototype does not prove formal least privilege, does not integrate with real accounts, does not use real personal data, and does not report prompt-comprehension findings for non-experts. Non-expert comprehension remains a design target represented by `docs/user_study_protocol.md` and `docs/permission_prompt_examples.md`, not an empirical result.
 
 ## 3. Research Questions and Evidence Plan
 
@@ -192,7 +192,7 @@ The baselines are stronger than ambient access but are still not faithful implem
 
 The benchmark covers only a narrow email-files-browser slice. It is attack-rich, but it cannot establish generality over calendar, contacts, travel, payments, messaging, cloud management, or device administration. The paper should present it as a first systems artifact, not a full consumer-agent benchmark release.
 
-PAPF is motivated by user-facing permission boundaries, but comprehension and consent quality are not validated by automated metrics. The paper can say that PAPF includes a primary planned protocol, synthetic scenario records, and prompt examples for non-expert privacy-usability evaluation, but it should not report comprehension, consent-fatigue, trust, perceived-control, or safer-user-choice effects until a participant study is reviewed, run, and analyzed.
+PAPF is designed around user-facing permission boundaries, but comprehension and consent quality are not validated by automated metrics. The paper can say that PAPF includes a primary planned protocol, synthetic scenario records, and prompt examples for non-expert privacy-usability evaluation, but it should not report comprehension, consent-fatigue, trust, perceived-control, or safer-user-choice effects until a participant study is reviewed, run, and analyzed.
 
 The HCI/privacy limitations are limitations of a planned protocol, not limitations of completed user-study results. If the protocol is run, results may depend on participant demographics, baseline privacy attitudes, prior AI-agent experience, the task realism of the synthetic scenarios, and the exact prompt wording, ordering, and visual presentation. User comprehension would be measured only within the tested scenarios, prompt variants, baseline conditions, and answer keys. A short laboratory or online study also may not capture long-term consent fatigue, habituation, changes in trust, or preference drift during repeated real-world agent use.
 
@@ -216,11 +216,11 @@ Provenance and access-control audit work motivates PAPF's trace design. PROV def
 
 ## 12. Conclusion
 
-Personal AI agents need permission systems that are enforceable, task-scoped, and understandable to the people asked to rely on them. PAPF frames that need as a privacy and consent problem: a user should be able to see why an agent needs particular email, file, browser, communication, or disclosure authority for the current task, while final enforcement remains outside the LLM.
+Personal AI agents need permission systems that are enforceable, task-scoped, and designed to support user comprehension. PAPF frames that need as a privacy and consent problem: a user should be able to see why an agent needs particular email, file, browser, communication, or disclosure authority for the current task, while final enforcement remains outside the LLM.
 
 This paper presents PAPF as an artifact-backed prototype for studying that design space, not as a deployment-ready permission system. The prototype compiles validated tasks into capabilities, mediates synthetic tool calls, records redaction and consent evidence, and produces audit traces. The 12-trace synthetic evaluation is feasibility evidence: it shows that the current artifact can enforce and audit scoped decisions in the local suite, while also exposing lower task-success proxy scores and additional consent prompts. Those trace results remain secondary to the paper's HCI/privacy question.
 
-The central evaluation is whether PAPF-style prompts help non-expert users make safer privacy decisions: recognizing necessary access, rejecting overbroad or dangerous access, understanding redaction and confirmation gates, and judging when an agent should proceed, narrow, or stop. That user study is planned rather than completed, so claims about comprehension, perceived control, trust, workload, and consent fatigue remain future empirical questions. PAPF's bounded contribution is to make task-scoped personal-agent authority concrete enough to prototype, audit, and study as a user-facing privacy and consent interface.
+The central evaluation is whether PAPF-style prompts can help non-expert users make safer privacy decisions: recognizing necessary access, rejecting overbroad or dangerous access, understanding redaction and confirmation gates, and judging when an agent should proceed, narrow, or stop. That user study is planned rather than completed, so claims about comprehension, perceived control, trust, workload, and consent fatigue remain future empirical questions. PAPF's bounded contribution is to make task-scoped personal-agent authority concrete enough to prototype, audit, and study as a user-facing privacy and consent interface.
 
 ## Source Notes
 
@@ -239,7 +239,7 @@ The central evaluation is whether PAPF-style prompts help non-expert users make 
 | The PAPF seed suite is well known. | It is local synthetic data under `benchmarks/papf_seed_cases/`; no public adoption evidence exists. | Unsupported and explicitly rejected |
 | PAPF improves task success. | Generated metrics show lower PAPF task-success proxy than several baselines. | Unsupported and explicitly rejected |
 | PAPF includes planned synthetic user-study scenarios mapped to benchmark labels. | `docs/user_study_protocol.md` and `paper/tables/user_study_scenarios.md` define six synthetic scenario records with allowed data/tools, blocked data/tools, privacy risks, expected safe decisions, and current or future trace mappings. | Supported as study design |
-| PAPF permission prompts are understandable to non-experts. | Only a protocol and prompt examples exist. | Needs user-study evidence |
+| Non-expert comprehension of PAPF permission prompts. | Only a protocol and prompt examples exist. | Needs user-study evidence |
 | PAPF improves privacy-preserving consent decisions, perceived control, trust, or consent fatigue. | No participant data has been collected. | Needs user-study evidence |
 | PAPF can reduce observed over-access and false allows in synthetic traces. | RQ6 trace metrics report zero PAPF false allows and over-access in the current 12-trace suite. | Supported only in current run |
 | PAPF is ready as a full empirical HCI/privacy paper. | Completed non-expert user-study results would be required. | Needs user-study evidence; workshop/design/prototype positioning is the bounded fallback |

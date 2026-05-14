@@ -16,8 +16,8 @@ PAPF permission bundles well enough to answer practical permission questions:
 - When does a proposed action send data outside the user's account or task?
 - How should the user respond when a permission request is too broad?
 
-Any claim that PAPF improves comprehension, reduces consent burden, or helps
-non-experts make safer choices remains future work until a human-subject study
+Any comparative claim about PAPF comprehension, consent burden, or safer
+non-expert choices remains future work until a human-subject study
 is reviewed if required, run with participants, analyzed, and reported with
 limitations.
 
@@ -91,7 +91,7 @@ decision, and answer key fixed.
 
 | Variant | Format | Design dimension tested |
 | --- | --- | --- |
-| Minimal prompt | Short prompt with task goal, summarized access, external sharing when present, redaction state when present, and one confirmation reason. | Low interruption and whether core scope remains understandable with less text. |
+| Minimal prompt | Short prompt with task goal, summarized access, external sharing when present, redaction state when present, and one confirmation reason. | Low interruption and whether participants can still identify the core scope with less text. |
 | Detailed prompt | Full visible list of requested actions, data touched, blocked data/actions, external destination, redactions, and confirmation reason. | Complete information visibility versus reading effort. |
 | Risk-highlighted prompt | Detailed prompt with privacy risks made salient, such as data leaving the account, sensitive fields, or off-task private data. | Whether risk salience changes unsafe-action recognition or confidence. |
 | Prompt with expandable explanation | Short default prompt with additional data, redaction, blocked-action, and rationale details behind expandable sections. | Progressive disclosure and whether users open details when uncertain. |
@@ -746,15 +746,15 @@ Allowed current claim:
 
 Disallowed until data exists:
 
-- PAPF is understandable to non-experts.
-- PAPF improves comprehension compared with no granular permission prompts.
-- PAPF improves comprehension compared with broad app-level authorization.
-- PAPF improves comprehension compared with generic LLM-generated confirmation
+- Current non-expert comprehension of PAPF prompts.
+- Comparative comprehension advantage over no granular permission prompts.
+- Comparative comprehension advantage over broad app-level authorization.
+- Comparative comprehension advantage over generic LLM-generated confirmation
   prompts.
 - PAPF reduces consent fatigue or consent burden.
 - PAPF helps users make safer permission choices.
 - PAPF improves perceived control or trust.
-- PAPF audit summaries are interpretable by non-experts.
+- Current non-expert interpretability of PAPF audit summaries.
 
 These disallowed statements can only become evidence-backed claims after a
 properly reviewed study is run, analyzed, and reported with limitations.
