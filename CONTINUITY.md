@@ -4,8 +4,8 @@
 - Goal: Build a research project on task-scoped permission boundaries for consumer AI agents.
 - Working title: Personal Agent Permission Firewall (PAPF).
 - Benchmark idea: NonExpert-AgentPermBench.
-- Now: Core docs specify the PAPF architecture and HCI/privacy paper plan; `src/papf/` includes deterministic evaluation, run serialization, a file-backed benchmark loader, policy/schema validation, redaction evidence, recovery scoring, baselines, ablations, synthetic tools, reporting, and model-assisted proposal interfaces. Paper artifacts now include a selected HCI/privacy title direction, a bounded title/abstract, a motivating reimbursement scenario, explicit privacy-harm/principle framing, explicit HCI/privacy RQs with evidence mapping, six synthetic user-study scenarios, five PAPF prompt design variants, a planned user-study section with four implementable permission-condition baselines, detailed quantitative/qualitative study measures with collection points, explicit planned H1-H4 prompt/consent hypotheses, final PDF export, artifact checklist, workflow figures, worked examples, failure highlights, and measured ablation/stronger-baseline tables.
-- Next: Continue the HCI/privacy task order with Task 038.
+- Now: Core docs specify the PAPF architecture and HCI/privacy paper plan; `src/papf/` includes deterministic evaluation, run serialization, a file-backed benchmark loader, policy/schema validation, redaction evidence, recovery scoring, baselines, ablations, synthetic tools, reporting, and model-assisted proposal interfaces. Paper artifacts now include a selected HCI/privacy title direction, a bounded title/abstract, a motivating reimbursement scenario, explicit privacy-harm/principle framing, explicit HCI/privacy RQs with evidence mapping, six synthetic user-study scenarios, five PAPF prompt design variants, a planned user-study section with four implementable permission-condition baselines, detailed quantitative/qualitative study measures with collection points, explicit planned H1-H4 prompt/consent hypotheses, a primary privacy-usability evaluation framing, secondary prototype trace evaluation framing, final PDF export, artifact checklist, workflow figures, worked examples, failure highlights, and measured ablation/stronger-baseline tables.
+- Next: Continue the HCI/privacy task order with Task 039.
 - Open questions: Whether the planned non-expert comprehension protocol will be run as an actual user study; clarification versus safe refusal under ambiguity; partial-success scoring.
 
 ## Invariants / Constraints
@@ -99,12 +99,13 @@
 - 2026-05-14 [CODE]: Implemented Task 035 by adding a planned user-study section to `paper/papf_final.md`, defining non-expert personal-agent participants, four baseline/PAPF permission conditions, between-subjects randomization, scenario counterbalancing, decision tasks, usability outcomes, and privacy-decision outcomes; refreshed `paper/papf_final.pdf`.
 - 2026-05-14 [CODE]: Implemented Task 036 by adding planned collection points, quantitative measures, qualitative measures, RQ mappings, standardized-instrument caveats, and a paper-facing user-study measures table; refreshed `paper/papf_final.pdf`.
 - 2026-05-14 [CODE]: Implemented Task 037 by adding planned H1-H4 PAPF prompt/consent hypotheses with dependent variables, baseline comparisons, quantitative/qualitative measure mappings, and explicit no-participant-evidence status to `paper/papf_final.md` and `docs/user_study_protocol.md`; refreshed `paper/papf_final.pdf`.
+- 2026-05-14 [CODE]: Implemented Task 038 by reworking `paper/papf_final.md`, `docs/paper_plan.md`, and `docs/artifact_checklist.md` so the planned non-expert privacy-usability study is the primary evaluation and the 12-trace synthetic run is secondary feasibility evidence for scoped enforcement behavior.
 
 ### Now
-- 2026-05-14 [CODE]: Tasks 027-037 are implemented. The active paper direction is HCI/privacy, with concrete privacy harms, user agency, consent burden, permission UX, explicit RQs and planned hypotheses, synthetic user-study scenarios, PAPF prompt variants, and planned non-expert study measures covering comprehension, decision quality, workload, trust, control, fatigue, preference, and qualitative explanation; prototype traces are secondary feasibility evidence.
+- 2026-05-14 [CODE]: Tasks 027-038 are implemented. The active paper direction is HCI/privacy, with concrete privacy harms, user agency, consent burden, permission UX, explicit RQs and planned hypotheses, synthetic user-study scenarios, PAPF prompt variants, and planned non-expert study measures covering comprehension, decision quality, workload, trust, control, fatigue, preference, and qualitative explanation; prototype traces are explicitly secondary feasibility evidence.
 
 ### Next
-- 2026-05-14 [CODE]: Continue the HCI/privacy revision with Task 038, then proceed through the numbered backlog order.
+- 2026-05-14 [CODE]: Continue the HCI/privacy revision with Task 039, then proceed through the numbered backlog order.
 - 2026-04-30 [CODE]: Use measured ablation/baseline results to guide recovery improvements, external benchmark adapters, and future benchmark expansion.
 - 2026-04-27 [CODE]: Keep the security-critical path deterministic while expanding benchmark loaders, baselines, and experiment reporting.
 
@@ -393,3 +394,5 @@
 - 2026-05-14 [TOOL]: `rg -n "we find|we found|participants (showed|preferred|reported|were)|results show.*prompt|PAPF-style prompts (improved|increased)|users preferred" paper\papf_final.md docs\user_study_protocol.md` -> no matches; no hypotheses-as-findings wording found.
 - 2026-05-14 [TOOL]: `git diff --check -- paper\papf_final.md docs\user_study_protocol.md` -> markdown diff check passed with Git line-ending warnings only.
 - 2026-05-14 [TOOL]: `python -B paper\export_simple_pdf.py paper\papf_final.md paper\papf_final.pdf` -> refreshed PDF after Task 037 hypothesis additions.
+- 2026-05-14 [TOOL]: `git diff --check -- paper\papf_final.md docs\paper_plan.md docs\artifact_checklist.md` -> markdown diff check passed with Git line-ending warnings only after Task 038.
+- 2026-05-14 [TOOL]: `rg` framing checks over Task 038 files -> PASS for primary privacy-usability evaluation, secondary prototype feasibility labeling, and no positive trace-to-human-comprehension claim.

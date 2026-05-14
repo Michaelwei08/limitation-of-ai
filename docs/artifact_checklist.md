@@ -1,13 +1,19 @@
 # Artifact Checklist
 
-This checklist tracks the current reproducible PAPF artifact for the first paper draft.
+This checklist tracks the current reproducible PAPF artifact for secondary prototype validation in the HCI/privacy paper draft.
 
 ## Scope
 
-- Artifact name: Personal Agent Permission Firewall (PAPF) synthetic evaluation slice.
+- Artifact name: Personal Agent Permission Firewall (PAPF) synthetic trace evaluation slice.
 - Benchmark scope: synthetic `email + files + browser` tasks only.
-- Evidence scope: deterministic 12-trace run over PAPF, broad-access, and prompt-only modes.
-- Non-evidence scope: no real user data, no production integrations, no completed non-expert user study, no formal least-privilege proof.
+- Evidence scope: deterministic 12-trace run over PAPF, broad-access, prompt-only, tool-scope, static-policy, and PAPF ablation modes.
+- Non-evidence scope: no real user data, no production integrations, no completed non-expert user study, no human-comprehension evidence, no formal least-privilege proof.
+
+## Evaluation Role
+
+The artifact is secondary feasibility evidence for the paper. It shows whether PAPF can enforce scoped decisions, block unsafe synthetic tool calls, require redaction or confirmation, and produce audit-backed metrics under controlled traces.
+
+The primary HCI/privacy evaluation is the planned non-expert user study. That study, not the synthetic trace run, is responsible for evaluating permission comprehension, privacy-preserving consent decisions, perceived control, trust, workload, and consent fatigue.
 
 ## Required Environment
 
@@ -19,7 +25,7 @@ This checklist tracks the current reproducible PAPF artifact for the first paper
 ## Reproduce Default Experiment
 
 ```powershell
-$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m papf.cli run-experiment --config experiments/configs/default_email_files_browser.json --timestamp 2026-04-29T00:00:00+00:00
+$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m papf.cli run-experiment --config experiments/configs/default_email_files_browser.json --timestamp 2026-04-30T00:00:00+00:00
 ```
 
 Expected output directory:
@@ -69,8 +75,11 @@ The draft also includes hand-authored paper-facing explanatory tables:
 - `paper/tables/failure_case_highlights.md`
 - `paper/tables/ablation_plan.md`
 - `paper/tables/stronger_baseline_plan.md`
+- `paper/tables/user_study_scenarios.md`
+- `paper/tables/prompt_variants.md`
+- `paper/tables/user_study_measures.md`
 
-These tables summarize existing benchmark and generated-result artifacts. They should not be treated as independent experiment outputs.
+These tables summarize existing benchmark, generated-result, and planned-study artifacts. They should not be treated as independent experiment outputs or participant results.
 
 ## Verification Commands
 
@@ -90,12 +99,14 @@ Check citation keys used in paper-facing docs manually before submission. The cu
 
 ## Paper Claim Boundaries
 
-The artifact supports these bounded claims:
+The artifact supports these bounded secondary technical claims:
 
 - PAPF enforces decisions outside the LLM in the current prototype.
+- PAPF can enforce scoped decisions in the current synthetic trace suite.
 - PAPF records zero false allows and zero over-access in the current 12-trace synthetic run.
 - Broad-access and prompt-only baselines record 16 false allows each in the same run.
 - The current run exposes a utility/safety tradeoff: PAPF has lower task-success proxy and nonzero consent burden.
+- Ablations and stronger baselines provide supporting evidence about redaction evidence, confirmation gates, safer-alternative recovery, auditability, coarse tool-scope enforcement, and static policy enforcement.
 - Tables and result figures are derived from serialized run artifacts.
 
 The artifact does not support these claims:
@@ -105,15 +116,13 @@ The artifact does not support these claims:
 - PAPF improves task success.
 - PAPF generalizes to all consumer-agent domains.
 - PAPF prompts are empirically understandable to non-experts.
+- PAPF improves privacy-preserving consent decisions, perceived control, trust, workload, or consent fatigue.
+- Synthetic traces prove human comprehension or user-facing effectiveness.
 - PAPF is novel relative to every agent-authorization system.
 
 ## Submission Readiness Gaps
 
-- Add ablations for compiler narrowing, redaction evidence, confirmation gating, and audit scoring.
-- Add stronger external-enforcement baselines where feasible.
-- First stronger-baseline implementation target: coarse tool-scope delegated authorization.
-- Second stronger-baseline implementation target: static policy-DSL enforcement over the same benchmark records.
-- Expand beyond the first `email + files + browser` slice.
-- Include a worked capability-compilation example in the paper.
-- Run the non-expert comprehension protocol before making usability claims.
+- Treat the current trace metrics, ablations, and stronger baselines as supporting feasibility evidence, not the primary HCI/privacy evaluation.
+- Expand beyond the first `email + files + browser` slice before making broad consumer-agent generalization claims.
+- Run the non-expert privacy-usability study before making comprehension, consent-decision, perceived-control, trust, workload, or fatigue claims.
 - Build a bibliography and verify all paper citation keys at submission time.

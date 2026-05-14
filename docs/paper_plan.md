@@ -11,7 +11,7 @@ This document tracks the active plan for revising PAPF into an HCI/privacy paper
   - an externally enforced task-to-capability control plane,
   - PAPF-style permission prompts and consent states,
   - a non-expert user-study protocol,
-  - a prototype trace evaluation showing technical feasibility.
+  - a secondary prototype trace evaluation showing technical feasibility.
 - Scope discipline:
   - user comprehension, consent decisions, perceived control, trust, and fatigue are the central empirical questions,
   - the deterministic 12-trace synthetic evaluation is secondary feasibility evidence,
@@ -36,7 +36,7 @@ These are planning claims, not final accepted novelty claims.
 1. A human-centered problem framing for personal AI-agent privacy as task-scoped consent rather than broad app authorization or prompt-only refusal.
 2. The PAPF architecture, which separates model-assisted task interpretation from deterministic capability issuance, runtime enforcement, redaction evidence, confirmation gates, and audit logging.
 3. A permission-prompt design space for personal AI agents, including concise, detailed, risk-highlighted, expandable, and audit-preview prompts.
-4. A non-expert user-study protocol for measuring prompt comprehension, allow/deny decision quality, perceived control, trust, workload, and consent fatigue.
+4. A primary non-expert privacy-usability evaluation protocol for measuring prompt comprehension, allow/deny decision quality, perceived control, trust, workload, and consent fatigue.
 5. A secondary prototype trace evaluation that validates technical feasibility of scoped enforcement over synthetic email, file, browser, and communication tasks.
 
 ## Planned paper structure
@@ -89,23 +89,23 @@ These are planning claims, not final accepted novelty claims.
 - Required evidence: benchmark cases, tool adapters, policy engine, enforcement mediator, audit logs, run artifacts.
 - Notes: implementation supports feasibility, not deployment readiness.
 
-### 9. User Study
+### 9. Primary Privacy-Usability Evaluation: User Study
 
-- Goal: evaluate whether PAPF-style prompts help non-expert users make safer privacy decisions.
+- Goal: make the user study the core HCI/privacy evaluation of whether people understand and act on task-scoped permission boundaries.
 - Required evidence: participants, conditions, scenarios, measures, hypotheses, procedure, and analysis plan.
-- Notes: if the study remains planned, label it as planned and do not include results.
+- Notes: if the study remains planned, label it as planned and do not include results; still place it before prototype trace evaluation to preserve the privacy-usability framing.
 
-### 10. Prototype Trace Evaluation
+### 10. Secondary Prototype Feasibility Evaluation
 
 - Goal: show that the proposed authority boundaries can be executed and scored.
 - Required evidence: 12 traces, baselines, ablations, metrics, provenance.
-- Notes: place after the user-study design in the HCI/privacy version.
+- Notes: label this section secondary or feasibility-focused; it shows enforcement behavior, not human comprehension.
 
 ### 11. Results
 
-- Goal: report user-study findings if available and technical trace findings separately.
+- Goal: report user-study findings if available, then report technical trace findings separately as feasibility evidence.
 - Required evidence: empirical participant data for usability claims; serialized run artifacts for technical claims.
-- Notes: do not mix automated trace metrics with human comprehension outcomes.
+- Notes: if no participant data exists, say that RQ1-RQ5 remain unanswered; do not mix automated trace metrics with human comprehension, consent quality, perceived control, trust, or fatigue outcomes.
 
 ### 12. Discussion
 
@@ -145,6 +145,14 @@ These are planning claims, not final accepted novelty claims.
 RQ1-RQ5 are the central HCI/privacy questions and require user-study evidence.
 RQ6 is the technical feasibility question addressed by prototype traces. Trace
 logs may motivate RQ5 by counting prompts, but they cannot establish fatigue.
+
+## Evaluation framing rule
+
+The paper's evaluation should be ordered and worded as follows:
+
+1. Primary privacy-usability evaluation: planned or completed user study for comprehension, consent decisions, perceived control, trust, workload, and consent fatigue.
+2. Secondary prototype feasibility evaluation: 12-trace synthetic artifact for enforcement behavior, false allows, over-access, redaction, confirmation gates, recovery, auditability, baselines, and ablations.
+3. Results boundary: trace metrics can show that PAPF can enforce scoped decisions in the prototype; only participant data can show whether people understand and act on those decisions.
 
 ## Required evidence by major claim
 
