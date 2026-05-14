@@ -5,7 +5,7 @@
 - Working title: Personal Agent Permission Firewall (PAPF).
 - Benchmark idea: NonExpert-AgentPermBench.
 - Now: Core docs specify the PAPF architecture and HCI/privacy paper plan; `src/papf/` includes deterministic evaluation, run serialization, a file-backed benchmark loader, policy/schema validation, redaction evidence, recovery scoring, baselines, ablations, synthetic tools, reporting, and model-assisted proposal interfaces. Paper artifacts now include a selected HCI/privacy title direction, a bounded title/abstract, a motivating reimbursement scenario, explicit privacy-harm/principle framing, explicit HCI/privacy RQs with evidence mapping, six synthetic user-study scenarios, five PAPF prompt design variants, a planned user-study section with four implementable permission-condition baselines, detailed quantitative/qualitative study measures with collection points, explicit planned H1-H4 prompt/consent hypotheses, consent-fatigue/interruption-cost tradeoff discussion, HCI/privacy-first related-work coverage, explicit HCI/privacy validity limitations, a primary privacy-usability evaluation framing, secondary prototype trace evaluation framing, final PDF export, artifact checklist, workflow figures, worked examples, failure highlights, and measured ablation/stronger-baseline tables.
-- Next: Continue the HCI/privacy task order with Task 042.
+- Next: Continue the HCI/privacy task order with Task 043.
 - Open questions: Whether the planned non-expert comprehension protocol will be run as an actual user study; clarification versus safe refusal under ambiguity; partial-success scoring.
 
 ## Invariants / Constraints
@@ -103,12 +103,13 @@
 - 2026-05-14 [CODE]: Implemented Task 039 by adding consent-fatigue and interruption-cost discussion to `paper/papf_final.md`, `docs/user_study_protocol.md`, and `docs/permission_prompt_examples.md`; strategies are framed as unevaluated design hypotheses linked to decision time, workload, interruption, fatigue ratings, prompt counts, and auditability measures; refreshed `paper/papf_final.pdf`.
 - 2026-05-14 [CODE]: Implemented Task 040 by reordering Related Work around privacy permissions, mobile/web permission UX, privacy notices, consent fatigue, and human-centered security; retained systems/security and agent-risk work as supporting enforcement/threat-model literature; added verified HCI/privacy bibliography entries; refreshed `paper/papf_final.pdf`.
 - 2026-05-14 [CODE]: Implemented Task 041 by adding HCI/privacy validity limitations to `paper/papf_final.md` and `docs/user_study_protocol.md`, including participant demographics, task realism, prompt wording, privacy attitudes, prior AI-agent experience, long-term consent fatigue, scenario-bounded comprehension, deployment-readiness caveats, and planned-protocol versus completed-trace-result separation; refreshed `paper/papf_final.pdf`.
+- 2026-05-14 [CODE]: Implemented Task 042 by rewriting the conclusion of `paper/papf_final.md` to end on enforceable, task-scoped, user-understandable personal-agent permissions; PAPF is framed as an artifact-backed prototype, the user study as planned privacy-decision evaluation, and trace results as secondary feasibility evidence; refreshed `paper/papf_final.pdf`.
 
 ### Now
-- 2026-05-14 [CODE]: Tasks 027-041 are implemented. The active paper direction is HCI/privacy, with concrete privacy harms, user agency, consent burden, permission UX, explicit RQs and planned hypotheses, synthetic user-study scenarios, PAPF prompt variants, consent-fatigue/interruption-cost strategies, HCI/privacy-first related work, explicit HCI/privacy validity limitations, and planned non-expert study measures covering comprehension, decision quality, workload, trust, control, fatigue, preference, auditability, and qualitative explanation; prototype traces are explicitly secondary feasibility evidence.
+- 2026-05-14 [CODE]: Tasks 027-042 are implemented. The active paper direction is HCI/privacy, with concrete privacy harms, user agency, consent burden, permission UX, explicit RQs and planned hypotheses, synthetic user-study scenarios, PAPF prompt variants, consent-fatigue/interruption-cost strategies, HCI/privacy-first related work, explicit HCI/privacy validity limitations, an HCI/privacy-centered conclusion, and planned non-expert study measures covering comprehension, decision quality, workload, trust, control, fatigue, preference, auditability, and qualitative explanation; prototype traces are explicitly secondary feasibility evidence.
 
 ### Next
-- 2026-05-14 [CODE]: Continue the HCI/privacy revision with Task 042, then proceed through the numbered backlog order.
+- 2026-05-14 [CODE]: Continue the HCI/privacy revision with Task 043, then proceed through the numbered backlog order.
 - 2026-04-30 [CODE]: Use measured ablation/baseline results to guide recovery improvements, external benchmark adapters, and future benchmark expansion.
 - 2026-04-27 [CODE]: Keep the security-critical path deterministic while expanding benchmark loaders, baselines, and experiment reporting.
 
@@ -411,3 +412,6 @@
 - 2026-05-14 [TOOL]: Task 041 required-term `rg` checks over `paper\papf_final.md` and `docs\user_study_protocol.md` -> PASS for demographics, privacy attitudes, prior AI-agent experience, task realism, prompt wording, long-term consent fatigue, deployment readiness, tested scenarios, and planned/completed evidence separation.
 - 2026-05-14 [TOOL]: `git diff --check -- paper\papf_final.md docs\user_study_protocol.md` -> markdown diff check passed with Git line-ending warnings only.
 - 2026-05-14 [TOOL]: `python -B paper\export_simple_pdf.py paper\papf_final.md paper\papf_final.pdf` -> refreshed PDF after Task 041 limitations edits.
+- 2026-05-14 [TOOL]: Task 042 conclusion `rg`/section checks over `paper\papf_final.md` -> PASS for enforceable/task-scoped/understandable permissions, artifact-backed prototype framing, planned user-study privacy-decision evaluation, secondary trace evidence, and final user-facing privacy/consent emphasis.
+- 2026-05-14 [TOOL]: `git diff --check -- paper\papf_final.md` -> markdown diff check passed with Git line-ending warning only.
+- 2026-05-14 [TOOL]: `python -B paper\export_simple_pdf.py paper\papf_final.md paper\papf_final.pdf` -> refreshed PDF after Task 042 conclusion edits.
