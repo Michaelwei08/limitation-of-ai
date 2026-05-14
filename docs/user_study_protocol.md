@@ -21,6 +21,25 @@ non-experts make safer choices remains future work until a human-subject study
 is reviewed if required, run with participants, analyzed, and reported with
 limitations.
 
+## Research Questions and Evidence Mapping
+
+The study is designed to answer the HCI/privacy questions in the paper. All
+human-outcome questions remain unanswered until participant data exists.
+
+| RQ | Question | Evidence required | Planned measure |
+| --- | --- | --- | --- |
+| RQ1 | Do ordinary users understand PAPF-style permission prompts for task-scoped personal-agent authority? | User-study evidence. | Closed-form comprehension score across allowed data, blocked data, confirmation gates, redaction, disclosure, and audit summaries. |
+| RQ2 | Can users distinguish safe from unsafe agent actions using PAPF prompts? | User-study evidence. | Allow/deny decision accuracy, false allows, false denies, exfiltration recognition, and untrusted-instruction recognition. |
+| RQ3 | Does PAPF improve privacy-preserving consent decisions relative to raw tool permissions or generic warnings? | User-study evidence comparing prompt conditions. | Condition differences in decision quality, false-allow rate, false-deny rate, safer-narrowing choices, and confidence calibration. |
+| RQ4 | Does PAPF change perceived control and trust in personal-agent actions? | User-study evidence. | Perceived control, trust, confidence, and optional free-response explanations after prompt decisions. |
+| RQ5 | Does PAPF increase consent fatigue or excessive friction? | User-study evidence, with prototype prompt counts as supporting artifact context only. | Self-reported burden, workload, time-on-item, perceived interruption, confidence, and prompt/confirmation counts. |
+| RQ6 | Can externally enforced task-scoped capabilities mediate synthetic personal-agent traces while reducing over-access and false allows? | Prototype trace evidence, not participant evidence. | Task-success proxy, necessary-access rate, over-access rate, false allows, false denies, consent prompts, recovery quality, and auditability completeness. |
+
+RQ6 is included here only to keep the study protocol aligned with the paper's
+evidence plan. It is addressed by the prototype trace evaluation, not by this
+participant protocol. Conversely, RQ1-RQ5 cannot be answered from prototype logs
+alone.
+
 ## Study Conditions
 
 The planned study compares three permission-prompt presentations over the same
@@ -178,7 +197,9 @@ All measures below are planned measures. They are not current results.
 | Recovery quality | Participant selects a safer narrowed permission after a broad request is denied or flagged. |
 | Confirmation-gate recognition | Participant identifies actions that require explicit confirmation, such as sending, uploading, paying, or changing settings. |
 | Auditability comprehension | Participant interprets what a short audit summary says was accessed, blocked, redacted, and why. |
-| Consent burden | Planned self-report and interaction measures such as perceived effort, confidence, prompt count, and time-on-item, if collected. |
+| Perceived control | Planned self-report items about whether the participant felt able to predict, limit, and review the agent's access. |
+| Trust and confidence | Planned self-report items about trust in the agent's proposed action and confidence in the participant's own allow/deny decision. |
+| Consent burden and fatigue | Planned self-report and interaction measures such as perceived effort, workload, interruption, prompt count, confirmation count, and time-on-item, if collected. |
 
 Any thresholds, weighting, exclusion rules, or statistical tests must be
 specified before the study is run. No thresholds or statistical conclusions are
@@ -264,6 +285,7 @@ Disallowed until data exists:
 - PAPF improves comprehension compared with generic warnings.
 - PAPF reduces consent fatigue or consent burden.
 - PAPF helps users make safer permission choices.
+- PAPF improves perceived control or trust.
 - PAPF audit summaries are interpretable by non-experts.
 
 These disallowed statements can only become evidence-backed claims after a

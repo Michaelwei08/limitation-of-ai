@@ -8,7 +8,7 @@ We present Personal Agent Permission Firewall (PAPF), a task-scoped consent fram
 
 We evaluate PAPF in two complementary ways. First, we implement a deterministic prototype and run trace evaluation on a 12-trace synthetic email-files-browser suite. In this suite, PAPF records zero false allows and zero over-access, while broad-access and prompt-only baselines each record 16 false allows and an over-access rate of 0.2639. These trace results support technical feasibility of externally enforced task scope, but they do not establish deployment readiness or user comprehension.
 
-Second, because trace metrics cannot show whether people understand permission boundaries, we design a non-expert user study to evaluate permission comprehension, allow/deny decision quality, perceived control, workload, and consent burden. We do not report user-study results because the study has not yet been run. The paper's bounded contribution is a human-centered privacy framing for agent permissions, an externally enforced architecture for task-scoped authority, a prompt and consent-state design space, and a planned privacy-usability evaluation that is kept separate from the prototype trace evidence.
+Second, because trace metrics cannot show whether people understand permission boundaries, we design a non-expert user study to evaluate permission comprehension, safe/unsafe-action discrimination, privacy-preserving consent decisions, perceived control, trust, workload, and consent fatigue. We do not report user-study results because the study has not yet been run. The paper's bounded contribution is a human-centered privacy framing for agent permissions, an externally enforced architecture for task-scoped authority, a prompt and consent-state design space, and a planned privacy-usability evaluation that is kept separate from the prototype trace evidence.
 
 ## 1. Introduction
 
@@ -44,7 +44,22 @@ PAPF turns privacy principles into enforceable mechanisms and measurable outcome
 
 The current prototype does not prove formal least privilege, does not integrate with real accounts, does not use real personal data, and does not claim that permission prompts are understandable to non-experts. Non-expert comprehension remains a design target represented by `docs/user_study_protocol.md` and `docs/permission_prompt_examples.md`, not an empirical result.
 
-## 3. PAPF Design
+## 3. Research Questions and Evidence Plan
+
+This paper is organized around HCI/privacy research questions first and prototype feasibility second. RQ1-RQ5 require participant data because automated traces cannot measure whether ordinary users understand permission prompts, make safer consent decisions, feel in control, trust the system appropriately, or experience fatigue. RQ6 is addressed by the current deterministic prototype traces, but only within the local synthetic email-files-browser suite.
+
+| RQ | Question | Evidence source | Planned or implemented measures | Current status |
+|---|---|---|---|---|
+| RQ1 | Do ordinary users understand PAPF-style permission prompts for task-scoped personal-agent authority? | Planned non-expert user study. | Comprehension score, allowed-data recognition, blocked-data recognition, confirmation-gate recognition, redaction understanding, audit-summary comprehension. | Not answered until study data exists. |
+| RQ2 | Can users distinguish safe from unsafe agent actions when a prompt shows task scope, external disclosure, redaction, and confirmation state? | Planned non-expert user study. | Allow/deny decision accuracy, false allows, false denies, exfiltration recognition, untrusted-instruction recognition. | Not answered until study data exists. |
+| RQ3 | Does PAPF improve privacy-preserving consent decisions relative to raw tool permissions or generic warnings? | Planned comparison across prompt conditions. | Condition differences in decision accuracy, false-allow rate, false-deny rate, recovery choices after broad or denied requests, and confidence calibration. | Not answered until study data exists. |
+| RQ4 | Does PAPF change perceived control and trust in personal-agent actions? | Planned survey and optional interview/free-response measures. | Perceived control, trust, confidence, and trust-calibration items tied to the shown permission boundary. | Not answered until study data exists. |
+| RQ5 | Does PAPF increase consent fatigue or excessive friction? | Planned user study plus prototype trace prompt counts. | Self-reported burden, workload, time-on-item, perceived interruption, prompt count, confirmation count, and task-completion effects. | Human fatigue is not answered; trace prompt counts are implemented. |
+| RQ6 | Can externally enforced task-scoped capabilities mediate personal-agent traces while reducing over-access and false allows? | Implemented deterministic prototype trace evaluation. | Task-success proxy, necessary-access rate, over-access rate, false allows, false denies, consent prompts, recovery quality, auditability completeness, and ablation/baseline comparisons. | Supported only for the current 12-trace synthetic suite. |
+
+The research questions also define the paper's claim boundary. The prototype can support claims about external enforcement, trace-level over-access, false allows, false denies, prompt counts, recovery scoring, and auditability in synthetic runs. It cannot support claims about ordinary users' understanding, consent quality, perceived control, trust, or fatigue. Those remain planned HCI/privacy outcomes.
+
+## 4. PAPF Design
 
 PAPF is a permission control plane that turns a user task into scoped authority and then mediates every tool call against that authority. The pipeline is: user task, intent proposal, schema validation, capability compilation, policy enforcement, consent or redaction when needed, synthetic tool execution, audit logging, and evaluation.
 
@@ -58,7 +73,7 @@ Runtime mediation is the security-critical step. Every attempted tool request is
 
 PAPF treats redaction and confirmation as verifiable runtime states. A redaction-required decision must include a `RedactionArtifact` linking the source references, output reference, removed field labels, policy decision, and rationale. A confirmation-required action emits auditable prompt and resolution events before a risky action proceeds. This lets the evaluator check whether sensitive reads were actually redacted and whether high-risk actions were gated.
 
-## 4. Benchmark and Dataset Status
+## 5. Benchmark and Dataset Status
 
 The current PAPF dataset is not a well-known public benchmark. It is a local synthetic seed suite under `benchmarks/papf_seed_cases/`, built to exercise PAPF-specific labels: necessary data, unnecessary data, dangerous data, allowed tool calls, forbidden tool calls, prompt-injection attempts, redaction requirements, consent gates, and expected policy outcomes. The paper should therefore call it a synthetic evaluation slice or artifact-backed prototype benchmark, not a community-adopted dataset.
 
@@ -66,7 +81,7 @@ This local suite is still useful because existing peer-reviewed agent benchmarks
 
 The right evaluation strategy is not to replace PAPF's seed suite immediately. Instead, the current paper should use the PAPF suite for capability-level enforcement metrics, then define external validation adapters for the peer-reviewed benchmarks. AgentDojo and InjecAgent can test prompt-injection and exfiltration robustness, ToolEmu can stress high-stakes tool risks, WebArena can measure task-success overhead in realistic web workflows, and AgentDAM can test privacy leakage and data minimization against a recognized privacy benchmark. The positioning table is in `paper/tables/external_benchmark_positioning.md`.
 
-## 5. Experimental Setup
+## 6. Experimental Setup
 
 The default experiment runs PAPF, broad-access, prompt-only, tool-scope, static-policy, and five PAPF ablation modes across all 12 traces in the synthetic seed suite. The deterministic run timestamp is `2026-04-30T00:00:00+00:00`. Serialized artifacts include metadata, metrics JSONL and CSV, decisions JSONL, audit summaries JSONL, generated paper tables, and generated SVG figures under `experiments/runs/default_email_files_browser/` and `paper/`.
 
@@ -84,7 +99,7 @@ $env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -c "from papf
 
 The automated artifact addresses two earlier evidence gaps. It includes measured ablations for scope narrowing, redaction evidence, confirmation gating, safer-alternative recovery, and audit-completeness validation. It also includes stronger external-enforcement baselines for coarse tool-scope enforcement and exact static-policy enforcement. The remaining non-automated gap is non-expert comprehension, which should remain protocol-only until a participant study is run.
 
-## 6. Results
+## 7. Results
 
 Table 1 summarizes the current generated metrics. PAPF records zero over-access, zero false allows, zero false denies, and zero unredacted disclosures in the 12-trace suite. Broad-access and prompt-only baselines each record an over-access rate of 0.2639 and 16 false allows. The tool-scope baseline improves over ambient access on false allows but still records seven false allows and the highest over-access rate, 0.2917. The static-policy baseline records zero false allows and zero over-access, but it has three false denies because it lacks PAPF-style scope narrowing.
 
@@ -106,7 +121,7 @@ The ablations isolate visible component effects. Disabling redaction evidence cr
 
 The stronger baselines sharpen the claim. Coarse tool-scope enforcement blocks actions outside granted tool/action scopes, but still allows off-task data inside granted scopes. Exact static policy blocks observed unsafe actions, but it over-denies when a safe narrowing would preserve useful access. These results suggest that external enforcement is not a single design point: coarse scopes under-protect, while exact static rules can over-deny without narrowing and recovery.
 
-## 7. Discussion and Limitations
+## 8. Discussion and Limitations
 
 The largest current limitation is that strict mediation reduces the task-success proxy. This may be correct safe-failure behavior for attack and temptation cases, but it also shows that the compiler, policies, and recovery planner need stronger handling of legitimate safe alternatives. Future runs should break down failures by policy bug, benchmark label, missing capability, and intentional safe refusal.
 
@@ -116,7 +131,7 @@ The benchmark covers only a narrow email-files-browser slice. It is attack-rich,
 
 PAPF is motivated by user-facing permission boundaries, but comprehension is not validated by automated metrics. The paper can say that PAPF includes a planned protocol and prompt examples for later non-expert evaluation, but it should not report comprehension, consent-fatigue, or safer-user-choice effects until a participant study is reviewed, run, and analyzed.
 
-## 8. Related Work
+## 9. Related Work
 
 Prompt-injection and agent-safety benchmarks establish that untrusted content and tool use create safety failures beyond ordinary chat alignment (`greshake2023not`, `yi2023benchmarking`, `zhan2024injecagent`, `debenedetti2024agentdojo`, `ruan2024toolemu`, `zhou2024webarena`, `kumar2025aligned`, `zhang2025browsesafe`). PAPF builds on that threat model but moves the main intervention to authority issuance and runtime mediation.
 
@@ -126,13 +141,13 @@ Capability security, least privilege, confused-deputy analysis, OAuth, RAR, GNAP
 
 Permission-UX and consent-fatigue work shows why user-facing approval prompts must be contextual and not excessive (`felt2012androidpermissions`, `felt2012askpermission`, `wijesekera2015androidpermissions`, `akhawe2013alice`, `vance2019fog`, `cao2021androidpermissions`, `wu2026automatingpermissions`). Provenance and access-control audit work motivates recording why access was allowed or denied (`groth2013provoverview`, `capobianco2017accessprov`, `souza2025workflowprovenance`, `gupta2025verifiability`). PAPF connects these threads by making task intent, compiled capabilities, enforcement decisions, redaction artifacts, and outcomes part of one trace.
 
-## 9. Conclusion
+## 10. Conclusion
 
 PAPF addresses consumer-agent overreach by moving permission enforcement out of the LLM and into a task-scoped control plane. The current prototype compiles validated tasks into capabilities, mediates every synthetic tool call, records redaction and consent evidence, and scores runs against utility and privacy/security metrics.
 
 In the current 12-trace synthetic slice, PAPF eliminates observed false allows and over-access relative to broad-access and prompt-only baselines, but it also produces lower task-success proxy scores and additional consent prompts. This is a useful first result because it exposes the tradeoff that permission-boundary research must measure rather than hiding it behind final-task success alone.
 
-The next paper-development step is to make the HCI/privacy evaluation concrete: specify PAPF prompt variants, run the non-expert comprehension study, and report user decision quality, perceived control, trust, workload, and consent fatigue separately from the prototype trace results. Technical follow-up work should continue to strengthen recovery behavior, add harder benchmark slices, and compare against faithful implementations or closer approximations of agent-specific authorization and information-flow-control systems.
+The next paper-development step is to make the HCI/privacy evaluation concrete: specify PAPF prompt variants, run the non-expert comprehension study, and report ordinary-user understanding, safe/unsafe-action discrimination, privacy-preserving consent decisions, perceived control, trust, workload, and consent fatigue separately from the prototype trace results. Technical follow-up work should continue to strengthen recovery behavior, add harder benchmark slices, and compare against faithful implementations or closer approximations of agent-specific authorization and information-flow-control systems.
 
 ## Source Notes
 
@@ -151,3 +166,5 @@ The next paper-development step is to make the HCI/privacy evaluation concrete: 
 | The PAPF seed suite is well known. | It is local synthetic data under `benchmarks/papf_seed_cases/`; no public adoption evidence exists. | Unsupported and explicitly rejected |
 | PAPF improves task success. | Generated metrics show lower PAPF task-success proxy than several baselines. | Unsupported and explicitly rejected |
 | PAPF permission prompts are understandable to non-experts. | Only a protocol and prompt examples exist. | Needs user-study evidence |
+| PAPF improves privacy-preserving consent decisions, perceived control, trust, or consent fatigue. | No participant data has been collected. | Needs user-study evidence |
+| PAPF can reduce observed over-access and false allows in synthetic traces. | RQ6 trace metrics report zero PAPF false allows and over-access in the current 12-trace suite. | Supported only in current run |

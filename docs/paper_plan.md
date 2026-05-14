@@ -59,79 +59,92 @@ These are planning claims, not final accepted novelty claims.
 - Required evidence: over-collection, secondary use, cross-context leakage, unauthorized disclosure, prompt-injection-mediated exfiltration, data minimization, purpose limitation, contextual integrity, user consent, transparency, and accountability.
 - Notes: avoid generic AI ethics framing by tying each harm to a measurable user or trace outcome.
 
-### 4. PAPF Design Goals
+### 4. Research Questions and Evidence Plan
+
+- Goal: make the HCI/privacy questions explicit before design and evaluation details.
+- Required evidence: an RQ table mapping each question to user-study evidence, prototype trace evidence, or both.
+- Notes: RQ1-RQ5 require participant data; RQ6 is the prototype feasibility question addressed by synthetic traces.
+
+### 5. PAPF Design Goals
 
 - Goal: state the user-facing and enforcement goals PAPF is designed to support.
 - Required evidence: design goals mapped to mechanisms and prompt fields.
 - Notes: "designed to support comprehension" is acceptable; "users understand" requires study data.
 
-### 5. PAPF Architecture
+### 6. PAPF Architecture
 
 - Goal: explain the externally enforced control plane.
 - Required evidence: modules, capability example, redaction artifact, confirmation event, audit trace.
 - Notes: preserve the invariant that the LLM cannot mint or enforce final permissions.
 
-### 6. Permission Prompt Design
+### 7. Permission Prompt Design
 
 - Goal: define the prompt variants and what information each exposes.
 - Required evidence: prompt examples, design dimensions, and scenario mappings.
 - Notes: this section prepares the user study; do not claim preference or comprehension yet.
 
-### 7. Prototype Implementation
+### 8. Prototype Implementation
 
 - Goal: describe the deterministic artifact backing the design.
 - Required evidence: benchmark cases, tool adapters, policy engine, enforcement mediator, audit logs, run artifacts.
 - Notes: implementation supports feasibility, not deployment readiness.
 
-### 8. User Study
+### 9. User Study
 
 - Goal: evaluate whether PAPF-style prompts help non-expert users make safer privacy decisions.
 - Required evidence: participants, conditions, scenarios, measures, hypotheses, procedure, and analysis plan.
 - Notes: if the study remains planned, label it as planned and do not include results.
 
-### 9. Prototype Trace Evaluation
+### 10. Prototype Trace Evaluation
 
 - Goal: show that the proposed authority boundaries can be executed and scored.
 - Required evidence: 12 traces, baselines, ablations, metrics, provenance.
 - Notes: place after the user-study design in the HCI/privacy version.
 
-### 10. Results
+### 11. Results
 
 - Goal: report user-study findings if available and technical trace findings separately.
 - Required evidence: empirical participant data for usability claims; serialized run artifacts for technical claims.
 - Notes: do not mix automated trace metrics with human comprehension outcomes.
 
-### 11. Discussion
+### 12. Discussion
 
 - Goal: interpret privacy-usability tradeoffs.
 - Required evidence: decision quality, false allows, false denials, time, workload, fatigue, and trace-level consent prompts.
 - Notes: discuss batching, progressive disclosure, risk-based prompting, remembered preferences, and audit logs as design strategies.
 
-### 12. Limitations
+### 13. Limitations
 
 - Goal: bound HCI/privacy and prototype claims.
 - Required evidence: participant demographics, task realism, prompt wording, privacy attitudes, lab-study limitations, synthetic data, and prototype scope.
 - Notes: state that user comprehension is measured only within tested scenarios.
 
-### 13. Related Work
+### 14. Related Work
 
 - Goal: make HCI/privacy literature central and systems/security work supporting.
 - Required evidence: privacy permissions, mobile/web permission UX, consent fatigue, privacy notices, human-centered security, agent authorization, prompt injection, and tool-use risks.
 - Notes: keep source verification strict.
 
-### 14. Conclusion
+### 15. Conclusion
 
 - Goal: close on enforceable, task-scoped, understandable permission systems for personal AI agents.
 - Required evidence: only claims supported by prototype traces or user-study data.
 - Notes: avoid ending primarily with benchmark claims.
 
-## Planned user-study questions
+## Research questions and evidence mapping
 
-1. Do ordinary users understand PAPF-style permission prompts?
-2. Can users distinguish safe from unsafe agent actions using PAPF prompts?
-3. Does PAPF improve users' ability to make privacy-preserving consent decisions?
-4. Does PAPF increase perceived control and trust?
-5. Does PAPF introduce consent fatigue or excessive friction?
+| RQ | Question | Evidence source | Measure mapping | Current status |
+| --- | --- | --- | --- | --- |
+| RQ1 | Do ordinary users understand PAPF-style permission prompts for task-scoped personal-agent authority? | Planned non-expert user study. | Comprehension score, allowed-data recognition, blocked-data recognition, confirmation-gate recognition, redaction understanding, audit-summary comprehension. | Planned; no participant result yet. |
+| RQ2 | Can users distinguish safe from unsafe agent actions when PAPF prompts expose task scope, disclosure, redaction, and confirmation state? | Planned non-expert user study. | Allow/deny decision accuracy, false allows, false denies, exfiltration recognition, untrusted-instruction recognition. | Planned; no participant result yet. |
+| RQ3 | Does PAPF improve privacy-preserving consent decisions relative to raw tool permissions or generic warnings? | Planned comparison across prompt conditions. | Condition differences in decision quality, false-allow rate, false-deny rate, recovery choices after broad or denied requests, confidence calibration. | Planned; no participant result yet. |
+| RQ4 | Does PAPF change perceived control and trust in personal-agent actions? | Planned survey and optional interview/free-response measures. | Perceived control, trust, confidence, trust calibration, and explanation themes. | Planned; no participant result yet. |
+| RQ5 | Does PAPF increase consent fatigue or excessive friction? | Planned user study plus prototype prompt counts as supporting context. | Self-reported burden, workload, time-on-item, perceived interruption, prompt count, confirmation count, and task-completion effects. | Human fatigue planned; trace prompt counts already available. |
+| RQ6 | Can externally enforced task-scoped capabilities mediate personal-agent traces while reducing over-access and false allows? | Implemented deterministic prototype trace evaluation. | Task-success proxy, necessary-access rate, over-access rate, false allows, false denies, consent prompts, recovery quality, auditability completeness, and ablation/baseline comparisons. | Supported only within the current 12-trace synthetic suite. |
+
+RQ1-RQ5 are the central HCI/privacy questions and require user-study evidence.
+RQ6 is the technical feasibility question addressed by prototype traces. Trace
+logs may motivate RQ5 by counting prompts, but they cannot establish fatigue.
 
 ## Required evidence by major claim
 
@@ -139,7 +152,9 @@ These are planning claims, not final accepted novelty claims.
 | --- | --- | --- |
 | Broad personal-agent authorization creates privacy decision problems | Literature plus motivating examples | Partially supported by current literature map |
 | PAPF can enforce task-scoped authority outside the LLM | Prototype modules, tests, and trace artifacts | Supported by current artifact |
+| PAPF prompts are understood by ordinary users | User-study comprehension and audit-summary interpretation scores | Unsupported until study is run |
 | PAPF prompts improve unsafe-action detection | User-study decision accuracy and false-allow rates | Unsupported until study is run |
+| PAPF improves privacy-preserving consent decisions | User-study comparison against raw tool permissions and generic warnings | Unsupported until study is run |
 | PAPF improves perceived control or trust | Survey and interview data | Unsupported until study is run |
 | PAPF increases decision time or workload | Timing and workload/fatigue measures | Unsupported until study is run |
 | PAPF reduces over-access in synthetic traces | Generated metrics and provenance | Supported within current 12-trace suite |
