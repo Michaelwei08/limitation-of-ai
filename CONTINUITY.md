@@ -4,8 +4,8 @@
 - Goal: Build a research project on task-scoped permission boundaries for consumer AI agents.
 - Working title: Personal Agent Permission Firewall (PAPF).
 - Benchmark idea: NonExpert-AgentPermBench.
-- Now: Core docs specify the PAPF architecture and HCI/privacy paper plan; `src/papf/` includes deterministic evaluation, run serialization, a file-backed benchmark loader, policy/schema validation, redaction evidence, recovery scoring, baselines, ablations, synthetic tools, reporting, and model-assisted proposal interfaces. Paper artifacts now include a selected HCI/privacy title direction, a bounded title/abstract, a motivating reimbursement scenario, explicit privacy-harm/principle framing, explicit HCI/privacy RQs with evidence mapping, six synthetic user-study scenarios, five PAPF prompt design variants, a planned user-study section with four implementable permission-condition baselines, detailed quantitative/qualitative study measures with collection points, explicit planned H1-H4 prompt/consent hypotheses, consent-fatigue/interruption-cost tradeoff discussion, HCI/privacy-first related-work coverage, explicit HCI/privacy validity limitations, a primary privacy-usability evaluation framing, secondary prototype trace evaluation framing, explicit HCI/privacy venue positioning with bounded workshop fallback, tightened evidence-bounded user-comprehension claims, final PDF export, artifact checklist, workflow figures, worked examples, failure highlights, and measured ablation/stronger-baseline tables.
-- Next: Continue the HCI/privacy task order with Task 045.
+- Now: Task 045 final HCI/privacy consistency pass completed; `paper/papf_final.md` and `docs/paper_plan.md` align around planned non-expert privacy-usability evaluation, secondary prototype trace feasibility, and evidence-bounded claims.
+- Next: Run and analyze the planned non-expert user study, or keep the paper positioned as a bounded workshop/design/prototype contribution; refresh `paper/papf_final.pdf` only if requested after these final source edits.
 - Open questions: Whether the planned non-expert comprehension protocol will be run as an actual user study; clarification versus safe refusal under ambiguity; partial-success scoring.
 
 ## Invariants / Constraints
@@ -106,156 +106,31 @@
 - 2026-05-14 [CODE]: Implemented Task 042 by rewriting the conclusion of `paper/papf_final.md` to end on enforceable, task-scoped, user-understandable personal-agent permissions; PAPF is framed as an artifact-backed prototype, the user study as planned privacy-decision evaluation, and trace results as secondary feasibility evidence; refreshed `paper/papf_final.pdf`.
 - 2026-05-14 [CODE]: Implemented Task 043 by updating `docs/paper_plan.md`, `docs/research_gap.md`, `docs/research_brief.md`, and `paper/papf_final.md` so HCI/privacy or usable-security privacy is the primary venue framing, systems/security and benchmark material are secondary feasibility support, and workshop/design/prototype positioning is the bounded fallback if the non-expert user study remains planned; refreshed `paper/papf_final.pdf`.
 - 2026-05-14 [CODE]: Implemented Task 044 by revising `paper/papf_final.md`, `paper/papf_draft.md`, `docs/paper_plan.md`, and `docs/user_study_protocol.md` so user-comprehension language is framed as design support, planned evaluation, or a claim requiring participant evidence.
+- 2026-05-14 [CODE]: Implemented Task 045 by tightening final HCI/privacy claim language in `paper/papf_final.md`, updating `docs/paper_plan.md` into an explicit HCI/privacy claim-evidence map, and rejecting trace metrics as evidence for user comprehension, consent quality, trust, or fatigue.
 
 ### Now
-- 2026-05-14 [CODE]: Tasks 027-044 are implemented. The active paper direction is HCI/privacy, with concrete privacy harms, user agency, consent burden, permission UX, explicit RQs and planned hypotheses, synthetic user-study scenarios, PAPF prompt variants, consent-fatigue/interruption-cost strategies, HCI/privacy-first related work, explicit HCI/privacy validity limitations, an HCI/privacy-centered conclusion, explicit venue-positioning rules, evidence-bounded user-comprehension wording, and planned non-expert study measures covering comprehension, decision quality, workload, trust, control, fatigue, preference, auditability, and qualitative explanation; prototype traces are explicitly secondary feasibility evidence.
+- 2026-05-14 [CODE]: Tasks 027-045 are implemented. The active paper source makes participant data necessary for comprehension, consent-decision, perceived-control, trust, workload, and fatigue claims; prototype traces remain secondary feasibility evidence for scoped enforcement and auditability in the synthetic suite.
 
 ### Next
-- 2026-05-14 [CODE]: Continue the HCI/privacy revision with Task 045, then proceed through the numbered backlog order.
+- 2026-05-14 [CODE]: Decide whether to run the planned non-expert user study or submit as a bounded workshop/design/prototype paper; refresh `paper/papf_final.pdf` only if requested after Task 045 source edits.
 - 2026-04-30 [CODE]: Use measured ablation/baseline results to guide recovery improvements, external benchmark adapters, and future benchmark expansion.
 - 2026-04-27 [CODE]: Keep the security-critical path deterministic while expanding benchmark loaders, baselines, and experiment reporting.
 
 ## Working set
-- `AGENTS.md`
 - `CONTINUITY.md`
-- `README.md`
 - `references.bib`
-- `docs/paper_outline.md`
-- `docs/related_work.md`
-- `docs/lit_matrix.md`
-- `docs/research_brief.md`
-- `docs/benchmark_spec.md`
-- `docs/benchmark_schema_plan.md`
-- `docs/research_gap.md`
-- `docs/system_design.md`
-- `docs/implementation_plan.md`
 - `docs/paper_plan.md`
-- `docs/figures_and_tables_plan.md`
-- `docs/model_assisted_boundaries.md`
 - `docs/user_study_protocol.md`
 - `docs/permission_prompt_examples.md`
-- `paper/tables/prompt_variants.md`
-- `src/papf/`
-- `src/papf/intent/proposer.py`
-- `tests/test_runtime_foundation.py`
-- `tests/test_trace_runner.py`
-- `tests/test_evaluation_harness.py`
-- `tests/test_intent_proposer_contract.py`
-- `benchmarks/seed_cases/`
-- `docs/benchmark_case_design_notes.md`
-- `docs/scope_reconciliation.md`
-- `experiments/configs/default_email_files_browser.json`
-- `experiments/runs/.gitignore`
-- `experiments/runs/default_email_files_browser/metadata.json`
-- `experiments/runs/default_email_files_browser/metrics.jsonl`
-- `experiments/runs/default_email_files_browser/metrics.csv`
-- `experiments/runs/default_email_files_browser/audit_summaries.jsonl`
-- `papf_pipeline_research/outline.yaml`
-- `papf_pipeline_research/fields.yaml`
-- `papf_pipeline_research/results/Taskscoped_permissionboundary_problem_formulation.json`
-- `papf_pipeline_research/results/Verified_relatedwork_and_gap_analysis.json`
-- `papf_pipeline_research/results/Benchmark_schema_and_synthetic_data_model.json`
-- `papf_pipeline_research/results/Deterministic_PAPF_runtime_foundation.json`
-- `papf_pipeline_research/results/Audit_trace_and_evidence_model.json`
-- `papf_pipeline_research/results/Deterministic_evaluation_harness.json`
-- `papf_pipeline_research/results/Email_files_browser_benchmark_slice.json`
-- `papf_pipeline_research/results/Comparable_baselines.json`
-- `papf_pipeline_research/results/Experiment_runner_and_result_artifacts.json`
-- `papf_pipeline_research/results/Nonexpert_comprehension_protocol.json`
-- `papf_pipeline_research/results/Optional_modelassisted_proposal_layers.json`
-- `papf_pipeline_research/results/Results_analysis_figures_and_tables.json`
-- `papf_pipeline_research/results/Paper_draft_and_artifact_package.json`
-- `tasks/009_pipeline_backlog.md`
-- `tasks/010_scope_reconciliation.md`
-- `tasks/011_evaluation_run_serialization.md`
-- `tasks/012_benchmark_loader.md`
-- `tasks/013_schema_policy_validation.md`
-- `tasks/014_redaction_evidence.md`
-- `tasks/015_recovery_scoring.md`
-- `tasks/016_baselines.md`
-- `tasks/017_expand_benchmark_suite.md`
-- `tasks/018_synthetic_tool_runtime.md`
-- `tasks/019_experiment_runner.md`
-- `tasks/020_results_figures.md`
-- `tasks/021_model_assisted_intent.md`
-- `tasks/022_user_comprehension_protocol.md`
-- `tasks/023_deeper_source_verification.md`
-- `tasks/024_paper_draft_and_artifact.md`
-- `tasks/025_measured_ablations.md`
-- `tasks/026_stronger_external_baselines.md`
-- `tasks/027_new_hci_privacy_paper_outline.md`
-- `tasks/028_hci_privacy_reframing.md`
-- `tasks/029_title_abstract_hci_privacy.md`
-- `tasks/030_motivating_example_intro.md`
-- `tasks/031_strengthen_privacy_framing.md`
-- `tasks/032_hci_privacy_research_questions.md`
-- `tasks/033_user_study_scenarios.md`
-- `tasks/034_prompt_design_variants.md`
-- `tasks/035_user_study_design.md`
-- `tasks/036_user_study_measures.md`
-- `tasks/037_hci_privacy_hypotheses.md`
-- `tasks/038_rework_evaluation_hci_privacy.md`
-- `tasks/039_consent_fatigue_discussion.md`
-- `tasks/040_related_work_hci_privacy.md`
-- `tasks/041_hci_privacy_limitations.md`
-- `tasks/042_revise_conclusion_hci_privacy.md`
-- `tasks/043_venue_positioning_hci_privacy.md`
-- `tasks/044_user_comprehension_claims.md`
-- `tasks/045_final_hci_consistency_pass.md`
-- `src/papf/ablation/`
-- `src/papf/baselines/external.py`
-- `src/papf/evaluation/_reporting_comparisons.py`
-- `tests/test_ablations.py`
-- `src/papf/evaluation/serialization.py`
-- `src/papf/evaluation/recovery.py`
-- `src/papf/baselines/__init__.py`
-- `src/papf/baselines/runners.py`
-- `src/papf/tools/`
-- `src/papf/cli.py`
-- `src/papf/enforcement/redaction.py`
-- `tests/test_experiment_runner.py`
-- `tests/test_baselines.py`
-- `tests/test_synthetic_tools.py`
-- `src/papf/evaluation/reporting.py`
-- `src/papf/evaluation/_reporting_loader.py`
-- `src/papf/evaluation/_reporting_writers.py`
-- `tests/test_reporting.py`
-- `paper/tables/`
-- `paper/figures/`
-- `tests/test_evaluation_serialization.py`
-- `tests/test_redaction_evidence.py`
-- `tests/test_recovery_scoring.py`
-- `src/papf/benchmark/loader.py`
-- `src/papf/benchmark/_loader_builders.py`
-- `src/papf/policy/validators.py`
-- `benchmarks/papf_seed_cases/email_files_browser.yaml`
-- `benchmarks/papf_seed_cases/email_files_browser_redaction.yaml`
-- `benchmarks/papf_seed_cases/browser_email_files_account_update.yaml`
-- `tests/test_benchmark_loader.py`
-- `tests/test_seed_case_coverage.py`
-- `tests/test_policy_validation.py`
-- `experiments/configs/`
-- `experiments/configs/smoke_email_files_browser.json`
-- `experiments/runs/`
-- `paper/`
-- `paper/papf_draft.md`
 - `paper/papf_final.md`
-- `paper/papf_final.pdf`
 - `paper/papf_hci_outline.md`
 - `paper/export_simple_pdf.py`
-- `paper/figures/papf_pipeline.svg`
-- `paper/figures/papf_runtime_workflow.svg`
-- `paper/tables/capability_compilation_example.md`
-- `paper/tables/external_benchmark_positioning.md`
 - `paper/tables/user_study_scenarios.md`
-- `paper/tables/failure_case_highlights.md`
-- `paper/tables/ablation_plan.md`
-- `paper/tables/ablation_results.csv`
-- `paper/tables/ablation_results.md`
-- `paper/tables/stronger_baseline_plan.md`
-- `paper/tables/stronger_baseline_results.csv`
-- `paper/tables/stronger_baseline_results.md`
-- `docs/artifact_checklist.md`
+- `paper/tables/user_study_measures.md`
+- `paper/tables/prompt_variants.md`
+- `paper/tables/main_metrics.md`
+- `experiments/runs/default_email_files_browser/`
+- `tasks/027_new_hci_privacy_paper_outline.md` through `tasks/045_final_hci_consistency_pass.md`
 
 ## Open questions
 - 2026-04-27 [CODE]: SUPERSEDED by D013: Should evaluation run serialization be JSONL, CSV, or both?
@@ -424,3 +299,8 @@
 - 2026-05-14 [TOOL]: Task 044 broad `rg` scan over `paper\papf_final.md`, `paper\papf_draft.md`, `docs\paper_plan.md`, and `docs\user_study_protocol.md` -> remaining user-comprehension matches are planned measures, caveats, or claim-boundary rows.
 - 2026-05-14 [TOOL]: Task 044 unsupported-positive-pattern `rg` scan over the same files -> no matches for current understandability, user-comprehensible, intuitive, clear-to-users, easy-to-understand, or PAPF-improves-comprehension claims.
 - 2026-05-14 [TOOL]: `git diff --check -- paper\papf_final.md paper\papf_draft.md docs\paper_plan.md docs\user_study_protocol.md` -> markdown diff check passed with Git line-ending warnings only.
+- 2026-05-14T03:02:49-07:00 [TOOL]: `Get-Date -Format o` -> timestamp for Task 045 final HCI/privacy consistency pass.
+- 2026-05-14 [TOOL]: `rg -n -i "users understand|user-comprehensible|intuitive|clear to users|usable|trustworthy|privacy-preserving" paper/papf_final.md docs/paper_plan.md` -> no matches after Task 045 wording pass.
+- 2026-05-14 [TOOL]: Citation-like key check over `paper/papf_final.md` -> PASS: 19 citation-like keys all exist in `references.bib`.
+- 2026-05-14 [TOOL]: `git diff --check -- paper/papf_final.md docs/paper_plan.md` -> markdown diff check passed with Git line-ending warnings only.
+- 2026-05-14 [CODE]: PDF export skipped after Task 045 because the task requested PDF refresh only if requested; source markdown is newer than `paper/papf_final.pdf`.

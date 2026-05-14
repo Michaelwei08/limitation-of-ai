@@ -6,7 +6,7 @@ This document tracks the active plan for revising PAPF into an HCI/privacy paper
 
 ## Active framing
 
-- Primary framing: HCI/privacy or usable-security privacy paper on task-scoped consent and permission UX for personal AI agents.
+- Primary framing: HCI/privacy or human-centered security/privacy paper on task-scoped consent and permission UX for personal AI agents.
 - Core artifact stack:
   - an externally enforced task-to-capability control plane,
   - PAPF-style permission prompts and consent states,
@@ -19,8 +19,8 @@ This document tracks the active plan for revising PAPF into an HCI/privacy paper
 
 ## Venue positioning rule
 
-- Full-paper target: HCI/privacy or usable-security privacy venue, with human-centered privacy, consent interaction design, user comprehension, and empirical evaluation with non-expert users as the lead story.
-- Evidence threshold: a full empirical submission should include completed non-expert user-study results. The study should measure comprehension, safe/unsafe action discrimination, privacy-preserving consent choices, perceived control, trust calibration, workload, and consent fatigue.
+- Full-paper target: HCI/privacy or human-centered security/privacy venue, with human-centered privacy, consent interaction design, user comprehension, and empirical evaluation with non-expert users as the lead story.
+- Evidence threshold: a full empirical submission should include completed non-expert user-study results. The study should measure comprehension, safe/unsafe action discrimination, consent choices that avoid unnecessary disclosure, perceived control, trust calibration, workload, and consent fatigue.
 - Systems/security material: supporting technical feasibility evidence. The capability compiler, runtime policy checks, redaction evidence, confirmation gates, audit logs, baselines, and ablations show that PAPF's consent states can be enforced outside the LLM.
 - Benchmark material: supporting measurement infrastructure. The synthetic suite should be described as a local evaluation slice, not as the paper's primary identity.
 - Fallback: if the user study remains planned rather than completed, position the work as a bounded HCI/privacy workshop, design, position, or prototype paper. The fallback can contribute the framing, prompt/consent design space, scenario set, protocol, and enforceable prototype, but must not claim empirical user comprehension, improved consent decisions, reduced consent fatigue, or deployment readiness.
@@ -30,12 +30,12 @@ This document tracks the active plan for revising PAPF into an HCI/privacy paper
 1. Task-Scoped Consent for Personal AI Agents
 2. Human-Centered Permission Boundaries for Personal AI Agents
 3. Designing for User Comprehension in Consumer AI-Agent Permissions
-4. External Enforcement and Consent UX for Privacy-Preserving AI Agents
+4. External Enforcement and Consent UX for Privacy-Bounded AI Agents
 5. Personal Agent Permission Firewall: Task-Scoped Consent and External Enforcement
 
 ## One-sentence thesis
 
-Personal AI agents should receive externally enforced authority scoped to the user's current task, and permission UX should be evaluated by whether non-expert users can understand, question, and act on that authority without excessive consent burden.
+Personal AI agents should receive externally enforced authority scoped to the user's current task, and permission UX should be evaluated by whether non-expert users can correctly identify, question, and act on that authority without excessive consent burden.
 
 ## Candidate contributions
 
@@ -77,7 +77,7 @@ These are planning claims, not final accepted novelty claims.
 
 - Goal: state the user-facing and enforcement goals PAPF is designed to support.
 - Required evidence: design goals mapped to mechanisms and prompt fields.
-- Notes: "designed to support comprehension" is acceptable; "users understand" requires study data.
+- Notes: design-goal language is acceptable; positive comprehension claims require study data.
 
 ### 6. PAPF Architecture
 
@@ -99,7 +99,7 @@ These are planning claims, not final accepted novelty claims.
 
 ### 9. Primary Privacy-Usability Evaluation: User Study
 
-- Goal: make the user study the core HCI/privacy evaluation of whether people understand and act on task-scoped permission boundaries.
+- Goal: make the user study the core HCI/privacy evaluation of whether people correctly interpret and act on task-scoped permission boundaries.
 - Required evidence: participants, conditions, scenarios, measures, hypotheses, procedure, and analysis plan.
 - Notes: if the study remains planned, label it as planned and do not include results; still place it before prototype trace evaluation to preserve the privacy-usability framing.
 
@@ -135,7 +135,7 @@ These are planning claims, not final accepted novelty claims.
 
 ### 15. Conclusion
 
-- Goal: close on enforceable, task-scoped permission systems designed to support user comprehension for personal AI agents.
+- Goal: close on enforceable, task-scoped permission systems designed for empirical user-comprehension evaluation in personal AI agents.
 - Required evidence: only claims supported by prototype traces or user-study data.
 - Notes: avoid ending primarily with benchmark claims.
 
@@ -143,9 +143,9 @@ These are planning claims, not final accepted novelty claims.
 
 | RQ | Question | Evidence source | Measure mapping | Current status |
 | --- | --- | --- | --- | --- |
-| RQ1 | Do ordinary users understand PAPF-style permission prompts for task-scoped personal-agent authority? | Planned non-expert user study. | Comprehension score, allowed-data recognition, blocked-data recognition, confirmation-gate recognition, redaction understanding, audit-summary comprehension. | Planned; no participant result yet. |
+| RQ1 | Can ordinary users correctly identify the authority shown in PAPF-style permission prompts for task-scoped personal-agent authority? | Planned non-expert user study. | Comprehension score, allowed-data recognition, blocked-data recognition, confirmation-gate recognition, redaction understanding, audit-summary comprehension. | Planned; no participant result yet. |
 | RQ2 | Can users distinguish safe from unsafe agent actions when PAPF prompts expose task scope, disclosure, redaction, and confirmation state? | Planned non-expert user study. | Allow/deny decision accuracy, false allows, false denies, exfiltration recognition, untrusted-instruction recognition. | Planned; no participant result yet. |
-| RQ3 | Does PAPF improve privacy-preserving consent decisions relative to raw tool permissions or generic warnings? | Planned comparison across prompt conditions. | Condition differences in decision quality, false-allow rate, false-deny rate, recovery choices after broad or denied requests, confidence calibration. | Planned; no participant result yet. |
+| RQ3 | Does PAPF improve consent decisions that avoid unnecessary disclosure relative to raw tool permissions or generic warnings? | Planned comparison across prompt conditions. | Condition differences in decision quality, false-allow rate, false-deny rate, recovery choices after broad or denied requests, confidence calibration. | Planned; no participant result yet. |
 | RQ4 | Does PAPF change perceived control and trust in personal-agent actions? | Planned survey and optional interview/free-response measures. | Perceived control, trust, confidence, trust calibration, and explanation themes. | Planned; no participant result yet. |
 | RQ5 | Does PAPF increase consent fatigue or excessive friction? | Planned user study plus prototype prompt counts as supporting context. | Self-reported burden, workload, time-on-item, perceived interruption, prompt count, confirmation count, and task-completion effects. | Human fatigue planned; trace prompt counts already available. |
 | RQ6 | Can externally enforced task-scoped capabilities mediate personal-agent traces while reducing over-access and false allows? | Implemented deterministic prototype trace evaluation. | Task-success proxy, necessary-access rate, over-access rate, false allows, false denies, consent prompts, recovery quality, auditability completeness, and ablation/baseline comparisons. | Supported only within the current 12-trace synthetic suite. |
@@ -160,21 +160,24 @@ The paper's evaluation should be ordered and worded as follows:
 
 1. Primary privacy-usability evaluation: planned or completed user study for comprehension, consent decisions, perceived control, trust, workload, and consent fatigue.
 2. Secondary prototype feasibility evaluation: 12-trace synthetic artifact for enforcement behavior, false allows, over-access, redaction, confirmation gates, recovery, auditability, baselines, and ablations.
-3. Results boundary: trace metrics can show that PAPF can enforce scoped decisions in the prototype; only participant data can show whether people understand and act on those decisions.
+3. Results boundary: trace metrics can show that PAPF can enforce scoped decisions in the prototype; only participant data can show whether people correctly interpret and act on those decisions.
 4. Venue boundary: without completed participant data, the paper should fall back to workshop, design, or prototype positioning rather than presenting itself as a full empirical HCI/privacy paper or a primary systems/security benchmark paper.
 
-## Required evidence by major claim
+## HCI/privacy claim-evidence map
 
 | Candidate claim | Required evidence | Current status |
 | --- | --- | --- |
 | Broad personal-agent authorization creates privacy decision problems | Literature plus motivating examples | Partially supported by current literature map |
 | PAPF can enforce task-scoped authority outside the LLM | Prototype modules, tests, and trace artifacts | Supported by current artifact |
+| PAPF prompt and consent materials are ready for non-expert evaluation | Scenario records, prompt variants, measures, and protocol | Supported as study design |
 | Ordinary-user comprehension of PAPF prompts | User-study comprehension and audit-summary interpretation scores | Unsupported until study is run |
 | PAPF prompts improve unsafe-action detection | User-study decision accuracy and false-allow rates | Unsupported until study is run |
-| PAPF improves privacy-preserving consent decisions | User-study comparison against raw tool permissions and generic warnings | Unsupported until study is run |
+| PAPF improves consent decisions that avoid unnecessary disclosure | User-study comparison against raw tool permissions and generic warnings | Unsupported until study is run |
 | PAPF improves perceived control or trust | Survey and interview data | Unsupported until study is run |
 | PAPF increases decision time or workload | Timing and workload/fatigue measures | Unsupported until study is run |
 | PAPF reduces over-access in synthetic traces | Generated metrics and provenance | Supported within current 12-trace suite |
+| Prototype trace metrics establish user comprehension, consent quality, perceived control, trust, or fatigue | Participant decisions, timing, survey, and qualitative data | Unsupported and explicitly rejected |
+| Prototype prompt counts alone establish human consent fatigue | Participant timing, workload, interruption, and fatigue measures | Unsupported; trace prompt counts are supporting context only |
 | PAPF is deployable for real personal accounts | Real integration and field evidence | Unsupported; out of scope |
 | PAPF is ready as a full empirical HCI/privacy submission | Completed non-expert study plus prototype evidence | Unsupported until study is run |
 | PAPF can be positioned as a bounded workshop/design/prototype paper | Clear claim boundaries plus protocol and trace artifacts | Supported if user-study results remain planned |
@@ -204,7 +207,7 @@ The paper's evaluation should be ordered and worded as follows:
 ## Unsupported claims to avoid
 
 - Current non-expert comprehension of PAPF prompts.
-- PAPF improves privacy-preserving user decisions.
+- PAPF improves user consent decisions that avoid unnecessary disclosure.
 - PAPF reduces real-world consent fatigue.
 - PAPF is deployment-ready for personal accounts.
 - PAPF's synthetic traces generalize across consumer-agent domains.
