@@ -4,7 +4,16 @@ Status: future work. These are draft study materials for a planned
 non-expert comprehension protocol. They are not validated prompts, and no
 participant results or comprehension statistics exist.
 
-Each example below gives matched prompt variants for the same synthetic task:
+This file has two levels of prompt materials:
+
+- PAPF prompt design variants: minimal, detailed, risk-highlighted,
+  expandable-explanation, and audit-log-preview prompts for the same
+  task-scoped permission decision.
+- Comparator prompt conditions: PAPF task-scoped bundles, raw tool
+  permissions, and generic warnings for the same synthetic task.
+
+The comparator examples below give matched prompt conditions for the same
+synthetic task:
 
 - Task-scoped permission bundle: PAPF-style scoped prompt.
 - Raw tool permissions: tool or API-style permission prompt.
@@ -27,6 +36,180 @@ wording examples for the same synthetic boundaries.
 | US-04 Update account information from an email link | Example 3. |
 | US-05 Detect prompt injection from a webpage | Example 2. |
 | US-06 Prevent cross-tool leakage from files into email or chat | Example 7. |
+
+## PAPF Prompt Design Variants
+
+These variants are PAPF-style prompts, not separate enforcement policies. They
+show the same scoped permission decision with different amounts and framing of
+information. The purpose is to test prompt presentation, not to change which
+actions are actually allowed, blocked, redacted, or confirmation-gated.
+
+### Information Fields
+
+| Variant | Task goal | Requested tool access | Data touched | Data to be sent externally | Redactions applied | Reason for confirmation |
+| --- | --- | --- | --- | --- | --- | --- |
+| Minimal prompt | Yes, one line. | Yes, summarized. | Yes, only the main records. | Yes, if any data will leave the account. | Only if redaction is part of the decision. | Yes, one plain sentence. |
+| Detailed prompt | Yes. | Yes, listed by action. | Yes, listed by named data object. | Yes, with recipient or destination. | Yes, with hidden field names. | Yes, with the risky action named. |
+| Risk-highlighted prompt | Yes. | Yes, listed by action. | Yes, including blocked sensitive data when relevant. | Yes, emphasized as data leaving the account. | Yes, emphasized before approval. | Yes, tied to the privacy risk. |
+| Prompt with expandable explanation | Yes, visible by default. | Yes, visible by default. | Collapsed until opened. | Yes, visible when external sharing is requested. | Collapsed until opened, unless redaction is the main issue. | Collapsed until opened. |
+| Prompt with audit-log preview | Yes. | Yes, listed as planned audit entries. | Yes, listed as planned data touches. | Yes, listed as a planned outbound entry. | Yes, listed as a planned redaction entry. | Yes, listed as a planned confirmation entry. |
+
+### Design Dimensions
+
+| Variant | Primary design dimension | Intended diagnostic comparison |
+| --- | --- | --- |
+| Minimal prompt | Low text and low interruption. | Tests whether short prompts preserve core comprehension or create false allows/false denies because details are missing. |
+| Detailed prompt | Complete visible scope. | Tests whether explicit data/action lists improve boundary recognition at the cost of time or perceived burden. |
+| Risk-highlighted prompt | Salience of privacy consequences. | Tests whether highlighting disclosure, sensitive fields, and blocked off-task data changes unsafe-action recognition. |
+| Prompt with expandable explanation | Progressive disclosure. | Tests whether users can answer easy decisions quickly while opening details for uncertain cases. |
+| Prompt with audit-log preview | Accountability before approval. | Tests whether previewing the future audit record improves perceived control and audit-summary comprehension. |
+
+### Matched Example: US-03 Redacted Contractor Reply
+
+Synthetic decision shown to participants:
+
+> Mira asked for a contractor onboarding reply. The agent prepared a reply using
+> Mira's onboarding email, the contractor packet, and the vendor help page. The
+> packet contains a tax ID and bank account number. The agent now asks whether
+> it may send the redacted reply to Mira.
+
+Answer key shared across all five variants:
+
+- Allowed: use `email:mira_onboarding`,
+  `file:contractor_packet_redacted`, `browser:vendor_onboarding_help`, and the
+  redacted email draft.
+- Blocked: unredacted tax ID, unredacted bank account number,
+  `file:family_budget`, untrusted webpage instructions, and sending any
+  unredacted packet.
+- External disclosure: the redacted email body will be sent to Mira.
+- Confirmation reason: sending an email moves information outside the user's
+  account.
+
+#### Minimal Prompt
+
+```text
+Confirm sending this reply?
+
+Task: Send Mira an onboarding reply.
+
+The agent will use Mira's email and the contractor packet with the tax ID and
+bank account number hidden.
+
+It will send the redacted reply to Mira.
+
+Please confirm because the email will leave your account.
+```
+
+#### Detailed Prompt
+
+```text
+Permission request
+
+Task: Send Mira a contractor onboarding reply.
+
+The agent may:
+- Read Mira's onboarding email.
+- Use the contractor packet only after hiding the tax ID and bank account
+  number.
+- Open the vendor onboarding help page.
+- Send the redacted reply to Mira.
+
+The agent may not:
+- Send or upload the unredacted contractor packet.
+- Read the family budget file.
+- Follow website instructions that ask for the full packet or unrelated files.
+
+Data leaving your account:
+- Redacted onboarding reply to Mira.
+
+Redactions applied:
+- Tax ID hidden.
+- Bank account number hidden.
+
+Please confirm because sending email shares this information outside your
+account.
+```
+
+#### Risk-Highlighted Prompt
+
+```text
+Review before sending
+
+Task: Send Mira a contractor onboarding reply.
+
+Privacy risk:
+- This email will leave your account.
+- The original packet contains a tax ID and bank account number.
+- Those fields must stay hidden.
+
+The agent may use:
+- Mira's onboarding email.
+- The contractor packet with tax ID and bank account number hidden.
+- The vendor onboarding help page.
+
+The agent may not send the full packet, read the family budget file, or follow
+website instructions that ask for unrelated files.
+
+Confirm only if the redacted reply should be sent to Mira.
+```
+
+#### Prompt With Expandable Explanation
+
+```text
+Confirm sending this reply?
+
+Task: Send Mira an onboarding reply.
+
+Access requested:
+- Use Mira's onboarding email.
+- Use the contractor packet with sensitive fields hidden.
+- Send a redacted reply to Mira.
+
+Data leaving your account:
+- Redacted onboarding reply to Mira.
+
+[Show details]
+- Data touched: Mira's onboarding email, redacted contractor packet, vendor
+  onboarding help page.
+- Redactions: tax ID hidden; bank account number hidden.
+- Blocked: full packet, family budget file, unrelated website instructions.
+- Why confirmation is needed: sending email shares information outside your
+  account.
+```
+
+In a live study interface, the "Show details" section should be collapsed by
+default and opened only if the participant chooses it. In a static survey, the
+expanded text can be placed behind a separate click or page reveal.
+
+#### Prompt With Audit-Log Preview
+
+```text
+Confirm and record this action?
+
+Task: Send Mira a contractor onboarding reply.
+
+If you approve, the audit log will show:
+- Allowed read: Mira's onboarding email.
+- Allowed redacted read: contractor packet.
+- Redacted fields: tax ID and bank account number.
+- Allowed browse: vendor onboarding help page.
+- Outbound action: redacted reply sent to Mira.
+- Blocked from this task: full packet upload, family budget file, and unrelated
+  website instructions.
+- Confirmation reason: email is being sent outside your account.
+
+Approve only if this audit preview matches what you expect.
+```
+
+### Variant-to-Measure Mapping
+
+| Variant | Main measures to inspect in pilot or study |
+| --- | --- |
+| Minimal prompt | Time-on-item, false allows caused by missing detail, false denies caused by uncertainty, self-reported burden. |
+| Detailed prompt | Allowed-data recognition, blocked-data recognition, confirmation-gate recognition, workload, perceived interruption. |
+| Risk-highlighted prompt | Unsafe-action rejection, exfiltration recognition, redaction recognition, confidence calibration. |
+| Prompt with expandable explanation | Expansion rate, comprehension before/after expansion if measured, time-on-item, perceived control. |
+| Prompt with audit-log preview | Auditability comprehension, perceived control, trust calibration, ability to identify what will be recorded as allowed, blocked, redacted, and sent. |
 
 ## Example 1: Reimbursement Reply
 

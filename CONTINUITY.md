@@ -4,8 +4,8 @@
 - Goal: Build a research project on task-scoped permission boundaries for consumer AI agents.
 - Working title: Personal Agent Permission Firewall (PAPF).
 - Benchmark idea: NonExpert-AgentPermBench.
-- Now: Core docs specify the PAPF architecture and HCI/privacy paper plan; `src/papf/` includes deterministic evaluation, run serialization, a file-backed benchmark loader, policy/schema validation, redaction evidence, recovery scoring, baselines, ablations, synthetic tools, reporting, and model-assisted proposal interfaces. Paper artifacts now include a selected HCI/privacy title direction, a bounded title/abstract, a motivating reimbursement scenario, explicit privacy-harm/principle framing, explicit HCI/privacy RQs with evidence mapping, six synthetic user-study scenarios, final PDF export, artifact checklist, workflow figures, worked examples, failure highlights, and measured ablation/stronger-baseline tables.
-- Next: Continue the HCI/privacy task order with Task 034.
+- Now: Core docs specify the PAPF architecture and HCI/privacy paper plan; `src/papf/` includes deterministic evaluation, run serialization, a file-backed benchmark loader, policy/schema validation, redaction evidence, recovery scoring, baselines, ablations, synthetic tools, reporting, and model-assisted proposal interfaces. Paper artifacts now include a selected HCI/privacy title direction, a bounded title/abstract, a motivating reimbursement scenario, explicit privacy-harm/principle framing, explicit HCI/privacy RQs with evidence mapping, six synthetic user-study scenarios, five PAPF prompt design variants, final PDF export, artifact checklist, workflow figures, worked examples, failure highlights, and measured ablation/stronger-baseline tables.
+- Next: Continue the HCI/privacy task order with Task 035.
 - Open questions: Whether the planned non-expert comprehension protocol will be run as an actual user study; clarification versus safe refusal under ambiguity; partial-success scoring.
 
 ## Invariants / Constraints
@@ -95,12 +95,13 @@
 - 2026-05-14 [CODE]: Implemented Task 031 by adding privacy-harm discussion and privacy-principle-to-mechanism/evaluation mappings to `paper/papf_final.md`, `docs/research_brief.md`, and `docs/research_gap.md`; refreshed `paper/papf_final.pdf`.
 - 2026-05-14 [CODE]: Implemented Task 032 by adding explicit RQ1-RQ6 HCI/privacy and prototype-trace evidence mappings to `paper/papf_final.md`, `docs/user_study_protocol.md`, and `docs/paper_plan.md`; refreshed `paper/papf_final.pdf`.
 - 2026-05-14 [CODE]: Implemented Task 033 by defining six synthetic user-study scenarios with allowed/blocked data and tools, privacy risks, expected safe decisions, benchmark mappings, prompt examples, and a paper-facing scenario table; refreshed `paper/papf_final.pdf`.
+- 2026-05-14 [CODE]: Implemented Task 034 by defining five PAPF prompt design variants with concrete examples, information-field coverage, pilot/comparison plans, study-measure mappings, and a paper-facing prompt-variant table; refreshed `paper/papf_final.pdf`.
 
 ### Now
-- 2026-05-14 [CODE]: Tasks 027-033 are implemented. The active paper direction is HCI/privacy, with concrete privacy harms, user agency, consent burden, permission UX, explicit RQs, synthetic user-study scenarios, and non-expert evaluation central; prototype traces are secondary feasibility evidence.
+- 2026-05-14 [CODE]: Tasks 027-034 are implemented. The active paper direction is HCI/privacy, with concrete privacy harms, user agency, consent burden, permission UX, explicit RQs, synthetic user-study scenarios, PAPF prompt variants, and non-expert evaluation central; prototype traces are secondary feasibility evidence.
 
 ### Next
-- 2026-05-14 [CODE]: Continue the HCI/privacy revision with Task 034, then proceed through the numbered backlog order.
+- 2026-05-14 [CODE]: Continue the HCI/privacy revision with Task 035, then proceed through the numbered backlog order.
 - 2026-04-30 [CODE]: Use measured ablation/baseline results to guide recovery improvements, external benchmark adapters, and future benchmark expansion.
 - 2026-04-27 [CODE]: Keep the security-critical path deterministic while expanding benchmark loaders, baselines, and experiment reporting.
 
@@ -123,6 +124,7 @@
 - `docs/model_assisted_boundaries.md`
 - `docs/user_study_protocol.md`
 - `docs/permission_prompt_examples.md`
+- `paper/tables/prompt_variants.md`
 - `src/papf/`
 - `src/papf/intent/proposer.py`
 - `tests/test_runtime_foundation.py`
@@ -374,3 +376,6 @@
 - 2026-05-14 [TOOL]: PowerShell Task 033 modality/label coverage check -> PASS for email, file, browser, outbound communication, chat, prompt-injection, cross-tool exfiltration, redaction, and confirmation terms.
 - 2026-05-14 [TOOL]: Citation-like key check over `paper/papf_final.md` -> all 34 citation-like keys found in `references.bib` after Task 033 edits.
 - 2026-05-14 [TOOL]: `python -B paper\export_simple_pdf.py paper\papf_final.md paper\papf_final.pdf` -> refreshed PDF after Task 033 user-study scenario edits.
+- 2026-05-14 [TOOL]: PowerShell Task 034 prompt-variant check -> PASS for five required variants and six required information fields across prompt examples, protocol, paper, and table.
+- 2026-05-14 [TOOL]: PowerShell Task 034 pilot/measure check -> PASS for pilot comparison language, counterbalancing, comprehension errors, decision time, burden, confidence, and perceived control.
+- 2026-05-14 [TOOL]: `python -B paper\export_simple_pdf.py paper\papf_final.md paper\papf_final.pdf` -> refreshed PDF after Task 034 prompt-variant edits.

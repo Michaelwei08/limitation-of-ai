@@ -42,8 +42,12 @@ alone.
 
 ## Study Conditions
 
-The planned study compares three permission-prompt presentations over the same
-synthetic tasks, data objects, and comprehension questions.
+The planned study has two prompt-comparison layers. The first layer compares a
+PAPF-style task-scoped permission prompt against broader comparator prompts.
+The second layer pilots or compares different PAPF prompt formats that expose
+the same enforcement decision with different presentation choices.
+
+### Main Condition Families
 
 | Condition | Description | Boundary shown to participant |
 | --- | --- | --- |
@@ -51,10 +55,39 @@ synthetic tasks, data objects, and comprehension questions.
 | Raw tool permissions | Tool or API-style grants such as "read email", "read files", "browse web", or "send email". | Broad tool authority without task-specific data boundaries. |
 | Generic warning | Broad caution such as "The assistant may access personal data; only approve if you trust this action." | General safety warning without concrete scope. |
 
-The comparison goal is future work: test whether task-scoped permission bundles
-lead to more accurate answers about necessary access, unnecessary access,
-external disclosure, adversarial instructions, and confirmation-gated actions
-than the comparator conditions. No such effect has been measured yet.
+The main comparison goal is future work: test whether task-scoped permission
+bundles lead to more accurate answers about necessary access, unnecessary
+access, external disclosure, adversarial instructions, and confirmation-gated
+actions than the comparator conditions. No such effect has been measured yet.
+
+### PAPF Prompt Format Variants
+
+These variants are presentation variants inside the task-scoped permission
+family. They must keep the task, data objects, proposed action, enforcement
+decision, and answer key fixed.
+
+| Variant | Format | Design dimension tested |
+| --- | --- | --- |
+| Minimal prompt | Short prompt with task goal, summarized access, external sharing when present, redaction state when present, and one confirmation reason. | Low interruption and whether core scope remains understandable with less text. |
+| Detailed prompt | Full visible list of requested actions, data touched, blocked data/actions, external destination, redactions, and confirmation reason. | Complete information visibility versus reading effort. |
+| Risk-highlighted prompt | Detailed prompt with privacy risks made salient, such as data leaving the account, sensitive fields, or off-task private data. | Whether risk salience changes unsafe-action recognition or confidence. |
+| Prompt with expandable explanation | Short default prompt with additional data, redaction, blocked-action, and rationale details behind expandable sections. | Progressive disclosure and whether users open details when uncertain. |
+| Prompt with audit-log preview | Prompt that previews what the audit log will record as allowed, blocked, redacted, externally sent, and confirmed. | Accountability, perceived control, and audit-summary comprehension. |
+
+For each variant, the study material should explicitly record whether the
+prompt shows the task goal, requested tool access, data touched, data to be
+sent externally, redactions applied, and reason for confirmation. The concrete
+variant matrix and examples are in
+[permission_prompt_examples.md](permission_prompt_examples.md), and the
+paper-facing table is in `paper/tables/prompt_variants.md`.
+
+The first pilot should counterbalance the five PAPF formats across the same
+synthetic scenarios and inspect comprehension errors, decision time,
+self-reported burden, confidence, perceived control, and open-ended confusion.
+If the pilot is used only to refine materials, the main study can choose one or
+two PAPF formats for comparison against raw tool permissions and generic
+warnings. If the variants are kept in the main study, prompt format should be a
+pre-specified factor nested inside the task-scoped condition.
 
 ## Participant Assumptions
 
@@ -98,6 +131,18 @@ proposed action, and answer key must stay constant.
 
 Example prompt variants are defined in
 [permission_prompt_examples.md](permission_prompt_examples.md).
+
+For PAPF prompt-format pilots, each variant record should include these fields:
+
+- Variant name.
+- Whether the task goal is shown.
+- Whether requested tool access is shown.
+- Whether data touched is shown.
+- Whether data to be sent externally is shown.
+- Whether redactions applied are shown.
+- Whether the reason for confirmation is shown.
+- The exact prompt text shown to participants.
+- Scenario ID and answer-key version.
 
 ## Planned Task Families
 
@@ -380,9 +425,11 @@ The planned flow is:
 
 The assignment design is future work. A within-subject design can show each
 participant multiple prompt types with counterbalanced order. A between-subject
-design can show each participant one prompt type. The final choice should be
-specified before data collection and should keep prompt order, task order, and
-condition exposure from biasing the answers.
+design can show each participant one prompt type. For prompt-format pilots, the
+same scenario should not appear twice for the same participant with different
+PAPF formats unless the design explicitly measures learning effects. The final
+choice should be specified before data collection and should keep prompt order,
+task order, and condition exposure from biasing the answers.
 
 ## Comprehension Questions
 
@@ -451,6 +498,19 @@ Any thresholds, weighting, exclusion rules, or statistical tests must be
 specified before the study is run. No thresholds or statistical conclusions are
 reported here.
 
+### Prompt-Variant Diagnostics
+
+Prompt-format pilots should inspect variant-specific diagnostics without
+claiming superiority before the study is run.
+
+| Variant | Diagnostic focus |
+| --- | --- |
+| Minimal prompt | Whether shorter wording increases false allows, false denies, or uncertainty despite lower time and burden. |
+| Detailed prompt | Whether full visible detail improves allowed/blocked-data recognition while increasing workload or interruption. |
+| Risk-highlighted prompt | Whether salient privacy-risk wording changes unsafe-action rejection, exfiltration recognition, or confidence calibration. |
+| Prompt with expandable explanation | Whether participants open details, which details they open, and whether unopened details correspond to errors. |
+| Prompt with audit-log preview | Whether participants can predict and interpret what will be logged as accessed, blocked, redacted, sent, and confirmed. |
+
 ## Scoring Rubric
 
 Closed-form items should be scored against an answer key:
@@ -502,8 +562,8 @@ calendar, payment, messaging, or device-management APIs.
 
 ## Analysis Plan
 
-The future analysis should compare the three prompt conditions using the same
-task items and answer keys. Candidate comparisons include:
+The future analysis should compare the main prompt condition families using the
+same task items and answer keys. Candidate comparisons include:
 
 - Task-scoped permission bundles versus raw tool permissions.
 - Task-scoped permission bundles versus generic warnings.
@@ -512,6 +572,18 @@ task items and answer keys. Candidate comparisons include:
   recognition, external-disclosure recognition, and confirmation-gate
   recognition.
 - Differences between closed-form correctness and subjective confidence.
+
+If PAPF prompt formats are piloted, analyze them as material-refinement
+evidence unless the main study pre-specifies prompt format as a study factor.
+Candidate PAPF-format comparisons include:
+
+- Minimal prompt versus detailed prompt for comprehension versus burden.
+- Risk-highlighted prompt versus detailed prompt for unsafe-action and
+  exfiltration recognition.
+- Expandable explanation prompt versus detailed prompt for detail-opening rate,
+  time, and error patterns.
+- Audit-log preview prompt versus detailed prompt for auditability
+  comprehension and perceived control.
 
 The analysis plan must be finalized before data collection. This document does
 not report or imply any expected direction, effect size, statistical
