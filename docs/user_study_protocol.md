@@ -706,6 +706,37 @@ The analysis plan must be finalized before data collection. This document does
 not report or imply any expected direction, effect size, statistical
 significance, or participant outcome.
 
+## Validity and Limitations
+
+These limitations describe the planned protocol and should not be read as
+limitations of completed user-study results, because no participant data has
+been collected. If the study is run, results may depend on participant
+demographics, privacy attitudes, prior AI-agent experience, accessibility needs,
+and familiarity with security or permission prompts. Recruitment and exclusion
+criteria should therefore be reported alongside any analysis.
+
+Scenario and prompt validity are separate threats. The protocol uses synthetic
+personal-agent tasks, so task realism may affect whether participants reason
+about permissions as they would with their own email, files, browser sessions,
+contacts, payments, or messages. Prompt wording, ordering, amount of detail,
+visual emphasis, and condition labels may also affect comprehension and consent
+decisions. Any reported comprehension result should be limited to the tested
+scenarios, prompt variants, condition families, and answer keys.
+
+Temporal validity is also limited. A short laboratory or online study can
+measure immediate comprehension, decision quality, perceived control, workload,
+and self-reported fatigue, but it may not capture long-term consent fatigue,
+habituation, changing privacy attitudes, repeated-agent-use behavior, or
+preference drift over weeks or months.
+
+The current PAPF prototype does not prove deployment readiness. The protocol
+uses static synthetic materials rather than real accounts, production identity
+systems, live tool integrations, real personal data, accessibility-tested user
+interfaces, long-running sessions, or operational monitoring. Completed
+empirical evidence should therefore be kept separate: the existing prototype
+trace results measure externally enforced behavior in a synthetic benchmark
+slice, not human comprehension or production safety.
+
 ## Claim Boundaries
 
 Allowed current claim:
