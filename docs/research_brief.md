@@ -34,20 +34,23 @@ Permission enforcement should not depend on the LLM's self-restraint. The LLM ma
 
 ## Intended contribution
 
-- A system framing for task-scoped permission boundaries for consumer AI agents
-- A benchmark of synthetic personal-agent tasks with explicit necessary and unnecessary access
-- A privacy-harm measurement protocol covering utility, over-access, disclosure, exfiltration, consent burden, agency, and auditability
-- A concrete enforcement architecture that places policy checks outside the LLM
-- A working hypothesis that the main gap lies in the combination of task-scoped capability compilation, external enforcement, non-expert permission framing, and multi-metric evaluation
+- A human-centered privacy framing for task-scoped permission boundaries in consumer AI agents
+- A consent interaction design space for making agent access, disclosure, redaction, and confirmation states legible to non-expert users
+- An empirical evaluation plan for non-expert user comprehension, privacy-preserving consent decisions, perceived control, trust, workload, and consent fatigue
+- A synthetic personal-agent evaluation slice with explicit necessary, unnecessary, dangerous, and cross-context access labels
+- A concrete enforcement architecture that places policy checks outside the LLM and supplies technical feasibility evidence for the consent design
+- A working hypothesis that the main gap lies in the combination of task-scoped capability compilation, external enforcement, non-expert permission framing, and multi-metric privacy-usability evaluation
 
 ## Paper argument
 
 The paper should argue that personal-agent privacy requires a permission model closer to capability systems than to prompt-level refusal. The contribution is not a generic AI ethics discussion; it is a measurable human-centered privacy framework for constraining agent access, preserving user agency, and making enforcement outcomes inspectable while preserving usefulness.
 
-## Possible venue positioning
+## Venue positioning
 
-- HCI/privacy venue: current target if the paper centers privacy harms, user agency, task-scoped consent, and a planned non-expert evaluation while clearly separating prototype trace evidence from unrun user-study claims
-- Security/privacy systems venue: still viable if the paper emphasizes the executable enforcement prototype and benchmark-backed policy evaluation
-- ML datasets and benchmarks venue: viable if the benchmark matures faster than the enforcement stack, but it risks underselling PAPF's main thesis
+- Primary target: HCI/privacy or usable-security privacy venue, centered on human-centered privacy, consent interaction design, user comprehension, and empirical evaluation with non-expert users.
+- Evidence requirement for a full paper: the non-expert user study should be completed, analyzed, and reported with clear separation between user-study results and prototype trace results.
+- Systems/security role: technical feasibility support. The enforcement prototype, capability compiler, policy checks, redaction evidence, confirmation gates, and audit logs show that the proposed consent states can be enforced outside the LLM.
+- Benchmark role: secondary support. The synthetic suite helps measure over-access, false allows, exfiltration pressure, and auditability, but the paper should not be framed primarily as a systems/security benchmark paper.
+- Workshop fallback: if the user study remains planned rather than completed, position PAPF as a bounded HCI/privacy workshop, design, or prototype paper about task-scoped consent and the evaluation protocol. In that fallback, do not claim empirical user comprehension, improved consent decisions, reduced fatigue, or deployable privacy protection.
 
-Exact venue choice remains `TODO`, but the current paper direction is HCI/privacy: PAPF should be framed as human-centered task-scoped consent with external enforcement, with the benchmark serving as secondary feasibility evidence rather than the sole contribution.
+Exact venue choice remains `TODO`, but the active direction is HCI/privacy-first: PAPF should be framed as human-centered task-scoped consent with external enforcement, with systems/security evidence used to establish that the interaction design has an enforceable backend.

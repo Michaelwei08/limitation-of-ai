@@ -6,7 +6,7 @@ This document tracks the active plan for revising PAPF into an HCI/privacy paper
 
 ## Active framing
 
-- Primary framing: HCI/privacy paper on task-scoped consent and permission UX for personal AI agents.
+- Primary framing: HCI/privacy or usable-security privacy paper on task-scoped consent and permission UX for personal AI agents.
 - Core artifact stack:
   - an externally enforced task-to-capability control plane,
   - PAPF-style permission prompts and consent states,
@@ -16,6 +16,14 @@ This document tracks the active plan for revising PAPF into an HCI/privacy paper
   - user comprehension, consent decisions, perceived control, trust, and fatigue are the central empirical questions,
   - the deterministic 12-trace synthetic evaluation is secondary feasibility evidence,
   - non-expert comprehension must remain a hypothesis or design goal until participant data exists.
+
+## Venue positioning rule
+
+- Full-paper target: HCI/privacy or usable-security privacy venue, with human-centered privacy, consent interaction design, user comprehension, and empirical evaluation with non-expert users as the lead story.
+- Evidence threshold: a full empirical submission should include completed non-expert user-study results. The study should measure comprehension, safe/unsafe action discrimination, privacy-preserving consent choices, perceived control, trust calibration, workload, and consent fatigue.
+- Systems/security material: supporting technical feasibility evidence. The capability compiler, runtime policy checks, redaction evidence, confirmation gates, audit logs, baselines, and ablations show that PAPF's consent states can be enforced outside the LLM.
+- Benchmark material: supporting measurement infrastructure. The synthetic suite should be described as a local evaluation slice, not as the paper's primary identity.
+- Fallback: if the user study remains planned rather than completed, position the work as a bounded HCI/privacy workshop, design, position, or prototype paper. The fallback can contribute the framing, prompt/consent design space, scenario set, protocol, and enforceable prototype, but must not claim empirical user comprehension, improved consent decisions, reduced consent fatigue, or deployment readiness.
 
 ## Working title options
 
@@ -153,6 +161,7 @@ The paper's evaluation should be ordered and worded as follows:
 1. Primary privacy-usability evaluation: planned or completed user study for comprehension, consent decisions, perceived control, trust, workload, and consent fatigue.
 2. Secondary prototype feasibility evaluation: 12-trace synthetic artifact for enforcement behavior, false allows, over-access, redaction, confirmation gates, recovery, auditability, baselines, and ablations.
 3. Results boundary: trace metrics can show that PAPF can enforce scoped decisions in the prototype; only participant data can show whether people understand and act on those decisions.
+4. Venue boundary: without completed participant data, the paper should fall back to workshop, design, or prototype positioning rather than presenting itself as a full empirical HCI/privacy paper or a primary systems/security benchmark paper.
 
 ## Required evidence by major claim
 
@@ -167,6 +176,8 @@ The paper's evaluation should be ordered and worded as follows:
 | PAPF increases decision time or workload | Timing and workload/fatigue measures | Unsupported until study is run |
 | PAPF reduces over-access in synthetic traces | Generated metrics and provenance | Supported within current 12-trace suite |
 | PAPF is deployable for real personal accounts | Real integration and field evidence | Unsupported; out of scope |
+| PAPF is ready as a full empirical HCI/privacy submission | Completed non-expert study plus prototype evidence | Unsupported until study is run |
+| PAPF can be positioned as a bounded workshop/design/prototype paper | Clear claim boundaries plus protocol and trace artifacts | Supported if user-study results remain planned |
 
 ## HCI/privacy revision order
 

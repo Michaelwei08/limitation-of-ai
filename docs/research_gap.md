@@ -61,39 +61,41 @@
 - Do not claim auditability as a solved property until the audit schema and its use in debugging, post-hoc review, or user explanation are operationalized.
 - `TODO`: deeper source coverage is still needed for agent-specific permission UX and agent-session provenance.
 
-## 7. Possible venue framings
+## 7. Venue positioning
 
-### ML benchmark / datasets framing
+### Primary HCI/privacy and usable-security framing
 
-- What the paper would emphasize: benchmark construction, task schema, attack cases, synthetic personal-data environments, and multi-metric evaluation of agent behavior.
-- What evidence would be needed: a stable benchmark format, diverse tasks, reproducible environments, baseline agents, clear scoring, and evidence that the benchmark reveals behavior not captured by existing suites.
-- Why it may fit: the repo already has a credible benchmark direction, explicit metrics, and a literature-backed motivation for measuring over-access and exfiltration.
-- Why it may not fit: this framing risks making PAPF look like "another agent benchmark" while underselling the external enforcement thesis that currently seems most distinctive.
+- What the paper should emphasize: human-centered privacy, task-scoped consent, permission comprehension, consent interaction design, escalation flow, consent burden, perceived control, trust, and how non-expert users reason about personal-agent grants.
+- What evidence is needed for a full paper: a completed empirical evaluation with non-expert users, including comprehension measures, safe/unsafe action decisions, false allows, false denies, timing, workload, trust or control measures, fatigue measures, and qualitative feedback where feasible.
+- Why it fits: PAPF's central research question is whether user-comprehensible, enforceable task boundaries can protect non-technical users without destroying task utility. That is a privacy-usability and usable-security question first, with enforcement as necessary support.
+- Main risk: without completed participant data, the paper can only present a design, protocol, prompt variants, and prototype feasibility evidence. It should not claim that users understand PAPF prompts or make better privacy decisions.
 
-### Security systems framing
+### Systems/security evidence as technical feasibility support
 
-- What the paper would emphasize: threat model, task-to-capability compilation, runtime policy enforcement outside the LLM, confused-deputy prevention, data-minimization goals, and attack-resistant behavior under prompt injection or exfiltration pressure.
-- What evidence would be needed: an executable prototype, clear policy semantics, well-defined capabilities, attack cases, and comparisons against broad-access or prompt-only baselines on both task success and privacy/security metrics.
-- Why it may fit: this framing aligns most directly with the core thesis in `AGENTS.md`, the layered architecture in `docs/system_design.md`, and the repo's emphasis on measurable enforcement rather than a purely normative argument.
-- Why it may not fit: it still requires enough implementation depth to avoid reading as a paper-only architecture proposal.
+- What this evidence should show: task-to-capability compilation, runtime policy enforcement outside the LLM, redaction evidence, confirmation gates, audit logging, confused-deputy resistance, and behavior under prompt-injection or exfiltration pressure.
+- How to use it: as proof that the consent states shown to users can be enforced by a backend control plane, not as the paper's primary venue identity.
+- What to avoid: do not frame the first paper primarily as a top systems/security venue submission unless the contribution shifts toward new policy semantics, formal guarantees, faithful comparisons to published enforcement systems, or a substantially broader deployed prototype.
 
-### Usable privacy / HCI framing
+### Benchmark and dataset evidence as secondary support
 
-- What the paper would emphasize: privacy harms, task-scoped consent, permission comprehension, explanation quality, consent burden, escalation flow, user agency, and how non-experts reason about task-scoped grants.
-- What evidence would be needed: formative design work, prototype UI flows, user studies with non-experts, comprehension measures, and likely qualitative plus quantitative usability evidence.
-- Why it may fit: non-expert comprehension and privacy agency are central to PAPF's stated research question, and the current paper direction already separates planned user-study outcomes from prototype trace evidence.
-- Why it may not fit: the current project state is still stronger on system architecture and evaluation design than on completed user-study evidence, so the paper must avoid claiming empirical comprehension results.
+- What this evidence should show: explicit labels for necessary, unnecessary, dangerous, and cross-context data; reproducible synthetic tasks; broad-access, prompt-only, and external-enforcement comparisons; and metrics for task success, over-access, false allows, false denies, recovery, consent prompts, and auditability.
+- How to use it: to make the privacy and enforcement claims measurable.
+- What to avoid: do not make the paper read like a primary ML benchmark or systems/security benchmark paper. The synthetic suite is a feasibility artifact for the HCI/privacy argument.
+
+### Bounded workshop fallback
+
+- If the non-expert user study remains planned rather than completed, the defensible fallback is a workshop, design, position, or prototype paper in an HCI/privacy, usable-security, or privacy-engineering venue.
+- The fallback contribution should be bounded to the problem framing, consent interaction design, externally enforced prototype, synthetic scenarios, and evaluation protocol.
+- The fallback should explicitly withhold claims about empirical user comprehension, improved consent decisions, reduced fatigue, calibrated trust, or real-world deployment readiness.
 
 ### AI governance / FAccT framing
 
 - What the paper would emphasize: accountable permission boundaries for consumer agents, data minimization, institutional safeguards, and limits of model self-governance.
-- What evidence would be needed: stronger normative framing, stakeholder analysis, deployment implications, and possibly empirical evidence about governance or user impact beyond system performance.
-- Why it may fit: PAPF clearly engages with accountability, data protection, and consumer-facing AI governance concerns.
-- Why it may not fit: the repo explicitly aims for a measurable technical contribution rather than a broad governance essay, so this framing is likely secondary for the first paper.
+- Why it remains secondary: PAPF clearly engages with accountability and data protection, but the repo aims for a measurable privacy-usability and enforcement contribution rather than a broad governance essay.
 
 ## 8. Strongest first-paper strategy
 
-- The most defensible current paper is an HCI/privacy paper about task-scoped consent with external enforcement, not a broad AI ethics essay and not a pure benchmark paper.
+- The most defensible current paper is an HCI/privacy or usable-security privacy paper about task-scoped consent with external enforcement, not a broad AI ethics essay, not a pure benchmark paper, and not primarily a top systems/security submission.
 - The paper should center concrete privacy harms and user agency first, then use one narrow but attack-relevant implementation slice to show that the proposed privacy boundary is enforceable. A reasonable first slice is a small cross-tool setting such as email plus files or email plus browser-linked tasks, where over-collection, cross-context leakage, unauthorized disclosure, prompt injection, and exfiltration pressure are all plausible.
 - The artifact stack should be:
   1. a task-to-capability compiler,
@@ -106,7 +108,7 @@
   3. PAPF external enforcement.
 - The trace evaluation should prioritize task success, over-access, exfiltration, false allow, false deny, recovery quality, consent burden, redaction failures, and auditability.
 - The planned user evaluation should prioritize comprehension, allow/deny decision quality, perceived control, workload, trust calibration, and consent fatigue. Strong usability claims should wait for dedicated user evidence.
-- This strategy preserves PAPF's core thesis while keeping scope tight enough to be executable.
+- If the user study is completed, this strategy can support a full HCI/privacy submission. If it remains planned, the bounded fallback is a workshop, design, or prototype paper with trace results presented only as technical feasibility support.
 
 ## 9. Claims that require more evidence
 
