@@ -112,6 +112,31 @@ two PAPF formats for comparison against the three non-PAPF condition families.
 If the variants are kept in the main study, prompt format should be a
 pre-specified factor nested inside the PAPF task-scoped condition.
 
+### Consent Fatigue and Interruption-Cost Plan
+
+Stricter task-scoped prompting may reduce over-access by making the requested
+authority narrower and more explicit, but it may also increase interruption
+cost. The study should therefore treat burden as a measurable tradeoff, not as
+an informal limitation. The protocol should record whether a participant saw a
+short prompt, a detailed prompt, an expandable prompt, an audit-preview prompt,
+a prompt batch, or a separate high-risk confirmation gate before each decision.
+
+The following strategies are candidate design variables or material-refinement
+options, not validated fatigue reductions:
+
+| Strategy | Planned use in materials | Measures that should detect cost or benefit |
+| --- | --- | --- |
+| Prompt batching | Combine related low-risk reads for the same task into one visible decision while keeping high-risk disclosure, send, upload, payment, or account-change actions separate. | Prompt count, confirmation count, time to decision, false allows for bundled actions, false denials caused by broad bundles, perceived interruption, and consent-fatigue rating. |
+| Progressive disclosure | Show a concise default prompt with data, redaction, blocked-action, and rationale details behind expandable sections. | Expandable-detail opening rate, comprehension accuracy before or after expansion if measured, time to decision, workload, perceived missing information, and false allows caused by unopened details. |
+| Risk-based prompting | Escalate the prompt surface when data leaves the account, sensitive fields are involved, redaction fails, an untrusted instruction conflicts with policy, or the action commits the user. | Unsafe-action rejection, exfiltration recognition, confirmation-gate recognition, confidence calibration, time to decision, and perceived interruption for high-risk cases. |
+| Remembered user preferences | Allow a future design to remember stable low-risk preferences only when they are task-bound, revocable, auditable, and unable to authorize new sensitive data or external disclosure silently. | Preference-use count if implemented, comprehension of remembered scope, perceived control, trust calibration, false allows from stale preferences, and end-of-study preference comments. |
+| Audit logs instead of repeated low-risk prompts | For low-risk allowed reads, show or summarize audit records instead of interrupting repeatedly; preserve explicit confirmation for disclosure and commitment actions. | Auditability comprehension, prompt count, audit-preview openings, perceived control, workload, consent-fatigue rating, and false allows if participants miss important logged-only actions. |
+
+The analysis should not collapse these outcomes into a single "better prompt"
+score. A prompt strategy could improve over-access rejection while worsening time
+to decision, workload, or fatigue. Any claim about reduced burden or preserved
+comprehension must wait for participant data and pre-specified analysis.
+
 ## Participant Assumptions
 
 Planned participants are non-expert consumer-agent users. The target population
@@ -558,6 +583,9 @@ outcomes from the same decision tasks. The paper-facing version of this table is
 | Workload | Friction and usability | Planned NASA-TLX, raw NASA-TLX, or similar validated workload measure if appropriate. Instrument choice and scoring remain planned until survey items are finalized. | CP5 or CP6 | RQ5 |
 | Perceived interruption or burden | Friction and usability | Planned self-report ratings about whether the prompt interrupted the task or felt effortful. | CP5, CP6 | RQ5 |
 | Prompt and confirmation counts | Interaction burden | Number of permission prompts, confirmation prompts, expandable-detail openings, and audit-preview openings shown or selected. | CP1, CP3, CP4 | RQ5 |
+| Prompt-batching exposure | Interaction burden | Whether a decision grouped multiple low-risk reads or showed them as separate prompts; analyze with false allows, false denials, time to decision, workload, and consent-fatigue ratings. | CP1, CP3, CP5, CP6 | RQ5 |
+| Remembered-preference exposure | Interaction burden and control | Whether a future material variant uses a remembered low-risk preference; analyze only if implemented and paired with comprehension checks for task scope, revocability, auditability, and disclosure limits. | CP1, CP2, CP5, CP6 | RQ4, RQ5 |
+| Low-risk audit-only handling | Interaction burden and auditability | Whether low-risk allowed reads are logged instead of repeatedly prompting; analyze with auditability comprehension, perceived control, workload, fatigue, and missed-action errors. | CP1, CP4, CP5, CP6 | RQ4, RQ5 |
 
 ### Qualitative Measures
 

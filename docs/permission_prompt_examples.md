@@ -71,6 +71,19 @@ actions are actually allowed, blocked, redacted, or confirmation-gated.
 | Prompt with expandable explanation | Progressive disclosure. | Tests whether users can answer easy decisions quickly while opening details for uncertain cases. |
 | Prompt with audit-log preview | Accountability before approval. | Tests whether previewing the future audit record improves perceived control and audit-summary comprehension. |
 
+### Consent-Fatigue Design Notes
+
+These notes describe candidate prompt strategies for future study materials.
+They are not claims that the strategies reduce fatigue or improve decisions.
+
+| Strategy | Draft prompt-material pattern | Measures to inspect before making a claim |
+| --- | --- | --- |
+| Prompt batching | One prompt groups related low-risk reads needed for the current task, while sends, uploads, payments, account changes, and other disclosure or commitment actions remain separate confirmations. | Prompt count, confirmation count, time-on-item, false allows inside the batch, false denials caused by a batch feeling too broad, perceived interruption, workload, and consent-fatigue ratings. |
+| Progressive disclosure | A short default prompt shows task, summary access, disclosure, and confirmation reason; expandable details show exact data objects, redactions, blocked actions, and rationale. | Expansion rate, comprehension accuracy, unopened-detail errors, perceived missing information, time-on-item, workload, and confidence. |
+| Risk-based prompting | Low-risk scoped reads receive concise prompts or audit summaries, while sensitive data, redaction failures, untrusted-content conflicts, and outbound actions receive more explicit warnings and confirmations. | Unsafe-action rejection, exfiltration recognition, redaction understanding, confirmation-gate recognition, time-on-item, perceived interruption, and fatigue ratings. |
+| Remembered user preferences | A future prompt may say that a low-risk preference is remembered for this task type, with visible scope, revocation, and audit information; it must not silently authorize new sensitive data or external disclosure. | Preference comprehension, perceived control, trust calibration, stale-preference false allows, and end-of-study preference comments. |
+| Audit logs instead of repeated low-risk prompts | Low-risk allowed reads may be recorded in an audit log or preview rather than interrupting repeatedly; high-risk sends, uploads, payments, account changes, and redaction-sensitive disclosures still require confirmation. | Auditability comprehension, prompt count, audit-preview openings, perceived control, workload, consent-fatigue ratings, and missed logged-only actions. |
+
 ### Matched Example: US-03 Redacted Contractor Reply
 
 Synthetic decision shown to participants:
@@ -217,6 +230,8 @@ Approve only if this audit preview matches what you expect.
 | Risk-highlighted prompt | Unsafe-action rejection, exfiltration recognition, redaction recognition, confidence calibration. |
 | Prompt with expandable explanation | Expansion rate, comprehension before/after expansion if measured, time-on-item, perceived control. |
 | Prompt with audit-log preview | Auditability comprehension, perceived control, trust calibration, ability to identify what will be recorded as allowed, blocked, redacted, and sent. |
+| Prompt batching variant, if piloted | Prompt count, confirmation count, false allows within grouped reads, false denials from broad-feeling batches, perceived interruption, workload, and consent-fatigue ratings. |
+| Remembered-preference variant, if piloted | Whether participants understand the remembered scope, revocation path, audit record, and limits on sensitive data or external disclosure. |
 
 ## Example 1: Reimbursement Reply
 
