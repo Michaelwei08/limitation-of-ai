@@ -4,8 +4,8 @@
 - Goal: Build a research project on task-scoped permission boundaries for consumer AI agents.
 - Working title: Personal Agent Permission Firewall (PAPF).
 - Benchmark idea: NonExpert-AgentPermBench.
-- Now: Core docs specify the PAPF architecture and HCI/privacy paper plan; `src/papf/` includes deterministic evaluation, run serialization, a file-backed benchmark loader, policy/schema validation, redaction evidence, recovery scoring, baselines, ablations, synthetic tools, reporting, and model-assisted proposal interfaces. Paper artifacts now include a selected HCI/privacy title direction, a bounded title/abstract, final PDF export, artifact checklist, workflow figures, worked examples, failure highlights, and measured ablation/stronger-baseline tables.
-- Next: Continue the HCI/privacy task order with Task 030 and Task 031.
+- Now: Core docs specify the PAPF architecture and HCI/privacy paper plan; `src/papf/` includes deterministic evaluation, run serialization, a file-backed benchmark loader, policy/schema validation, redaction evidence, recovery scoring, baselines, ablations, synthetic tools, reporting, and model-assisted proposal interfaces. Paper artifacts now include a selected HCI/privacy title direction, a bounded title/abstract, a motivating reimbursement scenario, final PDF export, artifact checklist, workflow figures, worked examples, failure highlights, and measured ablation/stronger-baseline tables.
+- Next: Continue the HCI/privacy task order with Task 031.
 - Open questions: Whether the planned non-expert comprehension protocol will be run as an actual user study; clarification versus safe refusal under ambiguity; partial-success scoring.
 
 ## Invariants / Constraints
@@ -90,12 +90,13 @@
 - 2026-05-14 [CODE]: Tightened Task 028 front matter by removing meta-revision wording from the abstract, making prompt/consent design explicit in the contribution list, and refreshing `paper/papf_final.pdf`.
 - 2026-05-14 [CODE]: Renamed the HCI/privacy task files so Tasks 027-045 now match the corrected execution order.
 - 2026-05-14 [CODE]: Implemented Task 029 by selecting the title `Human-Centered Permission Boundaries for Personal AI Agents: Task-Scoped Consent with External Enforcement`, rewriting the abstract around broad personal-agent access, outside-model task-scoped enforcement, prototype trace evaluation, and a planned non-expert user study, and adding title/abstract claim boundaries to `docs/paper_outline.md`.
+- 2026-05-14 [CODE]: Implemented Task 030 by adding a synthetic reimbursement-email scenario near the start of `paper/papf_final.md` and expanding `paper/tables/capability_compilation_example.md` to connect scoped capability, redaction evidence, confirmation gating, and audit traces.
 
 ### Now
-- 2026-05-14 [CODE]: Tasks 027-029 are implemented. The active paper direction is HCI/privacy, with user comprehension, consent burden, permission UX, and non-expert evaluation central; prototype traces are secondary feasibility evidence.
+- 2026-05-14 [CODE]: Tasks 027-030 are implemented. The active paper direction is HCI/privacy, with user comprehension, consent burden, permission UX, and non-expert evaluation central; prototype traces are secondary feasibility evidence.
 
 ### Next
-- 2026-05-14 [CODE]: Continue the HCI/privacy revision with Task 030 (motivating example) and Task 031 (privacy framing), then proceed through the numbered backlog order.
+- 2026-05-14 [CODE]: Continue the HCI/privacy revision with Task 031 (privacy framing), then proceed through the numbered backlog order.
 - 2026-04-30 [CODE]: Use measured ablation/baseline results to guide recovery improvements, external benchmark adapters, and future benchmark expansion.
 - 2026-04-27 [CODE]: Keep the security-critical path deterministic while expanding benchmark loaders, baselines, and experiment reporting.
 
@@ -356,3 +357,5 @@
 - 2026-05-14 [TOOL]: `python -B paper\export_simple_pdf.py paper\papf_final.md paper\papf_final.pdf` -> refreshed PDF after prompt/consent contribution-list tightening.
 - 2026-05-14 [TOOL]: PowerShell title/abstract framing check over `paper/papf_final.md` and `docs/paper_outline.md` -> PASS for required HCI/privacy terms, outside-model enforcement, trace evaluation, planned user study, consent burden, and no `we find`/`we found` overclaim in the abstract.
 - 2026-05-14 [TOOL]: `python -B paper\export_simple_pdf.py paper\papf_final.md paper\papf_final.pdf` -> refreshed PDF after Task 029 title/abstract edits.
+- 2026-05-14 [TOOL]: PowerShell Task 030 text check over `paper/papf_final.md` and `paper/tables/capability_compilation_example.md` -> PASS for scenario placement before PAPF Design and required scoped capability, redaction evidence, confirmation gate, audit trace, tax-file, and malicious-webpage signals.
+- 2026-05-14 [TOOL]: `rg -n "chain-of-thought|self-policing|self policing|model self-policing" paper\papf_final.md paper\tables\capability_compilation_example.md` -> no matches.
