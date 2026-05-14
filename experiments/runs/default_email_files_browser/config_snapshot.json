@@ -23,7 +23,14 @@
     "modes": [
       "papf",
       "broad_access",
-      "prompt_only"
+      "prompt_only",
+      "tool_scope",
+      "static_policy",
+      "ablation_no_scope_narrowing",
+      "ablation_no_redaction_evidence",
+      "ablation_no_confirmation_gating",
+      "ablation_no_safer_alternative_recovery",
+      "ablation_no_audit_completeness_validation"
     ],
     "output_dir": "experiments/runs/default_email_files_browser",
     "suite_ids": [
@@ -36,5 +43,5 @@
   },
   "config_path": "experiments\\configs\\default_email_files_browser.json",
   "repo_root": "D:\\Stanford\\research\\own\\limitation_of_ai",
-  "result_count": 36
+  "result_count": 120
 }

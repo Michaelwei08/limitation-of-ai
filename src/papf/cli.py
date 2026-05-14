@@ -11,6 +11,7 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any
 
+from papf.ablation import AblationMode, evaluate_ablation_scenario
 from papf.baselines import BaselineMode, evaluate_baseline_scenario
 from papf.benchmark.loader import load_benchmark_cases
 from papf.benchmark.models import BenchmarkCase
@@ -28,6 +29,13 @@ class ExperimentMode(StrEnum):
     PAPF = "papf"
     BROAD_ACCESS = "broad_access"
     PROMPT_ONLY = "prompt_only"
+    TOOL_SCOPE = "tool_scope"
+    STATIC_POLICY = "static_policy"
+    ABLATION_NO_SCOPE_NARROWING = "ablation_no_scope_narrowing"
+    ABLATION_NO_REDACTION_EVIDENCE = "ablation_no_redaction_evidence"
+    ABLATION_NO_CONFIRMATION_GATING = "ablation_no_confirmation_gating"
+    ABLATION_NO_SAFER_ALTERNATIVE_RECOVERY = "ablation_no_safer_alternative_recovery"
+    ABLATION_NO_AUDIT_COMPLETENESS_VALIDATION = "ablation_no_audit_completeness_validation"
 
 
 @dataclass(frozen=True)
@@ -101,6 +109,14 @@ def _evaluate(
 ) -> EvaluationCaseResult:
     if mode == ExperimentMode.PAPF:
         return evaluate_scenario(run_id=run_id, task=case.task, environment=case.environment, scenario=scenario)
+    if mode.value in {ablation.value for ablation in AblationMode}:
+        return evaluate_ablation_scenario(
+            run_id=run_id,
+            task=case.task,
+            environment=case.environment,
+            scenario=scenario,
+            mode=AblationMode(mode.value),
+        )
     baseline_mode = BaselineMode(mode.value)
     advisory = str(raw_config.get("prompt_only_advisory", ""))
     if mode == ExperimentMode.PROMPT_ONLY and advisory.strip():

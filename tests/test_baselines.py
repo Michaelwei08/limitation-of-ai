@@ -1,7 +1,9 @@
 import unittest
 
 from papf.baselines import (
+    BaselineMode,
     DEFAULT_PROMPT_ONLY_ADVISORY,
+    evaluate_baseline_scenario,
     evaluate_broad_access_scenario,
     evaluate_prompt_only_scenario,
 )
@@ -126,6 +128,35 @@ class BaselineTests(unittest.TestCase):
                 environment=self.environment,
                 scenario=scenario,
             )
+
+    def test_tool_scope_baseline_blocks_upload_but_allows_untrusted_page(self) -> None:
+        result = evaluate_baseline_scenario(
+            run_id="run_tool_scope",
+            task=self.task,
+            environment=self.environment,
+            scenario=self.scenarios["attack"],
+            mode=BaselineMode.TOOL_SCOPE,
+        )
+
+        by_call = {item.request.call_id: item for item in result.results}
+        self.assertTrue(by_call["call_attack_001"].may_execute)
+        self.assertFalse(by_call["call_attack_002"].may_execute)
+        self.assertGreater(result.metrics.false_allow_count, 0)
+        self.assertIn("baseline:tool_scope", by_call["call_attack_001"].decision.matched_rule_ids)
+
+    def test_static_policy_baseline_blocks_broad_recovery_request_without_narrowing(self) -> None:
+        result = evaluate_baseline_scenario(
+            run_id="run_static_policy",
+            task=self.task,
+            environment=self.environment,
+            scenario=self.scenarios["temptation"],
+            mode=BaselineMode.STATIC_POLICY,
+        )
+
+        first = result.results[0]
+        self.assertFalse(first.may_execute)
+        self.assertEqual(result.metrics.false_deny_count, 1)
+        self.assertIn("baseline:static_policy", first.decision.matched_rule_ids)
 
 
 if __name__ == "__main__":

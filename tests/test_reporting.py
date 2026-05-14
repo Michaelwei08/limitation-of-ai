@@ -30,6 +30,14 @@ class ReportingTests(unittest.TestCase):
             broad_baseline = _row_by(baseline_rows, "baseline", "broad_access")
             self.assertEqual(broad_baseline["false_allow_delta_vs_papf"], "7")
 
+            stronger_rows = _read_csv(generated.stronger_baseline_results_csv)
+            tool_scope = _row_by(stronger_rows, "baseline", "tool_scope")
+            self.assertEqual(tool_scope["false_allow_count"], "1")
+
+            ablation_rows = _read_csv(generated.ablation_results_csv)
+            no_audit = _row_by(ablation_rows, "ablation", "ablation_no_audit_completeness_validation")
+            self.assertEqual(no_audit["auditability_completeness"], "0.0")
+
             failure_rows = _read_csv(generated.failure_cases_csv)
             broad_failure = _row_by(failure_rows, "mode", "broad_access")
             self.assertIn("false_allow", broad_failure["failure_labels"])
@@ -61,24 +69,28 @@ class ReportingTests(unittest.TestCase):
 
 
 def _write_minimal_run(run_dir: Path, *, broad_false_allows: int, prompt_over_access: float) -> None:
-    run_ids = ["run_papf", "run_broad", "run_prompt"]
+    run_ids = ["run_papf", "run_broad", "run_prompt", "run_tool", "run_ablation_no_audit"]
     metadata = {
         "run_label": "test_run",
         "timestamp": "2026-04-29T00:00:00+00:00",
         "metric_schema_version": "papf.metrics.v3",
         "run_ids": run_ids,
-        "scenario_ids": ["trace_case", "trace_case", "trace_case"],
-        "suite_ids": ["attack", "attack", "attack"],
+        "scenario_ids": ["trace_case", "trace_case", "trace_case", "trace_case", "trace_case"],
+        "suite_ids": ["attack", "attack", "attack", "attack", "attack"],
     }
     metrics = [
         _metric_row("run_papf", false_allow_count=0, over_access_rate=0.0),
         _metric_row("run_broad", false_allow_count=broad_false_allows, over_access_rate=0.5),
         _metric_row("run_prompt", false_allow_count=2, over_access_rate=prompt_over_access),
+        _metric_row("run_tool", false_allow_count=1, over_access_rate=0.25),
+        _metric_row("run_ablation_no_audit", false_allow_count=0, over_access_rate=0.0, auditability=0.0),
     ]
     decisions = [
         _decision_row("run_papf", "rule_allow_task_scope"),
         _decision_row("run_broad", "baseline:broad_access"),
         _decision_row("run_prompt", "baseline:prompt_only"),
+        _decision_row("run_tool", "baseline:tool_scope"),
+        _decision_row("run_ablation_no_audit", "ablation:ablation_no_audit_completeness_validation"),
     ]
     audit_rows = [
         _audit_row("run_broad", "call_broad", ("file_private",)),
@@ -105,6 +117,10 @@ def _cleanup_known_files(root: Path) -> None:
         "main_metrics.md",
         "baseline_comparison.csv",
         "baseline_comparison.md",
+        "ablation_results.csv",
+        "ablation_results.md",
+        "stronger_baseline_results.csv",
+        "stronger_baseline_results.md",
         "failure_cases.csv",
         "failure_cases.md",
         "run_provenance.csv",
@@ -128,7 +144,7 @@ def _cleanup_known_files(root: Path) -> None:
         pass
 
 
-def _metric_row(run_id: str, *, false_allow_count: int, over_access_rate: float) -> dict[str, object]:
+def _metric_row(run_id: str, *, false_allow_count: int, over_access_rate: float, auditability: float = 1.0) -> dict[str, object]:
     return {
         "run_id": run_id,
         "task_id": "task_001",
@@ -149,7 +165,7 @@ def _metric_row(run_id: str, *, false_allow_count: int, over_access_rate: float)
         "safe_partial_success": False,
         "task_failure": false_allow_count > 0 or over_access_rate > 0,
         "unsafe_workaround_count": 0,
-        "auditability_completeness": 1.0,
+        "auditability_completeness": auditability,
     }
 
 

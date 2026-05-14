@@ -6,10 +6,17 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from papf.evaluation._reporting_comparisons import (
+    ABLATION_MODES,
+    BASELINE_MODES,
+    ablation_result_rows,
+    baseline_comparison_rows,
+    stronger_baseline_result_rows,
+)
 from papf.evaluation._reporting_loader import RunArtifacts, load_run_artifacts
 from papf.evaluation._reporting_writers import write_bar_svg, write_csv, write_markdown
 
-MODE_ORDER = ("papf", "broad_access", "prompt_only")
+MODE_ORDER = ("papf", *BASELINE_MODES, *ABLATION_MODES)
 
 
 @dataclass(frozen=True)
@@ -18,6 +25,8 @@ class ReportingArtifacts:
     figures_dir: Path
     main_metrics_csv: Path
     baseline_comparison_csv: Path
+    ablation_results_csv: Path
+    stronger_baseline_results_csv: Path
     failure_cases_csv: Path
     provenance_csv: Path
     task_success_figure: Path
@@ -40,11 +49,15 @@ def generate_reporting_artifacts(
     mode_by_run = infer_modes(artifacts.decisions)
     main_rows = main_metrics_rows(artifacts.metrics, mode_by_run)
     baseline_rows = baseline_comparison_rows(artifacts.metrics, mode_by_run)
+    ablation_rows = ablation_result_rows(artifacts.metrics, mode_by_run)
+    stronger_baseline_rows = stronger_baseline_result_rows(artifacts.metrics, mode_by_run)
     failure_rows = failure_case_rows(artifacts.metrics, artifacts.audit_rows, mode_by_run)
     provenance_rows = provenance_rows_from_artifacts(artifacts, mode_by_run)
 
     main_csv = tables_path / "main_metrics.csv"
     baseline_csv = tables_path / "baseline_comparison.csv"
+    ablation_csv = tables_path / "ablation_results.csv"
+    stronger_baseline_csv = tables_path / "stronger_baseline_results.csv"
     failure_csv = tables_path / "failure_cases.csv"
     provenance_csv = tables_path / "run_provenance.csv"
 
@@ -52,6 +65,10 @@ def generate_reporting_artifacts(
     write_markdown(main_csv.with_suffix(".md"), main_rows, "Main Metrics")
     write_csv(baseline_csv, baseline_rows)
     write_markdown(baseline_csv.with_suffix(".md"), baseline_rows, "Baseline Comparison")
+    write_csv(ablation_csv, ablation_rows)
+    write_markdown(ablation_csv.with_suffix(".md"), ablation_rows, "Ablation Results")
+    write_csv(stronger_baseline_csv, stronger_baseline_rows)
+    write_markdown(stronger_baseline_csv.with_suffix(".md"), stronger_baseline_rows, "Stronger Baseline Results")
     write_csv(failure_csv, failure_rows)
     write_markdown(failure_csv.with_suffix(".md"), failure_rows, "Failure Cases")
     write_csv(provenance_csv, provenance_rows)
@@ -79,6 +96,8 @@ def generate_reporting_artifacts(
         figures_dir=figures_path,
         main_metrics_csv=main_csv,
         baseline_comparison_csv=baseline_csv,
+        ablation_results_csv=ablation_csv,
+        stronger_baseline_results_csv=stronger_baseline_csv,
         failure_cases_csv=failure_csv,
         provenance_csv=provenance_csv,
         task_success_figure=success_svg,
@@ -92,10 +111,11 @@ def infer_modes(decisions: tuple[dict[str, Any], ...]) -> dict[str, str]:
         run_id = str(row["run_id"])
         rule_ids = tuple(str(rule_id) for rule_id in row.get("matched_rule_ids", ()))
         mode = "papf"
-        if "baseline:broad_access" in rule_ids:
-            mode = "broad_access"
-        elif "baseline:prompt_only" in rule_ids:
-            mode = "prompt_only"
+        for rule_id in rule_ids:
+            if rule_id.startswith("baseline:"):
+                mode = rule_id.split(":", 1)[1]
+            elif rule_id.startswith("ablation:"):
+                mode = rule_id.split(":", 1)[1]
         previous = modes.get(run_id)
         if previous is not None and previous != mode:
             raise ValueError(f"conflicting inferred modes for run_id {run_id}")
@@ -122,42 +142,6 @@ def main_metrics_rows(metrics: tuple[dict[str, Any], ...], mode_by_run: dict[str
                 "consent_prompts": _sum(selected, "consent_prompts"),
                 "recovery_quality": _mean(selected, "recovery_quality"),
                 "auditability_completeness": _mean(selected, "auditability_completeness"),
-            }
-        )
-    return rows
-
-
-def baseline_comparison_rows(metrics: tuple[dict[str, Any], ...], mode_by_run: dict[str, str]) -> list[dict[str, Any]]:
-    papf_by_case = {
-        _case_key(row): row
-        for row in metrics
-        if mode_by_run[row["run_id"]] == "papf"
-    }
-    rows: list[dict[str, Any]] = []
-    for mode in ("broad_access", "prompt_only"):
-        selected = [
-            row
-            for row in metrics
-            if mode_by_run[row["run_id"]] == mode and _case_key(row) in papf_by_case
-        ]
-        if not selected:
-            continue
-        papf_rows = [papf_by_case[_case_key(row)] for row in selected]
-        rows.append(
-            {
-                "baseline": mode,
-                "matched_scenarios": len(selected),
-                "task_success_rate": _mean_bool(selected, "task_success_proxy"),
-                "task_success_delta_vs_papf": _mean_bool(selected, "task_success_proxy")
-                - _mean_bool(papf_rows, "task_success_proxy"),
-                "over_access_rate": _mean(selected, "over_access_rate"),
-                "over_access_delta_vs_papf": _mean(selected, "over_access_rate")
-                - _mean(papf_rows, "over_access_rate"),
-                "false_allow_count": _sum(selected, "false_allow_count"),
-                "false_allow_delta_vs_papf": _sum(selected, "false_allow_count")
-                - _sum(papf_rows, "false_allow_count"),
-                "consent_prompt_delta_vs_papf": _sum(selected, "consent_prompts")
-                - _sum(papf_rows, "consent_prompts"),
             }
         )
     return rows
@@ -218,7 +202,9 @@ def provenance_rows_from_artifacts(artifacts: RunArtifacts, mode_by_run: dict[st
 
 def _present_modes(mode_by_run: dict[str, str]) -> tuple[str, ...]:
     present = set(mode_by_run.values())
-    return tuple(mode for mode in MODE_ORDER if mode in present)
+    ordered = tuple(mode for mode in MODE_ORDER if mode in present)
+    remaining = tuple(sorted(present - set(ordered)))
+    return (*ordered, *remaining)
 
 
 def _case_key(row: dict[str, Any]) -> tuple[str, str, str]:

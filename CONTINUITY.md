@@ -4,9 +4,9 @@
 - Goal: Build a research project on task-scoped permission boundaries for consumer AI agents.
 - Working title: Personal Agent Permission Firewall (PAPF).
 - Benchmark idea: NonExpert-AgentPermBench.
-- Now: Core docs specify the PAPF architecture and paper plan; `src/papf/` includes deterministic evaluation, hardened run serialization, a file-backed benchmark loader, centralized policy/schema validation, runtime redaction evidence, recovery/partial-success scoring, comparable broad-access/prompt-only baselines, an expanded 12-trace file-backed seed suite, deterministic synthetic email/files/browser tool adapters, a config-driven experiment runner, artifact-derived reporting tables/figures, a non-authoritative model-assisted intent proposal interface, design-only user comprehension protocol docs, and a strengthened verified related-work map.
-- Next: Continue toward paper/artifact packaging.
-- Open questions: Clarification versus safe refusal under ambiguity, partial-success scoring, and whether the planned non-expert comprehension protocol should be run as an actual user study.
+- Now: Core docs specify the PAPF architecture and HCI/privacy paper plan; `src/papf/` includes deterministic evaluation, run serialization, a file-backed benchmark loader, policy/schema validation, redaction evidence, recovery scoring, baselines, ablations, synthetic tools, reporting, and model-assisted proposal interfaces. Paper artifacts now include an HCI/privacy outline, HCI-framed front matter, final PDF export, artifact checklist, workflow figures, worked examples, failure highlights, and measured ablation/stronger-baseline tables.
+- Next: Continue the HCI/privacy task order with Task 029, then Task 030 and Task 031.
+- Open questions: Whether the planned non-expert comprehension protocol will be run as an actual user study; clarification versus safe refusal under ambiguity; partial-success scoring.
 
 ## Invariants / Constraints
 - 2026-04-27 [USER]: Permission enforcement must happen outside the LLM.
@@ -21,11 +21,12 @@
 - D006 ACTIVE 2026-04-27 [CODE]: Benchmark data should use modular multi-axis labels for relevance, sensitivity, and trust, with separate schemas for task definitions, policy rules, tool traces, and audit events.
 - D007 ACTIVE 2026-04-27 [CODE]: The first executable PAPF slice should target a synthetic `email + files + browser` environment because it is narrow enough to implement while still exposing over-access, prompt injection, exfiltration, and recovery behavior.
 - D008 ACTIVE 2026-04-27 [CODE]: The first PAPF prototype should keep the security-critical path rule-based and deterministic; any LLM role should remain advisory for intent proposals, explanations, or recovery suggestions only.
-- D009 ACTIVE 2026-04-27 [CODE]: The first paper should be framed as a security/privacy systems paper with benchmark-backed evaluation, not as an HCI-first or benchmark-only paper.
+- D009 SUPERSEDED 2026-05-14 [USER]: The earlier systems-first paper framing is superseded by the user's request to revise PAPF into an HCI/privacy paper centered on user comprehension, consent burden, and permission UX.
 - D010 ACTIVE 2026-04-27 [CODE]: Non-expert comprehension should remain a design requirement in the first paper unless a dedicated user-study protocol is added; it should not be claimed as an established result from the automated benchmark alone.
 - D011 ACTIVE 2026-04-27 [CODE]: The first implementation milestone starts with Python-facing schemas, validators, deterministic capability compilation, and rule-based enforcement before building a demo agent sandbox.
 - D012 ACTIVE 2026-04-27 [CODE]: `benchmarks/seed_cases/` stays as a quarantined auxiliary CAR artifact for now, but is excluded from PAPF claims, metrics, and paper evidence unless the user explicitly redirects scope.
 - D013 ACTIVE 2026-04-27 [CODE]: PAPF evaluation run artifacts should serialize both JSONL and CSV metric rows plus audit-summary JSONL; test-only serialization artifacts are ignored while the default run remains visible.
+- D014 ACTIVE 2026-05-14 [USER]: The next paper revision should target HCI/privacy framing: user-comprehensible task-scoped authority, consent interaction design, privacy usability, and non-expert user evaluation, with prototype traces as secondary feasibility evidence.
 
 ## State
 
@@ -77,12 +78,23 @@
 - 2026-04-29 [CODE]: Completed Task 021 by adding a non-authoritative intent proposer interface, deterministic fake proposer, raw proposal schema validation before capability compilation, boundary documentation, and contract tests proving invalid proposals cannot mint capabilities.
 - 2026-04-29 [CODE]: Completed Task 022 by adding a design-only non-expert comprehension protocol and matched permission prompt examples; both explicitly report no user-study results or statistics.
 - 2026-04-29 [CODE]: Completed Task 023 by strengthening `docs/lit_matrix.md`, `docs/related_work.md`, and `references.bib` with verified source coverage for agent-specific authorization middleware, agent IFC, agent permission UX, delegated authorization scopes, and agent audit/provenance.
+- 2026-04-29 [CODE]: Completed initial Task 024 paper/artifact packaging by drafting `paper/papf_draft.md`, adding `docs/artifact_checklist.md`, adding PAPF pipeline/runtime workflow figures, and refreshing `README.md` to reflect implemented artifacts and evidence boundaries.
+- 2026-04-30 [CODE]: Continued paper writing by adding a worked task-to-capability example, selected failure-case highlights, a stronger Results failure-analysis paragraph, baseline limitation language, and a required ablation plan.
+- 2026-04-30 [CODE]: Addressed paper evidence-gap risks by adding planned ablation and stronger-baseline tables, adding Tasks 025/026, and revising the draft to keep non-expert comprehension as future work rather than a current result.
+- 2026-04-30 [CODE]: Implemented Task 025 measured ablations with five deterministic modes and generated `paper/tables/ablation_results.{csv,md}` from the default 12-trace run.
+- 2026-04-30 [CODE]: Implemented Task 026 stronger baselines with coarse `tool_scope` and exact `static_policy` external-enforcement modes and generated `paper/tables/stronger_baseline_results.{csv,md}`.
+- 2026-04-30 [CODE]: Created final revised paper source `paper/papf_final.md`, exported `paper/papf_final.pdf`, and added `paper/tables/external_benchmark_positioning.md` to clarify that the PAPF seed suite is local synthetic data while AgentDojo, ToolEmu, InjecAgent, WebArena, and AgentDAM are peer-reviewed external validation targets.
+- 2026-05-14 [CODE]: Added planned HCI/privacy paper-revision Tasks 027-045 covering reframing, motivating example, research questions, user study, scenarios, measures, hypotheses, claim cleanup, evaluation rework, consent fatigue, prompt variants, privacy framing, related work, title/abstract, limitations, conclusion, outline, venue positioning, and final consistency.
+- 2026-05-14 [CODE]: Implemented Task 027 by replacing the old systems-first outline/plan with an HCI/privacy outline and adding `paper/papf_hci_outline.md`.
+- 2026-05-14 [CODE]: Implemented the first Task 028 pass by reframing `paper/papf_final.md` title, abstract, introduction, and contribution list around task-scoped consent, permission UX, and planned user evaluation while keeping trace evaluation secondary.
+- 2026-05-14 [CODE]: Renamed the HCI/privacy task files so Tasks 027-045 now match the corrected execution order.
 
 ### Now
-- 2026-04-29 [CODE]: Project has an executable PAPF evaluation path, serialized run artifacts, a file-backed PAPF seed case loader, expanded seed suite coverage, schema/policy validation gates, redaction evidence enforcement, recovery scoring, baseline runners, synthetic tool runtime, config-driven experiment execution, artifact-derived paper reporting, an optional non-authoritative intent proposal layer, a design-only user comprehension protocol, and a strengthened verified related-work base while preserving the hard-coded smoke fixture.
+- 2026-05-14 [CODE]: Task 027 and the first Task 028 pass are implemented. The active paper direction is HCI/privacy, with user comprehension, consent burden, permission UX, and non-expert evaluation central; prototype traces are secondary feasibility evidence.
 
 ### Next
-- 2026-04-29 [CODE]: Continue with Task 024 paper/artifact packaging.
+- 2026-05-14 [CODE]: Continue the HCI/privacy revision with Task 029 (title/abstract polish), Task 030 (motivating example), and Task 031 (privacy framing), then proceed through the numbered backlog order.
+- 2026-04-30 [CODE]: Use measured ablation/baseline results to guide recovery improvements, external benchmark adapters, and future benchmark expansion.
 - 2026-04-27 [CODE]: Keep the security-critical path deterministic while expanding benchmark loaders, baselines, and experiment reporting.
 
 ## Working set
@@ -150,6 +162,31 @@
 - `tasks/022_user_comprehension_protocol.md`
 - `tasks/023_deeper_source_verification.md`
 - `tasks/024_paper_draft_and_artifact.md`
+- `tasks/025_measured_ablations.md`
+- `tasks/026_stronger_external_baselines.md`
+- `tasks/027_new_hci_privacy_paper_outline.md`
+- `tasks/028_hci_privacy_reframing.md`
+- `tasks/029_title_abstract_hci_privacy.md`
+- `tasks/030_motivating_example_intro.md`
+- `tasks/031_strengthen_privacy_framing.md`
+- `tasks/032_hci_privacy_research_questions.md`
+- `tasks/033_user_study_scenarios.md`
+- `tasks/034_prompt_design_variants.md`
+- `tasks/035_user_study_design.md`
+- `tasks/036_user_study_measures.md`
+- `tasks/037_hci_privacy_hypotheses.md`
+- `tasks/038_rework_evaluation_hci_privacy.md`
+- `tasks/039_consent_fatigue_discussion.md`
+- `tasks/040_related_work_hci_privacy.md`
+- `tasks/041_hci_privacy_limitations.md`
+- `tasks/042_revise_conclusion_hci_privacy.md`
+- `tasks/043_venue_positioning_hci_privacy.md`
+- `tasks/044_user_comprehension_claims.md`
+- `tasks/045_final_hci_consistency_pass.md`
+- `src/papf/ablation/`
+- `src/papf/baselines/external.py`
+- `src/papf/evaluation/_reporting_comparisons.py`
+- `tests/test_ablations.py`
 - `src/papf/evaluation/serialization.py`
 - `src/papf/evaluation/recovery.py`
 - `src/papf/baselines/__init__.py`
@@ -182,6 +219,23 @@
 - `experiments/configs/smoke_email_files_browser.json`
 - `experiments/runs/`
 - `paper/`
+- `paper/papf_draft.md`
+- `paper/papf_final.md`
+- `paper/papf_final.pdf`
+- `paper/papf_hci_outline.md`
+- `paper/export_simple_pdf.py`
+- `paper/figures/papf_pipeline.svg`
+- `paper/figures/papf_runtime_workflow.svg`
+- `paper/tables/capability_compilation_example.md`
+- `paper/tables/external_benchmark_positioning.md`
+- `paper/tables/failure_case_highlights.md`
+- `paper/tables/ablation_plan.md`
+- `paper/tables/ablation_results.csv`
+- `paper/tables/ablation_results.md`
+- `paper/tables/stronger_baseline_plan.md`
+- `paper/tables/stronger_baseline_results.csv`
+- `paper/tables/stronger_baseline_results.md`
+- `docs/artifact_checklist.md`
 
 ## Open questions
 - 2026-04-27 [CODE]: SUPERSEDED by D013: Should evaluation run serialization be JSONL, CSV, or both?
@@ -275,3 +329,24 @@
 - 2026-04-29T03:16:51-07:00 [TOOL]: `Get-Date -Format o` -> timestamp for Task 023 source-verification pass.
 - 2026-04-29 [TOOL]: Verified primary source pages for Progent, AgentSpec, MiniScope, Securing AI Agents with IFC/Fides, Towards Automating Data Access Permissions in AI Agents, IsolateGPT, LLM Agents for Interactive Workflow Provenance, Verifiability-First Agents, GNAP RFC 9635, GNAP RS Connections RFC 9767, and current MCP authorization context.
 - 2026-04-29 [TOOL]: PowerShell citation-key check over `docs/lit_matrix.md` and `docs/related_work.md` -> all citation-like doc keys exist in `references.bib`.
+- 2026-04-29 [CODE]: Used `research-paper-writing` guidance to create a bounded PAPF draft with paragraph roles, reverse outline, claim-evidence map, and five-dimension self-review checklist.
+- 2026-04-29 [TOOL]: Draft citation-key check over `paper/papf_draft.md` -> all extracted citation keys exist in `references.bib`.
+- 2026-04-29 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest discover -s tests -v` -> 77 tests passed after paper/artifact packaging.
+- 2026-04-30 [TOOL]: Draft citation-key check over `paper/papf_draft.md` -> all extracted citation keys exist in `references.bib` after continued paper-writing pass.
+- 2026-04-30 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest discover -s tests -v` -> 77 tests passed after worked example and failure-analysis paper additions.
+- 2026-04-30 [TOOL]: Draft citation-key check over `paper/papf_draft.md` -> all extracted citation keys still exist after evidence-gap solution pass.
+- 2026-04-30 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest discover -s tests -v` -> 77 tests passed after adding ablation/baseline plan tables and Tasks 025/026.
+- 2026-04-30 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m papf.cli run-experiment --config experiments/configs/default_email_files_browser.json --timestamp 2026-04-30T00:00:00+00:00` -> regenerated 120 metric rows for PAPF, 4 baselines, and 5 ablations.
+- 2026-04-30 [TOOL]: Reporting regeneration wrote `ablation_results`, `stronger_baseline_results`, refreshed main/baseline/failure/provenance tables, and updated result SVGs.
+- 2026-04-30 [TOOL]: `$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest discover -s tests -v` -> 84 tests passed after Tasks 025/026.
+- 2026-04-30 [TOOL]: `$env:PYTHONDONTWRITEBYTECODE='1'; python -B -m py_compile ...` -> changed ablation, baseline, reporting, CLI, and test modules compiled successfully.
+- 2026-04-30 [TOOL]: Verified peer-reviewed external evaluation targets via primary venue pages: AgentDojo NeurIPS 2024, ToolEmu ICLR 2024, InjecAgent Findings of ACL 2024, WebArena ICLR 2024, and AgentDAM NeurIPS 2025 Datasets and Benchmarks.
+- 2026-04-30 [TOOL]: `pandoc paper\papf_final.md ... --pdf-engine=xelatex` -> blocked by host MiKTeX/AppData log permissions; used dependency-free `paper/export_simple_pdf.py` instead.
+- 2026-04-30 [TOOL]: `python -B -m py_compile paper\export_simple_pdf.py` -> exporter compiled successfully.
+- 2026-04-30 [TOOL]: `python -B paper\export_simple_pdf.py paper\papf_final.md paper\papf_final.pdf` -> wrote a 7-page PDF.
+- 2026-04-30 [TOOL]: Citation-like key check over `paper/papf_final.md` -> all 34 citation-like keys found in `references.bib`.
+- 2026-05-14 [TOOL]: `Get-ChildItem tasks\0*.md` and task-number check -> Tasks 027-045 are present and linked from `tasks/009_pipeline_backlog.md`.
+- 2026-05-14 [TOOL]: Citation-like key check over `paper/papf_final.md` -> all 34 citation-like keys found in `references.bib` after HCI/privacy front-matter rewrite.
+- 2026-05-14 [TOOL]: `rg` for stale systems-first framing in `docs/paper_outline.md`, `docs/paper_plan.md`, `paper/papf_final.md`, and `tasks/009_pipeline_backlog.md` -> no matches.
+- 2026-05-14 [TOOL]: `python -B paper\export_simple_pdf.py paper\papf_final.md paper\papf_final.pdf` -> refreshed 7-page PDF after Task 028 edits.
+- 2026-05-14 [TOOL]: Two-stage `Move-Item` rename and follow-up reference check -> HCI/privacy task files `027`-`045` now match the execution order.

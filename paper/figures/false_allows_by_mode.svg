@@ -14,13 +14,13 @@
 <text class="tick" x="76" y="128.5" text-anchor="end">12</text>
 <line class="grid" x1="84" y1="52.0" x2="686" y2="52.0"/>
 <text class="tick" x="76" y="56.0" text-anchor="end">16</text>
-<rect x="126.1" y="342.0" width="116.4" height="0.0" fill="#2563eb"/>
-<text class="bar-label" x="184.3" y="334.0" text-anchor="middle">0</text>
-<text class="tick" x="184.3" y="370" text-anchor="middle">papf</text>
-<rect x="326.8" y="52.0" width="116.4" height="290.0" fill="#dc2626"/>
-<text class="bar-label" x="385.0" y="44.0" text-anchor="middle">16</text>
-<text class="tick" x="385.0" y="370" text-anchor="middle">broad_access</text>
-<rect x="527.5" y="52.0" width="116.4" height="290.0" fill="#f59e0b"/>
-<text class="bar-label" x="585.7" y="44.0" text-anchor="middle">16</text>
-<text class="tick" x="585.7" y="370" text-anchor="middle">prompt_only</text>
+<rect x="96.6" y="342.0" width="34.9" height="0.0" fill="#2563eb"/>
+<text class="bar-label" x="114.1" y="334.0" text-anchor="middle">0</text>
+<text class="tick" x="114.1" y="370" text-anchor="middle">papf</text>
+<rect x="156.8" y="52.0" width="34.9" height="290.0" fill="#dc2626"/>
+<text class="bar-label" x="174.3" y="44.0" text-anchor="middle">16</text>
+<text class="tick" x="174.3" y="370" text-anchor="middle">broad_access</text>
+<rect x="217.0" y="52.0" width="34.9" height="290.0" fill="#f59e0b"/>
+<text class="bar-label" x="234.5" y="44.0" text-anchor="middle">16</text>
+<text class="tick" x="234.5" y="370" text-anchor="middle">prompt_only</text>
 </svg>

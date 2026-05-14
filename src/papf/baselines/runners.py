@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 from papf.audit.models import AuditEvent, RunAuditLog
+from papf.baselines.external import STATIC_POLICY_BASELINE, TOOL_SCOPE_BASELINE, evaluate_external_policy_scenario
 from papf.benchmark.models import BenchmarkTask, DataObject, EnvironmentBundle
 from papf.benchmark.traces import TraceScenario
 from papf.benchmark.validators import validate_task_bundle
@@ -25,6 +26,8 @@ DEFAULT_PROMPT_ONLY_ADVISORY = (
 class BaselineMode(StrEnum):
     BROAD_ACCESS = "broad_access"
     PROMPT_ONLY = "prompt_only"
+    TOOL_SCOPE = TOOL_SCOPE_BASELINE
+    STATIC_POLICY = STATIC_POLICY_BASELINE
 
 
 @dataclass(frozen=True)
@@ -79,6 +82,14 @@ def evaluate_baseline_scenario(
     validation_errors = validate_task_bundle(task, environment)
     if validation_errors:
         raise ValueError(f"invalid benchmark task bundle: {'; '.join(validation_errors)}")
+    if mode in {BaselineMode.TOOL_SCOPE, BaselineMode.STATIC_POLICY}:
+        return evaluate_external_policy_scenario(
+            run_id=run_id,
+            task=task,
+            environment=environment,
+            scenario=scenario,
+            mode_label=mode.value,
+        )
     observations = tuple(_observe_request(request, environment) for request in scenario.requests)
     results = tuple(
         _baseline_result(

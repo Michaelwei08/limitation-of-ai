@@ -1,0 +1,3 @@
+baseline,matched_scenarios,task_success_rate,task_success_delta_vs_papf,safe_partial_success_rate,safe_partial_success_delta_vs_papf,over_access_rate,over_access_delta_vs_papf,false_allow_count,false_allow_delta_vs_papf,unredacted_disclosure_count,unredacted_disclosure_delta_vs_papf,consent_prompts,consent_prompt_delta_vs_papf,recovery_quality,recovery_quality_delta_vs_papf,auditability_completeness,auditability_completeness_delta_vs_papf
+tool_scope,12,0.25,0.08333333333333334,0.0,-0.08333333333333333,0.2916666666666667,0.2916666666666667,7,7,0,0,3,0,0.0,-0.08333333333333333,1.0,0.0
+static_policy,12,0.16666666666666666,0.0,0.08333333333333333,0.0,0.0,0.0,0,0,0,0,3,0,0.08333333333333333,0.0,1.0,0.0

@@ -2,7 +2,7 @@
 
 Personal Agent Permission Firewall (PAPF) is a research project on task-scoped permission boundaries for consumer AI agents. The project studies whether an agent can complete realistic personal-assistant tasks while exposing only the data and capabilities that are necessary for that task.
 
-The current repo state is an initialization scaffold. It contains the project framing, an initial benchmark specification, and a system design outline. It does not yet implement the PAPF runtime, benchmark loader, evaluation pipeline, or experiments.
+The current repo contains a deterministic PAPF prototype, a synthetic `email + files + browser` benchmark slice, baseline runners, serialized experiment artifacts, paper-ready tables and figures, and a bounded paper draft. The implementation is a research artifact, not a production agent system.
 
 ## Research focus
 
@@ -14,10 +14,13 @@ The current repo state is an initialization scaffold. It contains the project fr
 
 ## Current status
 
-- Documentation scaffold created
-- Repo layout initialized
-- Benchmark and system design specified at a high level
-- No code, experiments, or results yet
+- PAPF runtime foundation implemented with intent records, capability compilation, policy validation, enforcement mediation, consent handling, redaction artifacts, audit logs, and metric computation.
+- File-backed synthetic benchmark cases cover 12 traces across clean, temptation, attack, redaction, confirmation, cross-tool exfiltration, and recovery scenarios.
+- Baseline modes include broad ambient access, prompt-only advisory guardrails, coarse tool-scope delegated authorization, and static-policy enforcement over the same synthetic tool environment.
+- Ablation modes cover scope narrowing, redaction evidence, confirmation gating, safer-alternative recovery, and audit-completeness validation.
+- Default serialized run artifacts live under `experiments/runs/default_email_files_browser/`.
+- Paper tables and figures live under `paper/tables/` and `paper/figures/`.
+- A bounded paper draft lives at `paper/papf_draft.md`.
 
 ## Repo layout
 
@@ -27,6 +30,7 @@ The current repo state is an initialization scaffold. It contains the project fr
 |-- CONTINUITY.md
 |-- README.md
 |-- docs/
+|   |-- artifact_checklist.md
 |   |-- benchmark_spec.md
 |   |-- paper_outline.md
 |   |-- related_work.md
@@ -36,6 +40,8 @@ The current repo state is an initialization scaffold. It contains the project fr
 |   |-- configs/
 |   `-- runs/
 |-- paper/
+|   |-- figures/
+|   `-- tables/
 |-- src/
 |   `-- papf/
 `-- tests/
@@ -46,25 +52,45 @@ The current repo state is an initialization scaffold. It contains the project fr
 - `docs/research_brief.md`: project argument, research questions, and venue framing
 - `docs/benchmark_spec.md`: benchmark goals, task structure, attacks, and metrics
 - `docs/system_design.md`: PAPF layer decomposition and enforcement model
-- `docs/related_work.md`: placeholder map of literature categories to survey
+- `docs/related_work.md`: verified seed literature map
 - `docs/paper_outline.md`: candidate paper structure
+- `docs/artifact_checklist.md`: reproduction commands, supported claims, and submission gaps
+- `paper/papf_draft.md`: current bounded paper draft
 
-## Planned implementation areas
+## Implemented areas
 
-- Intent analysis for turning user tasks into structured task descriptions
-- Capability compilation for generating narrow permissions from intent
+- Intent analysis and non-authoritative model-assisted proposal interfaces
+- Capability compilation for generating narrow permissions from task records
 - Runtime policy enforcement for tool-call checks outside the LLM
-- Risk-adaptive consent for escalation and denial handling
-- Audit logging and evaluation over synthetic benchmark tasks
+- Risk-adaptive consent, redaction evidence, and safer-alternative recovery scoring
+- Synthetic email, files, and browser tool adapters
+- Deterministic evaluation, baseline comparison, serialization, and artifact-derived reporting
 
-## Running future experiments
+## Reproducing the default experiment
 
-No runnable system exists yet. A likely future workflow is:
+Run from the repository root:
 
-1. Add benchmark definitions under `src/papf/benchmark/` and configs under `experiments/configs/`.
-2. Implement evaluation code and tests.
-3. Run experiments and store outputs in `experiments/runs/`.
-4. Validate that reported metrics come from code-generated results only.
+```powershell
+$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m papf.cli run-experiment --config experiments/configs/default_email_files_browser.json --timestamp 2026-04-29T00:00:00+00:00
+```
+
+Regenerate paper tables and generated result figures:
+
+```powershell
+$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -c "from papf.evaluation.reporting import generate_reporting_artifacts; generate_reporting_artifacts('experiments/runs/default_email_files_browser')"
+```
+
+Run tests:
+
+```powershell
+$env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest discover -s tests -v
+```
+
+## Evidence boundaries
+
+- Supported by current artifacts: PAPF records zero false allows and zero over-access in the current 12-trace synthetic run, while broad-access and prompt-only baselines each record 16 false allows.
+- Also supported: the current run exposes a utility/safety tradeoff; PAPF has lower task-success proxy and nonzero consent burden.
+- Not supported yet: production readiness, formal least privilege, broad domain generality, stronger task success, or empirical non-expert comprehension.
 
 ## Contributing
 

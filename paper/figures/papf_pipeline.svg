@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="520" viewBox="0 0 1180 520" role="img" aria-labelledby="title desc">
+  <title id="title">PAPF task-to-enforcement pipeline</title>
+  <desc id="desc">Pipeline showing a user task flowing through intent proposal, validation, capability compilation, policy enforcement, consent, mediated tools, audit logging, and evaluation.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#1f2933"/>
+    </marker>
+    <style>
+      .bg { fill: #f7f3ea; }
+      .lane { fill: #fffaf0; stroke: #d3c5aa; stroke-width: 1.5; }
+      .trusted { fill: #e3f2ec; stroke: #19735a; stroke-width: 2; }
+      .untrusted { fill: #fbe9e2; stroke: #a8482d; stroke-width: 2; }
+      .output { fill: #e8eefb; stroke: #345995; stroke-width: 2; }
+      .eval { fill: #f4e8fb; stroke: #7353a4; stroke-width: 2; }
+      .title { font: 700 26px Georgia, serif; fill: #17202a; }
+      .label { font: 700 15px Georgia, serif; fill: #17202a; }
+      .small { font: 12px Georgia, serif; fill: #344054; }
+      .lane-label { font: 700 13px Georgia, serif; fill: #5c5346; letter-spacing: 0.02em; }
+      .arrow { stroke: #1f2933; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .dash { stroke: #8a7d68; stroke-width: 1.8; stroke-dasharray: 6 5; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1180" height="520"/>
+  <text class="title" x="42" y="48">Personal Agent Permission Firewall pipeline</text>
+  <text class="small" x="42" y="75">Model assistance may propose intent, but machine-checkable authority and runtime decisions are enforced outside the LLM.</text>
+
+  <rect class="lane" x="36" y="105" width="1108" height="100" rx="16"/>
+  <text class="lane-label" x="58" y="130">UNTRUSTED OR PARTIALLY TRUSTED</text>
+  <rect class="lane" x="36" y="235" width="1108" height="142" rx="16"/>
+  <text class="lane-label" x="58" y="260">TRUSTED PAPF CONTROL PLANE</text>
+  <rect class="lane" x="36" y="405" width="1108" height="76" rx="16"/>
+  <text class="lane-label" x="58" y="430">EVIDENCE AND EVALUATION</text>
+
+  <rect class="untrusted" x="70" y="145" width="125" height="42" rx="10"/>
+  <text class="label" x="93" y="170">User task</text>
+
+  <rect class="untrusted" x="245" y="128" width="145" height="64" rx="10"/>
+  <text class="label" x="272" y="154">Intent</text>
+  <text class="small" x="266" y="174">proposal layer</text>
+
+  <rect class="trusted" x="245" y="285" width="145" height="64" rx="10"/>
+  <text class="label" x="271" y="310">Schema</text>
+  <text class="small" x="267" y="330">validation gate</text>
+
+  <rect class="trusted" x="438" y="285" width="150" height="64" rx="10"/>
+  <text class="label" x="462" y="310">Capability</text>
+  <text class="small" x="461" y="330">compiler</text>
+
+  <rect class="trusted" x="636" y="285" width="150" height="64" rx="10"/>
+  <text class="label" x="657" y="310">Policy</text>
+  <text class="small" x="659" y="330">enforcement</text>
+
+  <rect class="trusted" x="834" y="285" width="132" height="64" rx="10"/>
+  <text class="label" x="858" y="310">Consent</text>
+  <text class="small" x="856" y="330">and redaction</text>
+
+  <rect class="untrusted" x="1010" y="128" width="105" height="64" rx="10"/>
+  <text class="label" x="1035" y="154">Tools</text>
+  <text class="small" x="1028" y="174">email/files/web</text>
+
+  <rect class="output" x="636" y="425" width="150" height="42" rx="10"/>
+  <text class="label" x="671" y="451">Audit trace</text>
+
+  <rect class="eval" x="834" y="425" width="132" height="42" rx="10"/>
+  <text class="label" x="865" y="451">Metrics</text>
+
+  <rect class="eval" x="1010" y="425" width="105" height="42" rx="10"/>
+  <text class="label" x="1028" y="451">Paper</text>
+
+  <path class="arrow" d="M195 166 H245"/>
+  <path class="dash" d="M318 192 V285"/>
+  <path class="arrow" d="M390 317 H438"/>
+  <path class="arrow" d="M588 317 H636"/>
+  <path class="arrow" d="M786 317 H834"/>
+  <path class="arrow" d="M966 317 C1000 317 1015 270 1035 192"/>
+  <path class="arrow" d="M1035 192 C1025 245 990 286 966 306"/>
+  <path class="arrow" d="M711 349 V425"/>
+  <path class="arrow" d="M786 446 H834"/>
+  <path class="arrow" d="M966 446 H1010"/>
+
+  <text class="small" x="407" y="235">validated task fields only</text>
+  <text class="small" x="801" y="235">allow, narrow, redact, confirm, deny</text>
+  <text class="small" x="62" y="500">Key invariant: no tool adapter executes until PAPF emits an allow-like enforcement result.</text>
+</svg>

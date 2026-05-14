@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="700" viewBox="0 0 1180 700" role="img" aria-labelledby="title desc">
+  <title id="title">PAPF runtime workflow</title>
+  <desc id="desc">Runtime workflow showing a tool request checked against capabilities and policy, with branches for allow, narrowed allow, redacted allow, confirmation, and denial.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#263238"/>
+    </marker>
+    <style>
+      .bg { fill: #f6f0e6; }
+      .box { fill: #fffdf7; stroke: #53616f; stroke-width: 2; }
+      .check { fill: #e5f4ef; stroke: #1d7355; stroke-width: 2; }
+      .risk { fill: #fff0d6; stroke: #aa6a00; stroke-width: 2; }
+      .deny { fill: #fbe4df; stroke: #a33b2e; stroke-width: 2; }
+      .exec { fill: #e6eefb; stroke: #335c97; stroke-width: 2; }
+      .audit { fill: #f2e8fb; stroke: #7251a5; stroke-width: 2; }
+      .title { font: 700 26px Georgia, serif; fill: #17202a; }
+      .label { font: 700 15px Georgia, serif; fill: #17202a; }
+      .small { font: 12px Georgia, serif; fill: #344054; }
+      .tiny { font: 11px Georgia, serif; fill: #475467; }
+      .arrow { stroke: #263238; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .dash { stroke: #6b7280; stroke-width: 1.8; stroke-dasharray: 6 5; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect class="bg" width="1180" height="700"/>
+  <text class="title" x="42" y="48">PAPF runtime workflow</text>
+  <text class="small" x="42" y="75">Every attempted action is checked against task-scoped authority before execution.</text>
+
+  <rect class="box" x="70" y="125" width="160" height="70" rx="12"/>
+  <text class="label" x="102" y="153">Agent attempts</text>
+  <text class="small" x="101" y="174">tool request</text>
+
+  <rect class="check" x="295" y="125" width="175" height="70" rx="12"/>
+  <text class="label" x="329" y="153">Normalize</text>
+  <text class="small" x="318" y="174">action, resource, scope</text>
+
+  <rect class="check" x="535" y="125" width="190" height="70" rx="12"/>
+  <text class="label" x="565" y="153">Match capability</text>
+  <text class="small" x="563" y="174">purpose + session bound</text>
+
+  <rect class="check" x="790" y="125" width="180" height="70" rx="12"/>
+  <text class="label" x="827" y="153">Policy check</text>
+  <text class="small" x="815" y="174">deny by default</text>
+
+  <rect class="exec" x="505" y="310" width="170" height="70" rx="12"/>
+  <text class="label" x="541" y="338">Execute tool</text>
+  <text class="small" x="534" y="359">allowed request only</text>
+
+  <rect class="exec" x="725" y="310" width="175" height="70" rx="12"/>
+  <text class="label" x="762" y="338">Return output</text>
+  <text class="small" x="756" y="359">observed refs only</text>
+
+  <rect class="risk" x="1000" y="250" width="140" height="70" rx="12"/>
+  <text class="label" x="1029" y="278">Confirm</text>
+  <text class="small" x="1019" y="299">user decision</text>
+
+  <rect class="risk" x="1000" y="370" width="140" height="70" rx="12"/>
+  <text class="label" x="1031" y="398">Redact</text>
+  <text class="small" x="1013" y="419">artifact required</text>
+
+  <rect class="risk" x="1000" y="490" width="140" height="70" rx="12"/>
+  <text class="label" x="1024" y="518">Narrow</text>
+  <text class="small" x="1018" y="539">scope rewrite</text>
+
+  <rect class="deny" x="295" y="490" width="175" height="70" rx="12"/>
+  <text class="label" x="344" y="518">Deny</text>
+  <text class="small" x="319" y="539">safer alternative if any</text>
+
+  <rect class="audit" x="505" y="590" width="395" height="58" rx="12"/>
+  <text class="label" x="613" y="617">Append audit event</text>
+  <text class="small" x="580" y="638">decision id, rationale, data refs, artifacts, outcome</text>
+
+  <path class="arrow" d="M230 160 H295"/>
+  <path class="arrow" d="M470 160 H535"/>
+  <path class="arrow" d="M725 160 H790"/>
+
+  <path class="arrow" d="M880 195 C850 280 755 330 675 345"/>
+  <text class="tiny" x="756" y="272">allow</text>
+
+  <path class="arrow" d="M970 160 C1040 165 1070 205 1070 250"/>
+  <text class="tiny" x="1024" y="205">requires confirmation</text>
+  <path class="arrow" d="M1000 285 C890 275 730 295 648 310"/>
+
+  <path class="arrow" d="M970 170 C1076 220 1085 312 1070 370"/>
+  <text class="tiny" x="1020" y="344">requires redaction</text>
+  <path class="arrow" d="M1000 405 C892 394 733 378 675 360"/>
+
+  <path class="arrow" d="M970 181 C1095 262 1102 440 1070 490"/>
+  <text class="tiny" x="1018" y="472">narrow allowed</text>
+  <path class="arrow" d="M1000 525 C820 515 650 435 610 380"/>
+
+  <path class="arrow" d="M790 177 C610 250 462 390 405 490"/>
+  <text class="tiny" x="515" y="393">no matching authority</text>
+
+  <path class="arrow" d="M675 345 H725"/>
+  <path class="dash" d="M590 380 V590"/>
+  <path class="dash" d="M812 380 V590"/>
+  <path class="dash" d="M382 560 C430 610 455 620 505 620"/>
+
+  <text class="small" x="70" y="660">Audit is emitted for both executed and blocked requests, allowing metrics to score false allows, over-access, consent burden, and recovery.</text>
+</svg>

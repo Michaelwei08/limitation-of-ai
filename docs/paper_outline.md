@@ -1,128 +1,135 @@
 # Paper Outline
 
-## Recommended paper story
+## Current paper story
 
-The first paper should be framed as a security/privacy systems paper on externally enforced, task-scoped permissions for consumer AI agents, with a benchmark-backed evaluation. The benchmark is an evaluation artifact in service of the systems claim, not the sole contribution.
+The active paper framing is an HCI/privacy paper on task-scoped consent for personal AI agents. PAPF is the artifact used to study the design problem: personal AI agents need authority boundaries that are externally enforced, scoped to the user's current task, and understandable enough for non-expert users to make consent decisions.
+
+The prototype trace evaluation remains useful, but it is secondary. It shows that PAPF can enforce scoped tool access, redaction, confirmation gates, and audit traces in a synthetic `email + files + browser` environment. It does not establish that users understand PAPF prompts or that the design reduces real-world consent fatigue.
 
 ## Working title options
 
-1. Personal Agent Permission Firewall: Task-Scoped External Enforcement for Consumer AI Agents
-2. Task-Scoped Permission Boundaries for Consumer AI Agents
-3. Compiling User Tasks into Enforceable Agent Permissions
-4. PAPF: A Permission Control Plane for Consumer AI Agents
+1. Task-Scoped Consent for Personal AI Agents
+2. Human-Centered Permission Boundaries for Personal AI Agents
+3. Designing User-Comprehensible Permissions for Consumer AI Agents
+4. External Enforcement and Consent UX for Privacy-Preserving AI Agents
+5. Personal Agent Permission Firewall: Task-Scoped Consent and External Enforcement
 
 ## One-sentence thesis
 
-Consumer AI agents should not receive broad ambient authority; instead, natural-language tasks should be compiled into narrow, machine-checkable permissions that are enforced outside the LLM and evaluated against both task utility and privacy/security failures.
+Personal AI agents should operate under externally enforced, task-scoped authority boundaries, and HCI/privacy evaluation should test whether non-expert users can understand those boundaries, identify unsafe actions, and make privacy-preserving consent decisions without unacceptable consent burden.
 
-## Core claims the paper may try to support
+## Core claims the paper may support
 
-- A task-scoped permission architecture is a better framing for consumer-agent safety than prompt-only refusal.
-- An external control plane can narrow effective authority while preserving useful task completion on a realistic synthetic task slice.
-- Evaluation should measure both utility and privacy/security outcomes at the level of concrete tool calls and data touches.
-
-These are candidate claims, not yet supported final findings.
+- Consumer AI agents create privacy risks because they combine sensitive personal data, cross-tool workflows, and executable actions.
+- Broad app-level authorization and generic confirmation prompts are poorly matched to task-specific privacy decisions.
+- PAPF provides an artifact-backed design for task-scoped authority, redaction, consent gating, and auditability outside the LLM.
+- PAPF-style prompts are designed to support user comprehension, but whether they actually do so is an empirical question for a user study.
+- The prototype trace evaluation supports feasibility of external enforcement; it does not by itself support user-comprehension or consent-fatigue claims.
 
 ## Proposed structure
 
 ### 1. Introduction
 
-- Motivate why consumer agents cross sensitive personal-data boundaries.
-- Argue that broad tool access creates excessive agency and confused-deputy risk.
-- State the paper thesis: enforcement must be external to the LLM.
-- Preview the artifact stack: PAPF architecture, narrow prototype, benchmark slice, and joint utility/security evaluation.
+- Message: Personal AI agents need permission systems that users can understand and act on because these agents combine sensitive data access with external actions.
+- Evidence needed: motivating examples, privacy-permission literature, prompt-injection/tool-use literature, and bounded PAPF prototype evidence.
+- User-study dependency: final claims about user comprehension, trust, and fatigue require participant data.
 
-### 2. Problem Setting and Threat Model
+### 2. Motivating Example
 
-- Define the consumer-agent setting and protected resources.
-- Define over-access, exfiltration, false allow, false deny, consent burden, and recovery.
-- Specify the attacker model: indirect prompt injection, malicious content, and over-broad tool requests.
-- State the non-goals clearly: no production deployment claim, no formal least-privilege proof, no user-study-backed comprehension claim in the first paper.
+- Message: A reimbursement-email task makes the permission problem concrete for non-expert readers.
+- Evidence needed: synthetic example where the agent should summarize one email, avoid unrelated tax documents, ignore malicious webpage instructions, and request confirmation before sending private information.
+- User-study dependency: none for motivation, but any claim that users find the example clear requires study evidence.
 
-### 3. PAPF Design
+### 3. Background and Privacy Risks
 
-- Present the control-plane architecture.
-- Explain the boundary between model-assisted proposal logic and deterministic enforcement logic.
-- Describe task intent normalization, capability compilation, runtime mediation, consent gating, and audit logging.
-- Emphasize deny-by-default mediation and inspectable decision traces.
+- Message: The central privacy harms are over-collection, secondary use, cross-context leakage, unauthorized disclosure, prompt-injection-mediated exfiltration, and loss of user agency.
+- Evidence needed: privacy principles, permission UX work, consent-fatigue work, agent authorization work, and prompt-injection/tool-risk work.
+- User-study dependency: none for threat framing; human perception claims require user evidence.
 
-### 4. Benchmark and Evaluation Substrate
+### 4. PAPF Design Goals
 
-- Describe the benchmark slice and why it focuses first on `email + files + browser`.
-- Define the task schema, policy schema, tool-call trace schema, and audit schema.
-- Explain the data-label taxonomy and attack taxonomy.
-- Clarify that the benchmark defines safe action envelopes rather than one gold sequence.
+- Message: PAPF is designed around externally enforced task scope, user-facing consent, data minimization, purpose limitation, transparency, and auditability.
+- Evidence needed: design goals tied to implemented mechanisms and prompt examples.
+- User-study dependency: whether the goals are met for users requires study results.
 
-### 5. Experimental Setup
+### 5. PAPF Architecture
 
-- Describe the first PAPF prototype and the exact evaluation environment.
-- Define baselines: broad ambient access and prompt-only guardrails.
-- Specify task suites: clean, temptation, attack, and recovery.
-- Define the reported metrics and what each metric captures.
+- Message: PAPF keeps final authority outside the LLM through validated intent records, capability compilation, policy checks, redaction evidence, confirmation gates, and audit traces.
+- Evidence needed: implementation-aligned module boundaries, architecture figure, capability example, and enforcement tests.
+- User-study dependency: none for technical architecture.
 
-### 6. Results
+### 6. Permission Prompt Design
 
-- Report only measured outcomes once implemented.
-- Focus on tradeoffs among task success, over-access, exfiltration, false allow, false deny, consent burden, recovery quality, and auditability.
-- Include failure analysis rather than only aggregate metrics.
+- Message: PAPF's user-facing layer should make task goal, requested access, data touched, external disclosure, redaction, and confirmation reason visible at the right level of detail.
+- Evidence needed: prompt variants, design rationale, and examples.
+- User-study dependency: prompt comprehension and preference claims require participant data.
 
-### 7. Discussion and Limitations
+### 7. Prototype Implementation
 
-- Analyze where PAPF helps and where it remains brittle.
-- Discuss ambiguity, scope selection, redaction evidence, and benchmark generality limits.
-- Separate supported conclusions from hypotheses for future work.
+- Message: The current prototype operationalizes the design in a deterministic synthetic email-files-browser environment.
+- Evidence needed: code modules, benchmark cases, synthetic tool adapters, redaction artifacts, audit logs, and serialized runs.
+- User-study dependency: none for feasibility.
 
-### 8. Related Work
+### 8. User Study
 
-- Prompt injection and tool-using agent safety
-- Capability security, least privilege, and confused deputy
-- Delegated authorization and explicit machine-checkable access control
-- Permission UX, consent fatigue, and auditability
+- Message: The primary HCI/privacy evaluation should test whether non-expert users understand PAPF-style prompts and make safer privacy decisions.
+- Evidence needed: participant population, conditions, scenarios, tasks, measures, hypotheses, and analysis plan.
+- User-study dependency: this section is planned until the study is run; final paper claims require collected data.
 
-### 9. Conclusion
+### 9. Prototype Trace Evaluation
 
-- Restate the systems argument.
-- Summarize what the prototype and benchmark do establish.
-- Bound the claims tightly and point to follow-up work on broader domains and user studies.
+- Message: The trace evaluation verifies that PAPF can enforce the scoped decisions used in the prompt and study design.
+- Evidence needed: 12-trace synthetic suite, baselines, ablations, metrics, and provenance.
+- User-study dependency: none, but interpretation must stay technical.
 
-## Evidence expectations by section
+### 10. Results
 
-### Introduction
+- Message: Results should separate privacy-usability findings from technical feasibility findings.
+- Evidence needed: user-study results if available; otherwise only prototype trace results should be reported.
+- User-study dependency: user comprehension, decision quality, trust, control, workload, and fatigue claims require participant data.
 
-- Needs verified threat and motivation citations.
-- Must avoid novelty claims that are not literature-backed.
+### 11. Discussion
 
-### Problem Setting and Threat Model
+- Message: Discuss the design tradeoff between privacy protection and consent burden.
+- Evidence needed: observed trace tradeoffs, user-study findings if available, and design strategies such as progressive disclosure, batching, risk-based prompting, remembered preferences, and audit logs.
+- User-study dependency: any statement about what users prefer or tolerate requires study evidence.
 
-- Needs precise definitions that match the benchmark and system docs.
-- Needs an explicit statement of what PAPF does not attempt to solve.
+### 12. Limitations
 
-### PAPF Design
+- Message: Bound both the prototype and the HCI/privacy evaluation.
+- Evidence needed: synthetic-data limitation, participant demographics, task realism, prompt wording, privacy attitudes, lab-study limits, and deployment-readiness caveats.
+- User-study dependency: final validity threats depend on actual study design.
 
-- Needs executable or at least implementation-aligned module boundaries.
-- Needs concrete capability and policy examples.
+### 13. Related Work
 
-### Benchmark and Evaluation Substrate
+- Message: Position PAPF at the intersection of privacy permissions, consent UX, human-centered security, AI-agent authorization, prompt injection, and tool-use risks.
+- Evidence needed: verified citations for permission UX, consent fatigue, privacy notices, agent authorization, and agent safety.
+- User-study dependency: none for literature positioning.
 
-- Needs task fixtures, schema definitions, and deterministic metric computation.
-- Needs attack variants and policy labels that can be validated in code.
+### 14. Conclusion
 
-### Experimental Setup
+- Message: Personal AI agents need permission systems that are enforceable, task-scoped, and designed for users to understand and act on.
+- Evidence needed: bounded summary of artifact feasibility and planned or completed user-study evidence.
+- User-study dependency: do not conclude that PAPF improves user decisions unless the study supports it.
 
-- Needs runnable baselines in the same synthetic environment.
-- Needs a clear protocol for confirmations, narrowed scope, and blocked actions.
+## Evidence expectations by paper claim
 
-### Results
+| Claim type | Required evidence | Current status |
+| --- | --- | --- |
+| PAPF enforces authority outside the LLM | Architecture, implementation, tests, and trace artifacts | Supported by current artifact |
+| PAPF reduces over-access in the synthetic trace suite | Serialized trace evaluation and generated tables | Supported within the 12-trace synthetic suite |
+| PAPF prompts are understandable to non-experts | User-study comprehension and decision data | Not yet supported |
+| PAPF improves privacy-preserving consent decisions | User-study allow/deny accuracy and false-allow/false-deny outcomes | Not yet supported |
+| PAPF increases perceived control or trust | Survey/interview data | Not yet supported |
+| PAPF increases consent burden | Time, workload, fatigue, and prompt-count measures | Partially supported technically by prompt counts; user burden needs study data |
+| PAPF is deployment-ready | Field deployment, real integrations, longitudinal safety/usability evidence | Unsupported; do not claim |
 
-- Needs actual experiments.
-- Must not include illustrative or speculative numbers.
+## Writing order
 
-### Discussion and Limitations
-
-- Needs honest accounting of unsupported claims, especially on user comprehension and generality.
-
-## Current framing decision
-
-- Recommended first submission framing: security/privacy systems paper.
-- Not recommended as the first framing: HCI-first permission-comprehension paper, unless a dedicated user study is added.
-- Also not recommended as the primary framing: benchmark-only paper, unless implementation of the enforcement stack stalls and the benchmark becomes the strongest finished artifact.
+1. Finalize the HCI/privacy outline and paper story.
+2. Reframe title, abstract, introduction, and contributions.
+3. Add the motivating example and privacy-risk framing.
+4. Specify research questions, scenarios, prompt variants, study design, measures, and hypotheses.
+5. Rework evaluation so the user study is primary and prototype traces are secondary.
+6. Revise discussion, limitations, related work, and conclusion.
+7. Run a final claim-evidence and unsupported-comprehension consistency pass.

@@ -7,6 +7,7 @@ from papf.baselines.runners import (
     evaluate_broad_access_scenario,
     evaluate_prompt_only_scenario,
 )
+from papf.baselines.external import STATIC_POLICY_BASELINE, TOOL_SCOPE_BASELINE
 
 __all__ = [
     "BaselineMode",
@@ -14,4 +15,6 @@ __all__ = [
     "evaluate_baseline_scenario",
     "evaluate_broad_access_scenario",
     "evaluate_prompt_only_scenario",
+    "STATIC_POLICY_BASELINE",
+    "TOOL_SCOPE_BASELINE",
 ]
