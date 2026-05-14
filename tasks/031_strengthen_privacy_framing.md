@@ -1,6 +1,6 @@
 # Task 031: Strengthen Privacy Framing
 
-Status: planned.
+Status: implemented on 2026-05-14.
 
 ## Goal
 
