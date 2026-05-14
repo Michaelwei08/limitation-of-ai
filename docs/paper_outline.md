@@ -6,10 +6,16 @@ The active paper framing is an HCI/privacy paper on task-scoped consent for pers
 
 The prototype trace evaluation remains useful, but it is secondary. It shows that PAPF can enforce scoped tool access, redaction, confirmation gates, and audit traces in a synthetic `email + files + browser` environment. It does not establish that users understand PAPF prompts or that the design reduces real-world consent fatigue.
 
+## Selected title direction
+
+**Human-Centered Permission Boundaries for Personal AI Agents: Task-Scoped Consent with External Enforcement**
+
+This direction foregrounds the HCI/privacy contribution while keeping the technical mechanism visible. "Human-centered permission boundaries" signals user comprehension and consent UX; "task-scoped consent" names the privacy-usability design target; "external enforcement" preserves the core PAPF thesis that the model cannot be the permission authority.
+
 ## Working title options
 
-1. Task-Scoped Consent for Personal AI Agents
-2. Human-Centered Permission Boundaries for Personal AI Agents
+1. Human-Centered Permission Boundaries for Personal AI Agents: Task-Scoped Consent with External Enforcement
+2. Task-Scoped Consent for Personal AI Agents
 3. Designing User-Comprehensible Permissions for Consumer AI Agents
 4. External Enforcement and Consent UX for Privacy-Preserving AI Agents
 5. Personal Agent Permission Firewall: Task-Scoped Consent and External Enforcement
@@ -17,6 +23,14 @@ The prototype trace evaluation remains useful, but it is secondary. It shows tha
 ## One-sentence thesis
 
 Personal AI agents should operate under externally enforced, task-scoped authority boundaries, and HCI/privacy evaluation should test whether non-expert users can understand those boundaries, identify unsafe actions, and make privacy-preserving consent decisions without unacceptable consent burden.
+
+## Abstract claim boundaries
+
+- Problem statement: personal AI agents have broad tool and data access across sensitive consumer contexts, making permissioning a privacy-usability problem rather than only a systems problem.
+- Approach statement: PAPF enforces task-scoped authority outside the model through validated task records, compiled capabilities, mediated tool calls, consent gates, redaction artifacts, and audit traces.
+- Evaluation statement: the current prototype trace evaluation is reported as technical feasibility evidence; the non-expert user study is designed to evaluate permission comprehension, allow/deny decision quality, perceived control, workload, and consent burden.
+- Evidence boundary: because the user study has not been run, the abstract must say "we design" or "we plan to evaluate" for comprehension and consent-burden outcomes, and must not say "we find" or imply completed user evidence.
+- Contribution statement: the paper contributes a human-centered privacy framing, an externally enforced architecture, a prompt and consent-state design space, and a planned privacy-usability evaluation separated from prototype trace evidence.
 
 ## Core claims the paper may support
 
@@ -84,14 +98,14 @@ Personal AI agents should operate under externally enforced, task-scoped authori
 
 ### 10. Results
 
-- Message: Results should separate privacy-usability findings from technical feasibility findings.
+- Message: Results should separate privacy-usability evidence from technical feasibility evidence.
 - Evidence needed: user-study results if available; otherwise only prototype trace results should be reported.
 - User-study dependency: user comprehension, decision quality, trust, control, workload, and fatigue claims require participant data.
 
 ### 11. Discussion
 
 - Message: Discuss the design tradeoff between privacy protection and consent burden.
-- Evidence needed: observed trace tradeoffs, user-study findings if available, and design strategies such as progressive disclosure, batching, risk-based prompting, remembered preferences, and audit logs.
+- Evidence needed: observed trace tradeoffs, user-study evidence if available, and design strategies such as progressive disclosure, batching, risk-based prompting, remembered preferences, and audit logs.
 - User-study dependency: any statement about what users prefer or tolerate requires study evidence.
 
 ### 12. Limitations

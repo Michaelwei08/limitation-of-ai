@@ -4,8 +4,8 @@
 - Goal: Build a research project on task-scoped permission boundaries for consumer AI agents.
 - Working title: Personal Agent Permission Firewall (PAPF).
 - Benchmark idea: NonExpert-AgentPermBench.
-- Now: Core docs specify the PAPF architecture and HCI/privacy paper plan; `src/papf/` includes deterministic evaluation, run serialization, a file-backed benchmark loader, policy/schema validation, redaction evidence, recovery scoring, baselines, ablations, synthetic tools, reporting, and model-assisted proposal interfaces. Paper artifacts now include an HCI/privacy outline, HCI-framed front matter, final PDF export, artifact checklist, workflow figures, worked examples, failure highlights, and measured ablation/stronger-baseline tables.
-- Next: Continue the HCI/privacy task order with Task 029, then Task 030 and Task 031.
+- Now: Core docs specify the PAPF architecture and HCI/privacy paper plan; `src/papf/` includes deterministic evaluation, run serialization, a file-backed benchmark loader, policy/schema validation, redaction evidence, recovery scoring, baselines, ablations, synthetic tools, reporting, and model-assisted proposal interfaces. Paper artifacts now include a selected HCI/privacy title direction, a bounded title/abstract, final PDF export, artifact checklist, workflow figures, worked examples, failure highlights, and measured ablation/stronger-baseline tables.
+- Next: Continue the HCI/privacy task order with Task 030 and Task 031.
 - Open questions: Whether the planned non-expert comprehension protocol will be run as an actual user study; clarification versus safe refusal under ambiguity; partial-success scoring.
 
 ## Invariants / Constraints
@@ -89,12 +89,13 @@
 - 2026-05-14 [CODE]: Implemented the first Task 028 pass by reframing `paper/papf_final.md` title, abstract, introduction, and contribution list around task-scoped consent, permission UX, and planned user evaluation while keeping trace evaluation secondary.
 - 2026-05-14 [CODE]: Tightened Task 028 front matter by removing meta-revision wording from the abstract, making prompt/consent design explicit in the contribution list, and refreshing `paper/papf_final.pdf`.
 - 2026-05-14 [CODE]: Renamed the HCI/privacy task files so Tasks 027-045 now match the corrected execution order.
+- 2026-05-14 [CODE]: Implemented Task 029 by selecting the title `Human-Centered Permission Boundaries for Personal AI Agents: Task-Scoped Consent with External Enforcement`, rewriting the abstract around broad personal-agent access, outside-model task-scoped enforcement, prototype trace evaluation, and a planned non-expert user study, and adding title/abstract claim boundaries to `docs/paper_outline.md`.
 
 ### Now
-- 2026-05-14 [CODE]: Task 027 and the first Task 028 pass are implemented. The active paper direction is HCI/privacy, with user comprehension, consent burden, permission UX, and non-expert evaluation central; prototype traces are secondary feasibility evidence.
+- 2026-05-14 [CODE]: Tasks 027-029 are implemented. The active paper direction is HCI/privacy, with user comprehension, consent burden, permission UX, and non-expert evaluation central; prototype traces are secondary feasibility evidence.
 
 ### Next
-- 2026-05-14 [CODE]: Continue the HCI/privacy revision with Task 029 (title/abstract polish), Task 030 (motivating example), and Task 031 (privacy framing), then proceed through the numbered backlog order.
+- 2026-05-14 [CODE]: Continue the HCI/privacy revision with Task 030 (motivating example) and Task 031 (privacy framing), then proceed through the numbered backlog order.
 - 2026-04-30 [CODE]: Use measured ablation/baseline results to guide recovery improvements, external benchmark adapters, and future benchmark expansion.
 - 2026-04-27 [CODE]: Keep the security-critical path deterministic while expanding benchmark loaders, baselines, and experiment reporting.
 
@@ -353,3 +354,5 @@
 - 2026-05-14 [TOOL]: Two-stage `Move-Item` rename and follow-up reference check -> HCI/privacy task files `027`-`045` now match the execution order.
 - 2026-05-14 [TOOL]: `rg` checks over `paper/papf_final.md`, `docs/paper_outline.md`, and `docs/paper_plan.md` -> HCI/privacy framing terms present; unsupported comprehension/deployment claims appear only as caveats, planned-study questions, or explicit unsupported-claim warnings.
 - 2026-05-14 [TOOL]: `python -B paper\export_simple_pdf.py paper\papf_final.md paper\papf_final.pdf` -> refreshed PDF after prompt/consent contribution-list tightening.
+- 2026-05-14 [TOOL]: PowerShell title/abstract framing check over `paper/papf_final.md` and `docs/paper_outline.md` -> PASS for required HCI/privacy terms, outside-model enforcement, trace evaluation, planned user study, consent burden, and no `we find`/`we found` overclaim in the abstract.
+- 2026-05-14 [TOOL]: `python -B paper\export_simple_pdf.py paper\papf_final.md paper\papf_final.pdf` -> refreshed PDF after Task 029 title/abstract edits.
