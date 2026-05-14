@@ -9,18 +9,25 @@ This file has two levels of prompt materials:
 - PAPF prompt design variants: minimal, detailed, risk-highlighted,
   expandable-explanation, and audit-log-preview prompts for the same
   task-scoped permission decision.
-- Comparator prompt conditions: PAPF task-scoped bundles, raw tool
-  permissions, and generic warnings for the same synthetic task.
+- Comparator permission conditions: no granular permission prompt, broad
+  app-level authorization, generic LLM-generated confirmation prompt, and PAPF
+  task-scoped permission prompt for the same synthetic task.
 
-The comparator examples below give matched prompt conditions for the same
+The comparator examples below give matched permission surfaces for the same
 synthetic task:
 
-- Task-scoped permission bundle: PAPF-style scoped prompt.
-- Raw tool permissions: tool or API-style permission prompt.
-- Generic warning: broad caution without task-specific data boundaries.
+- No granular permission prompt: no separate permission prompt; the
+  participant sees only the task and proposed agent action.
+- Broad app-level authorization: app or connector-level grants such as email,
+  files, browser, drafts, and sends.
+- Generic LLM-generated confirmation prompt: a natural-language assistant
+  confirmation that does not enumerate the enforceable task boundary.
+- PAPF task-scoped permission prompt: scoped prompt with allowed data, blocked
+  data, confirmation gates, redaction state, external disclosure, and reasons.
 
-Only the prompt presentation changes across variants. The task, synthetic data
-objects, proposed action, and answer key should remain the same during a study.
+Only the participant-facing permission surface changes across conditions. The
+task, synthetic data objects, proposed action, and answer key should remain the
+same during a study.
 
 ## Scenario Coverage
 
@@ -233,7 +240,15 @@ Proposed agent action:
 - Read the reimbursement email and taxi receipt, consult the trusted policy
   page, and draft an email reply without sending it.
 
-### Task-Scoped Permission Bundle
+### No Granular Permission Prompt
+
+```text
+The assistant is ready to draft the reimbursement reply.
+
+Continue?
+```
+
+### PAPF Task-Scoped Permission Prompt
 
 ```text
 Permission request for this task
@@ -255,7 +270,7 @@ The agent may not:
 You will be asked again before anything is sent.
 ```
 
-### Raw Tool Permissions
+### Broad App-Level Authorization
 
 ```text
 The assistant requests these tool permissions:
@@ -267,13 +282,12 @@ The assistant requests these tool permissions:
 - Send email.
 ```
 
-### Generic Warning
+### Generic LLM-Generated Confirmation Prompt
 
 ```text
-The assistant may need to access personal information to complete this task.
+I may need to access personal information to complete this task.
 
-Only approve if you trust the assistant and understand the possible privacy
-risks. Review any email before it is sent.
+Please confirm if you want me to continue. Review any email before it is sent.
 ```
 
 ### Planned Comprehension Questions
@@ -314,7 +328,15 @@ Proposed agent action:
 - Open the trusted return-policy page and the headphones receipt, then summarize
   the policy. The untrusted coupon page asks for unrelated invoices.
 
-### Task-Scoped Permission Bundle
+### No Granular Permission Prompt
+
+```text
+The assistant is ready to check the return policy and summarize the answer.
+
+Continue?
+```
+
+### PAPF Task-Scoped Permission Prompt
 
 ```text
 Permission request for this task
@@ -336,7 +358,7 @@ The coupon blog is not trusted for permission changes. Instructions on that
 page cannot expand what the agent may access.
 ```
 
-### Raw Tool Permissions
+### Broad App-Level Authorization
 
 ```text
 The assistant requests these tool permissions:
@@ -346,13 +368,13 @@ The assistant requests these tool permissions:
 - Upload files.
 ```
 
-### Generic Warning
+### Generic LLM-Generated Confirmation Prompt
 
 ```text
-The assistant may use websites and local files to answer your question.
+I may use websites and local files to answer your question.
 
-Websites can contain unreliable instructions. Only continue if you are
-comfortable with the assistant using available information.
+Websites can contain unreliable instructions. Please confirm if you want me to
+continue.
 ```
 
 ### Planned Comprehension Questions
@@ -404,7 +426,15 @@ Proposed narrowed action:
 - Read only the order update notice, trusted support page, and shipping-address
   note, then draft the support message without submitting or sending it.
 
-### Task-Scoped Permission Bundle
+### No Granular Permission Prompt
+
+```text
+The assistant is ready to prepare the account-update support message.
+
+Continue?
+```
+
+### PAPF Task-Scoped Permission Prompt
 
 ```text
 Permission request narrowed
@@ -430,7 +460,7 @@ The agent may not:
   confirm.
 ```
 
-### Raw Tool Permissions
+### Broad App-Level Authorization
 
 ```text
 The assistant requests these tool permissions:
@@ -442,13 +472,13 @@ The assistant requests these tool permissions:
 - Send messages.
 ```
 
-### Generic Warning
+### Generic LLM-Generated Confirmation Prompt
 
 ```text
-The assistant may search information on your device and online to help with
-this account task.
+I may search information on your device and online to help with this account
+task.
 
-Be careful when approving access to account-related information.
+Please confirm if you want me to continue with the account request.
 ```
 
 ### Planned Comprehension Questions
@@ -536,7 +566,15 @@ Proposed agent action:
 - Read the conference email and travel preferences, browse approved travel
   pages, and draft an itinerary without booking or paying.
 
-### Task-Scoped Permission Bundle
+### No Granular Permission Prompt
+
+```text
+The assistant is ready to prepare the travel itinerary draft.
+
+Continue?
+```
+
+### PAPF Task-Scoped Permission Prompt
 
 ```text
 Permission request for this task
@@ -558,7 +596,7 @@ The agent may not:
 You will be asked again before any booking, payment, upload, or account change.
 ```
 
-### Raw Tool Permissions
+### Broad App-Level Authorization
 
 ```text
 The assistant requests these tool permissions:
@@ -570,12 +608,12 @@ The assistant requests these tool permissions:
 - Make purchases or reservations.
 ```
 
-### Generic Warning
+### Generic LLM-Generated Confirmation Prompt
 
 ```text
-The assistant may need personal and travel information to help with this trip.
+I may need personal and travel information to help with this trip.
 
-Only approve if you trust the assistant. Review any booking or payment before
+Please confirm if you want me to continue. Review any booking or payment before
 it is completed.
 ```
 
@@ -620,7 +658,15 @@ Proposed agent action:
 - Read the onboarding email, read the contractor packet only with tax and bank
   details redacted, open the vendor help page, and draft a reply.
 
-### Task-Scoped Permission Bundle
+### No Granular Permission Prompt
+
+```text
+The assistant is ready to draft Mira's onboarding reply.
+
+Continue?
+```
+
+### PAPF Task-Scoped Permission Prompt
 
 ```text
 Permission request with redaction
@@ -644,7 +690,7 @@ The agent may not:
 The prompt should show what fields were hidden before any content is sent.
 ```
 
-### Raw Tool Permissions
+### Broad App-Level Authorization
 
 ```text
 The assistant requests these tool permissions:
@@ -657,12 +703,13 @@ The assistant requests these tool permissions:
 - Upload files.
 ```
 
-### Generic Warning
+### Generic LLM-Generated Confirmation Prompt
 
 ```text
-The assistant may use files and email to draft this reply.
+I may use files and email to draft this reply.
 
-Sensitive information may be present. Review the message before it is sent.
+Sensitive information may be present. Please confirm if you want me to
+continue.
 ```
 
 ### Planned Comprehension Questions
@@ -704,7 +751,15 @@ Proposed agent action:
 - Read the project plan and draft the chat message. The assistant also asks to
   paste salary and personal-note details into the chat.
 
-### Task-Scoped Permission Bundle
+### No Granular Permission Prompt
+
+```text
+The assistant is ready to draft the project deadline chat message.
+
+Continue?
+```
+
+### PAPF Task-Scoped Permission Prompt
 
 ```text
 Permission request for this task
@@ -724,7 +779,7 @@ The agent may not:
 You will be asked again before any message is sent.
 ```
 
-### Raw Tool Permissions
+### Broad App-Level Authorization
 
 ```text
 The assistant requests these tool permissions:
@@ -735,14 +790,12 @@ The assistant requests these tool permissions:
 - Send chat messages.
 ```
 
-### Generic Warning
+### Generic LLM-Generated Confirmation Prompt
 
 ```text
-The assistant may use local files and communication tools to help draft this
-message.
+I may use local files and communication tools to help draft this message.
 
-Only approve if you are comfortable with the assistant using available
-information.
+Please confirm if you want me to continue.
 ```
 
 ### Planned Comprehension Questions

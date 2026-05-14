@@ -30,7 +30,7 @@ human-outcome questions remain unanswered until participant data exists.
 | --- | --- | --- | --- |
 | RQ1 | Do ordinary users understand PAPF-style permission prompts for task-scoped personal-agent authority? | User-study evidence. | Closed-form comprehension score across allowed data, blocked data, confirmation gates, redaction, disclosure, and audit summaries. |
 | RQ2 | Can users distinguish safe from unsafe agent actions using PAPF prompts? | User-study evidence. | Allow/deny decision accuracy, false allows, false denies, exfiltration recognition, and untrusted-instruction recognition. |
-| RQ3 | Does PAPF improve privacy-preserving consent decisions relative to raw tool permissions or generic warnings? | User-study evidence comparing prompt conditions. | Condition differences in decision quality, false-allow rate, false-deny rate, safer-narrowing choices, and confidence calibration. |
+| RQ3 | Does PAPF improve privacy-preserving consent decisions relative to no prompt, broad app authorization, or generic model-generated confirmation prompts? | User-study evidence comparing prompt conditions. | Condition differences in decision quality, false-allow rate, false-deny rate, safer-narrowing choices, and confidence calibration. |
 | RQ4 | Does PAPF change perceived control and trust in personal-agent actions? | User-study evidence. | Perceived control, trust, confidence, and optional free-response explanations after prompt decisions. |
 | RQ5 | Does PAPF increase consent fatigue or excessive friction? | User-study evidence, with prototype prompt counts as supporting artifact context only. | Self-reported burden, workload, time-on-item, perceived interruption, confidence, and prompt/confirmation counts. |
 | RQ6 | Can externally enforced task-scoped capabilities mediate synthetic personal-agent traces while reducing over-access and false allows? | Prototype trace evidence, not participant evidence. | Task-success proxy, necessary-access rate, over-access rate, false allows, false denies, consent prompts, recovery quality, and auditability completeness. |
@@ -42,23 +42,26 @@ alone.
 
 ## Study Conditions
 
-The planned study has two prompt-comparison layers. The first layer compares a
-PAPF-style task-scoped permission prompt against broader comparator prompts.
-The second layer pilots or compares different PAPF prompt formats that expose
-the same enforcement decision with different presentation choices.
+The planned study has two prompt-comparison layers. The main layer compares
+four permission models for the same synthetic personal-agent tasks. The second
+layer pilots or compares different PAPF prompt formats that expose the same
+enforcement decision with different presentation choices.
 
 ### Main Condition Families
 
-| Condition | Description | Boundary shown to participant |
-| --- | --- | --- |
-| Task-scoped permission bundle | PAPF-style prompt that names the task, allowed data, blocked data, allowed actions, confirmation gates, and plain-language reasons. | Narrow task authority. |
-| Raw tool permissions | Tool or API-style grants such as "read email", "read files", "browse web", or "send email". | Broad tool authority without task-specific data boundaries. |
-| Generic warning | Broad caution such as "The assistant may access personal data; only approve if you trust this action." | General safety warning without concrete scope. |
+| Condition | Description | Boundary shown to participant | Implementation rule |
+| --- | --- | --- | --- |
+| No granular permission prompt | The participant sees the user task and the agent's proposed next action or outcome, but no separate prompt describing data access, blocked access, redaction, or confirmation gates. | Ambient task framing only. | Do not list tool scopes, data objects, blocked data, or audit details. |
+| Broad app-level authorization | Tool or app-install style grants such as "read email", "read files", "browse web pages", "create drafts", or "send messages". | Broad connector authority without task-specific data boundaries. | Show only app/tool categories and actions; do not name task-specific resources or denied resources. |
+| Generic LLM-generated confirmation prompt | A natural-language confirmation that sounds contextual, such as "I may need to access your email and files to complete this request. Do you approve?" | Generic assistant warning without an enforceable task boundary. | The prompt may mention the task at a high level, but must not enumerate allowed data, blocked data, redactions, confirmation gates, or audit records. |
+| PAPF task-scoped permission prompt | PAPF-style prompt that names the task, allowed data, blocked data, allowed actions, confirmation gates, redactions, external disclosure, and plain-language reasons. | Narrow task authority backed by the compiled policy boundary. | Use the same answer key as other conditions, but expose the task-scoped allowed/blocked boundary and confirmation rationale. |
 
-The main comparison goal is future work: test whether task-scoped permission
-bundles lead to more accurate answers about necessary access, unnecessary
-access, external disclosure, adversarial instructions, and confirmation-gated
-actions than the comparator conditions. No such effect has been measured yet.
+The main comparison goal is future work: test whether PAPF task-scoped
+permission prompts lead to more accurate answers about necessary access,
+unnecessary access, external disclosure, adversarial instructions, and
+confirmation-gated actions than no granular prompt, broad app-level
+authorization, or generic LLM-generated confirmation prompts. No such effect
+has been measured yet.
 
 ### PAPF Prompt Format Variants
 
@@ -85,9 +88,9 @@ The first pilot should counterbalance the five PAPF formats across the same
 synthetic scenarios and inspect comprehension errors, decision time,
 self-reported burden, confidence, perceived control, and open-ended confusion.
 If the pilot is used only to refine materials, the main study can choose one or
-two PAPF formats for comparison against raw tool permissions and generic
-warnings. If the variants are kept in the main study, prompt format should be a
-pre-specified factor nested inside the task-scoped condition.
+two PAPF formats for comparison against the three non-PAPF condition families.
+If the variants are kept in the main study, prompt format should be a
+pre-specified factor nested inside the PAPF task-scoped condition.
 
 ## Participant Assumptions
 
@@ -119,7 +122,7 @@ Each study item should include:
 
 - A user-visible task request.
 - A short list of synthetic data objects available to the agent.
-- One permission prompt variant from the assigned condition.
+- One permission or authorization surface from the assigned condition.
 - A proposed agent action or outcome.
 - Closed-form comprehension questions.
 - Optional free-response explanation questions.
@@ -416,20 +419,29 @@ The planned flow is:
    define the correct answers or explain PAPF internals.
 3. Practice item using a non-sensitive example and feedback, if approved by the
    study design.
-4. Main comprehension items under assigned condition order.
+4. Main comprehension items under the assigned permission condition.
 5. Optional audit-summary interpretation items.
 6. Subjective confidence and burden questions.
 7. Debrief explaining that all data and tasks were synthetic, that no real agent
    accessed personal data, and that the study measured permission-prompt
    understanding.
 
-The assignment design is future work. A within-subject design can show each
-participant multiple prompt types with counterbalanced order. A between-subject
-design can show each participant one prompt type. For prompt-format pilots, the
-same scenario should not appear twice for the same participant with different
-PAPF formats unless the design explicitly measures learning effects. The final
-choice should be specified before data collection and should keep prompt order,
-task order, and condition exposure from biasing the answers.
+Default main-study assignment is between-subjects by permission condition.
+Participants are randomly assigned in balanced blocks to one of the four
+condition families: no granular permission prompt, broad app-level
+authorization, generic LLM-generated confirmation prompt, or PAPF task-scoped
+permission prompt. Each participant completes the same six synthetic scenarios
+under only that assigned condition. Scenario order should be counterbalanced
+with a Latin-square or balanced-block schedule so that scenario difficulty and
+fatigue are not confounded with condition.
+
+Prompt-format pilots are separate from the main baseline comparison. If the
+five PAPF prompt variants are piloted within-subjects, assign variants to
+scenarios with a balanced incomplete-block schedule so that each participant
+sees a scenario at most once, each variant appears across multiple scenarios,
+and each scenario appears with each variant across participants. If a
+within-subject main comparison is later chosen instead, the design and learning
+controls must be pre-specified before data collection.
 
 ## Comprehension Questions
 
@@ -477,22 +489,24 @@ The exact checks remain future work and should be finalized before recruitment.
 
 ## Outcome Measures
 
-All measures below are planned measures. They are not current results.
+All measures below are planned measures. They are not current results. The
+protocol is designed to collect both privacy decision outcomes and usability
+outcomes from the same decision tasks.
 
-| Measure | Planned scoring target |
-| --- | --- |
-| Non-expert comprehension score | Correct answers across allowed data, blocked data, confirmation gates, external disclosure, and untrusted-instruction recognition. |
-| Necessary access recognition | Whether the participant identifies data and actions required for task completion. |
-| Over-access rejection | Whether the participant rejects unrelated, private, or over-broad access. |
-| Exfiltration recognition | Whether the participant recognizes outbound disclosure to an unintended destination. |
-| False allow | Participant says an unsafe, unrelated, or over-broad permission should be allowed. |
-| False deny | Participant rejects access that is necessary for the stated task. |
-| Recovery quality | Participant selects a safer narrowed permission after a broad request is denied or flagged. |
-| Confirmation-gate recognition | Participant identifies actions that require explicit confirmation, such as sending, uploading, paying, or changing settings. |
-| Auditability comprehension | Participant interprets what a short audit summary says was accessed, blocked, redacted, and why. |
-| Perceived control | Planned self-report items about whether the participant felt able to predict, limit, and review the agent's access. |
-| Trust and confidence | Planned self-report items about trust in the agent's proposed action and confidence in the participant's own allow/deny decision. |
-| Consent burden and fatigue | Planned self-report and interaction measures such as perceived effort, workload, interruption, prompt count, confirmation count, and time-on-item, if collected. |
+| Measure | Outcome class | Planned scoring target |
+| --- | --- | --- |
+| Non-expert comprehension score | Privacy decision | Correct answers across allowed data, blocked data, confirmation gates, external disclosure, and untrusted-instruction recognition. |
+| Necessary access recognition | Privacy decision | Whether the participant identifies data and actions required for task completion. |
+| Over-access rejection | Privacy decision | Whether the participant rejects unrelated, private, or over-broad access. |
+| Exfiltration recognition | Privacy decision | Whether the participant recognizes outbound disclosure to an unintended destination. |
+| False allow | Privacy decision | Participant says an unsafe, unrelated, or over-broad permission should be allowed. |
+| False deny | Privacy decision | Participant rejects access that is necessary for the stated task. |
+| Recovery quality | Privacy decision | Participant selects a safer narrowed permission after a broad request is denied or flagged. |
+| Confirmation-gate recognition | Privacy decision | Participant identifies actions that require explicit confirmation, such as sending, uploading, paying, or changing settings. |
+| Auditability comprehension | Privacy decision | Participant interprets what a short audit summary says was accessed, blocked, redacted, and why. |
+| Perceived control | Usability | Planned self-report items about whether the participant felt able to predict, limit, and review the agent's access. |
+| Trust and confidence | Usability | Planned self-report items about trust in the agent's proposed action and confidence in the participant's own allow/deny decision. |
+| Consent burden and fatigue | Usability | Planned self-report and interaction measures such as perceived effort, workload, interruption, prompt count, confirmation count, and time-on-item, if collected. |
 
 Any thresholds, weighting, exclusion rules, or statistical tests must be
 specified before the study is run. No thresholds or statistical conclusions are
@@ -562,12 +576,16 @@ calendar, payment, messaging, or device-management APIs.
 
 ## Analysis Plan
 
-The future analysis should compare the main prompt condition families using the
-same task items and answer keys. Candidate comparisons include:
+The future analysis should compare the four main prompt condition families
+using the same task items and answer keys. Candidate comparisons include:
 
-- Task-scoped permission bundles versus raw tool permissions.
-- Task-scoped permission bundles versus generic warnings.
-- Raw tool permissions versus generic warnings.
+- PAPF task-scoped permission prompts versus no granular permission prompt.
+- PAPF task-scoped permission prompts versus broad app-level authorization.
+- PAPF task-scoped permission prompts versus generic LLM-generated confirmation
+  prompts.
+- Broad app-level authorization versus generic LLM-generated confirmation
+  prompts.
+- No granular permission prompt versus broad app-level authorization.
 - Differences by question type, such as allowed-data recognition, blocked-data
   recognition, external-disclosure recognition, and confirmation-gate
   recognition.
@@ -599,8 +617,10 @@ Allowed current claim:
 Disallowed until data exists:
 
 - PAPF is understandable to non-experts.
-- PAPF improves comprehension compared with raw tool permissions.
-- PAPF improves comprehension compared with generic warnings.
+- PAPF improves comprehension compared with no granular permission prompts.
+- PAPF improves comprehension compared with broad app-level authorization.
+- PAPF improves comprehension compared with generic LLM-generated confirmation
+  prompts.
 - PAPF reduces consent fatigue or consent burden.
 - PAPF helps users make safer permission choices.
 - PAPF improves perceived control or trust.
