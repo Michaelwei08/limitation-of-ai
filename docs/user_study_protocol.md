@@ -443,6 +443,28 @@ and each scenario appears with each variant across participants. If a
 within-subject main comparison is later chosen instead, the design and learning
 controls must be pre-specified before data collection.
 
+### Planned Collection Points
+
+Each measure must be tied to a concrete point in the study flow before
+recruitment. The current protocol uses these planned collection points:
+
+| Collection point | Study-flow location | Measures collected |
+| --- | --- | --- |
+| CP0: Eligibility and baseline familiarity | Consent and eligibility screen. | Eligibility, prior use of AI assistants, self-rated familiarity with permission prompts, and demographic variables if approved. |
+| CP1: Scenario prompt display | Start of each main scenario. | Timestamp for prompt exposure, assigned condition, scenario ID, prompt variant if piloted, and prompt-view metadata. |
+| CP2: Closed-form comprehension item | Main comprehension items. | Prompt comprehension accuracy, allowed-data recognition, blocked-data recognition, redaction understanding, confirmation-gate recognition, external-disclosure recognition, and untrusted-instruction recognition. |
+| CP3: Allow/deny decision item | Main permission decision after each scenario prompt. | Correct allow/deny/narrow/confirm decision, false allow, false denial, recovery choice after broad or denied requests, and confidence in the decision. |
+| CP4: Optional audit-summary interpretation | Audit-summary interpretation items. | Auditability comprehension and ability to identify accessed, blocked, redacted, sent, and confirmed actions. |
+| CP5: Post-scenario subjective ratings | After each scenario or short block. | Perceived control, perceived trust, perceived interruption, subjective burden, and workload rating. |
+| CP6: End-of-study survey | After all scenarios. | Consent fatigue, overall perceived control, overall trust, workload if measured globally, prompt wording preference, and detail-level preference. |
+| CP7: Optional interview or free response | After final survey or in a follow-up interview. | Interview responses, confusion points, reasons for allowing or denying, desired prompt wording, and preferred detail level. |
+
+Standardized instrument use is planned, not finalized. If a workload instrument
+is used, the protocol should pre-specify whether it uses NASA-TLX, raw
+NASA-TLX, or a shorter validated workload/burden scale before recruitment. The
+exact perceived-control, trust, consent-fatigue, and workload survey items also
+remain planned until the survey instrument is finalized.
+
 ## Comprehension Questions
 
 Use closed-form questions for primary scoring and optional free-response
@@ -491,22 +513,42 @@ The exact checks remain future work and should be finalized before recruitment.
 
 All measures below are planned measures. They are not current results. The
 protocol is designed to collect both privacy decision outcomes and usability
-outcomes from the same decision tasks.
+outcomes from the same decision tasks. The paper-facing version of this table is
+`paper/tables/user_study_measures.md`.
 
-| Measure | Outcome class | Planned scoring target |
-| --- | --- | --- |
-| Non-expert comprehension score | Privacy decision | Correct answers across allowed data, blocked data, confirmation gates, external disclosure, and untrusted-instruction recognition. |
-| Necessary access recognition | Privacy decision | Whether the participant identifies data and actions required for task completion. |
-| Over-access rejection | Privacy decision | Whether the participant rejects unrelated, private, or over-broad access. |
-| Exfiltration recognition | Privacy decision | Whether the participant recognizes outbound disclosure to an unintended destination. |
-| False allow | Privacy decision | Participant says an unsafe, unrelated, or over-broad permission should be allowed. |
-| False deny | Privacy decision | Participant rejects access that is necessary for the stated task. |
-| Recovery quality | Privacy decision | Participant selects a safer narrowed permission after a broad request is denied or flagged. |
-| Confirmation-gate recognition | Privacy decision | Participant identifies actions that require explicit confirmation, such as sending, uploading, paying, or changing settings. |
-| Auditability comprehension | Privacy decision | Participant interprets what a short audit summary says was accessed, blocked, redacted, and why. |
-| Perceived control | Usability | Planned self-report items about whether the participant felt able to predict, limit, and review the agent's access. |
-| Trust and confidence | Usability | Planned self-report items about trust in the agent's proposed action and confidence in the participant's own allow/deny decision. |
-| Consent burden and fatigue | Usability | Planned self-report and interaction measures such as perceived effort, workload, interruption, prompt count, confirmation count, and time-on-item, if collected. |
+### Quantitative Measures
+
+| Measure | Outcome class | Planned operationalization | Collection point | RQ mapping |
+| --- | --- | --- | --- | --- |
+| Prompt comprehension accuracy | Comprehension | Percent correct on closed-form items about allowed data, blocked data, redaction state, confirmation gates, external disclosure, audit-summary content, and untrusted instructions. | CP2, CP4 | RQ1, RQ4 |
+| Necessary access recognition | Decision quality | Correctly marks task-required data/actions as allowed or confirmable. | CP2, CP3 | RQ1, RQ2 |
+| Over-access rejection | Decision quality | Correctly rejects unrelated, private, over-broad, or purpose-mismatched data/actions. | CP2, CP3 | RQ2, RQ3 |
+| Correct allow/deny decision | Decision quality | Final choice matches the scenario answer key: allow, deny, narrow, require redaction, or require confirmation. | CP3 | RQ2, RQ3 |
+| False allow | Privacy failure | Participant allows an unsafe, unrelated, unredacted, over-broad, prompt-injected, or unconfirmed high-risk action that the answer key says should be denied, narrowed, redacted, or gated. | CP3 | RQ2, RQ3 |
+| False denial | Utility failure | Participant denies a necessary low-risk or properly gated access/action that the answer key says should be allowed, narrowed, redacted, or confirmed. | CP3 | RQ2, RQ3, RQ5 |
+| Exfiltration recognition | Decision quality | Correctly identifies outbound disclosure to an unintended recipient, webpage, upload destination, email, or chat as unsafe. | CP2, CP3 | RQ2, RQ3 |
+| Recovery choice quality | Decision quality | Selects a safer narrowed permission, redacted version, or confirmation-gated action after a broad or unsafe request is shown. | CP3 | RQ2, RQ3 |
+| Confirmation-gate recognition | Comprehension and decision quality | Correctly identifies actions that require explicit confirmation, such as send, upload, payment, booking, credential entry, or account modification. | CP2, CP3 | RQ1, RQ2 |
+| Auditability comprehension | Comprehension | Correctly interprets what the audit summary says was accessed, blocked, redacted, externally disclosed, and confirmed. | CP4 | RQ1, RQ4 |
+| Time to decision | Friction | Elapsed time from prompt display to final permission decision; analyzed with caution because long times may indicate careful deliberation or confusion. | CP1, CP3 | RQ3, RQ5 |
+| Confidence calibration | Metacognition | Self-reported confidence after each decision, compared with correctness and false-allow or false-denial outcomes. | CP3, CP5 | RQ3, RQ4 |
+| Perceived control | Usability | Planned survey items about whether participants felt able to predict, limit, and review what the agent could access or disclose. Exact items remain planned until finalized. | CP5, CP6 | RQ4 |
+| Perceived trust | Usability | Planned survey items about trust in the agent's proposed action and trust in the permission boundary. Exact items remain planned until finalized. | CP5, CP6 | RQ4 |
+| Consent fatigue | Friction and usability | Planned survey items about annoyance, repeated approvals, interruption, and desire to stop reading prompts; can be paired with prompt and confirmation counts. Exact items remain planned until finalized. | CP5, CP6 | RQ5 |
+| Workload | Friction and usability | Planned NASA-TLX, raw NASA-TLX, or similar validated workload measure if appropriate. Instrument choice and scoring remain planned until survey items are finalized. | CP5 or CP6 | RQ5 |
+| Perceived interruption or burden | Friction and usability | Planned self-report ratings about whether the prompt interrupted the task or felt effortful. | CP5, CP6 | RQ5 |
+| Prompt and confirmation counts | Interaction burden | Number of permission prompts, confirmation prompts, expandable-detail openings, and audit-preview openings shown or selected. | CP1, CP3, CP4 | RQ5 |
+
+### Qualitative Measures
+
+| Measure | Planned collection and coding | Collection point | RQ mapping |
+| --- | --- | --- | --- |
+| Interview responses | Optional semi-structured interview responses about what participants believed the prompt permitted, blocked, or left ambiguous. Analyze with a pre-specified qualitative coding plan. | CP7 | RQ1, RQ4, RQ5 |
+| Confusion points | Free-response reports or interviewer notes about confusing wording, missing details, unclear recipients, unclear redaction state, unclear confirmation state, or uncertainty about untrusted content. | CP7, optionally CP5 | RQ1, RQ5 |
+| Reasons for allowing or denying | One-sentence explanation after selected decisions, coded for privacy concern, task utility, trust in agent, trust in destination, redaction awareness, confirmation awareness, or misunderstanding. | CP3, CP7 | RQ2, RQ3, RQ4 |
+| Prompt wording preference | End-of-study preference comments on concise, detailed, risk-highlighted, expandable, or audit-preview wording. | CP6, CP7 | RQ4, RQ5 |
+| Detail-level preference | Participant preference for how much data, tool, recipient, redaction, and audit detail should be visible by default versus hidden behind expansion. | CP6, CP7 | RQ1, RQ4, RQ5 |
+| Perceived missing information | Free-response answer to what else the participant wanted before approving or denying the action. | CP3, CP7 | RQ1, RQ2 |
 
 Any thresholds, weighting, exclusion rules, or statistical tests must be
 specified before the study is run. No thresholds or statistical conclusions are
@@ -602,6 +644,15 @@ Candidate PAPF-format comparisons include:
   time, and error patterns.
 - Audit-log preview prompt versus detailed prompt for auditability
   comprehension and perceived control.
+
+Qualitative analysis should use a pre-specified coding guide before coding any
+responses. Candidate code families include misunderstood allowed data,
+misunderstood blocked data, unclear external recipient, unclear redaction state,
+unclear confirmation requirement, over-trust in the agent, under-trust in a
+necessary action, untrusted-content confusion, prompt too terse, prompt too
+detailed, and audit-summary confusion. Qualitative findings should be reported
+as explanation and material-refinement evidence unless the study design
+pre-specifies qualitative hypotheses.
 
 The analysis plan must be finalized before data collection. This document does
 not report or imply any expected direction, effect size, statistical

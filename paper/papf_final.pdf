@@ -846,7 +846,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> /F3 << /Type /Font /Subtype /Type1 /BaseFont /Courier >> >> >> /Contents 16 0 R >>
 endobj
 16 0 obj
-<< /Length 5659 >>
+<< /Length 6095 >>
 stream
 BT
 /F1 9.5 Tf
@@ -880,96 +880,96 @@ BT
 /F1 10.0 Tf
 0 -8.0 Td
 /F1 9.5 Tf
-54.0 574.0 Td (No participant results are reported in this paper. Until the study is reviewed, run, and) Tj
+54.0 574.0 Td (The planned measure set maps each outcome to a point in the study flow. Prompt comprehension) Tj
 -54.0 -12.0 Td
-54.0 562.0 Td (analyzed, PAPF can only claim that it provides a protocol and prompt materials for measuring) Tj
+54.0 562.0 Td (accuracy is collected during closed-form scenario questions and optional audit-summary) Tj
 -54.0 -12.0 Td
-54.0 550.0 Td (non-expert permission comprehension; it cannot claim improved comprehension, safer consent) Tj
+54.0 550.0 Td (interpretation. Correct allow/deny decisions, false allows, false denials, recovery choices,) Tj
 -54.0 -12.0 Td
-54.0 538.0 Td (decisions, higher trust, lower burden, or reduced consent fatigue.) Tj
+54.0 538.0 Td (and confidence are collected at the permission decision point. Time to decision is measured) Tj
+-54.0 -12.0 Td
+54.0 526.0 Td (from prompt display to submitted decision. Perceived control, perceived trust, workload,) Tj
+-54.0 -12.0 Td
+54.0 514.0 Td (interruption, and consent fatigue are collected after scenarios or at the end of the study.) Tj
+-54.0 -12.0 Td
+54.0 502.0 Td (Qualitative evidence comes from optional free responses or interviews about confusion) Tj
+-54.0 -12.0 Td
+54.0 490.0 Td (points, reasons for allowing or denying actions, and preferences for prompt wording and) Tj
+-54.0 -12.0 Td
+54.0 478.0 Td (detail level. Any NASA-TLX, raw NASA-TLX, or similar standardized workload instrument) Tj
+-54.0 -12.0 Td
+54.0 466.0 Td (remains planned until the survey items and scoring procedure are finalized. The paper-facing) Tj
+-54.0 -12.0 Td
+54.0 454.0 Td (measure matrix is paper/tables/user_study_measures.md.) Tj
+-54.0 -12.0 Td
+/F1 10.0 Tf
+0 -8.0 Td
+/F1 9.5 Tf
+54.0 432.0 Td (No participant results are reported in this paper. Until the study is reviewed, run, and) Tj
+-54.0 -12.0 Td
+54.0 420.0 Td (analyzed, PAPF can only claim that it provides a protocol and prompt materials for measuring) Tj
+-54.0 -12.0 Td
+54.0 408.0 Td (non-expert permission comprehension; it cannot claim improved comprehension, safer consent) Tj
+-54.0 -12.0 Td
+54.0 396.0 Td (decisions, higher trust, lower burden, or reduced consent fatigue.) Tj
 -54.0 -12.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F2 14.0 Tf
-54.0 508.0 Td (7. Benchmark and Dataset Status) Tj
+54.0 366.0 Td (7. Benchmark and Dataset Status) Tj
 -54.0 -17.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F1 9.5 Tf
-54.0 481.0 Td (The current PAPF dataset is not a well-known public benchmark. It is a local synthetic seed) Tj
+54.0 339.0 Td (The current PAPF dataset is not a well-known public benchmark. It is a local synthetic seed) Tj
 -54.0 -12.0 Td
-54.0 469.0 Td (suite under benchmarks/papf_seed_cases/, built to exercise PAPF-specific labels: necessary) Tj
+54.0 327.0 Td (suite under benchmarks/papf_seed_cases/, built to exercise PAPF-specific labels: necessary) Tj
 -54.0 -12.0 Td
-54.0 457.0 Td (data, unnecessary data, dangerous data, allowed tool calls, forbidden tool calls,) Tj
+54.0 315.0 Td (data, unnecessary data, dangerous data, allowed tool calls, forbidden tool calls,) Tj
 -54.0 -12.0 Td
-54.0 445.0 Td (prompt-injection attempts, redaction requirements, consent gates, and expected policy) Tj
+54.0 303.0 Td (prompt-injection attempts, redaction requirements, consent gates, and expected policy) Tj
 -54.0 -12.0 Td
-54.0 433.0 Td (outcomes. The paper should therefore call it a synthetic evaluation slice or artifact-backed) Tj
+54.0 291.0 Td (outcomes. The paper should therefore call it a synthetic evaluation slice or artifact-backed) Tj
 -54.0 -12.0 Td
-54.0 421.0 Td (prototype benchmark, not a community-adopted dataset.) Tj
--54.0 -12.0 Td
-/F1 10.0 Tf
-0 -8.0 Td
-/F1 9.5 Tf
-54.0 399.0 Td (This local suite is still useful because existing peer-reviewed agent benchmarks do not) Tj
--54.0 -12.0 Td
-54.0 387.0 Td (exactly test PAPF's full permission-boundary question. AgentDojo evaluates attacks and) Tj
--54.0 -12.0 Td
-54.0 375.0 Td (defenses for tool-using agents with realistic tasks and security cases) Tj
--54.0 -12.0 Td
-54.0 363.0 Td (\(debenedetti2024agentdojo\). ToolEmu evaluates LM-agent risks with emulated tools and safety) Tj
--54.0 -12.0 Td
-54.0 351.0 Td (evaluators \(ruan2024toolemu\). InjecAgent measures indirect prompt-injection vulnerability in) Tj
--54.0 -12.0 Td
-54.0 339.0 Td (tool-integrated agents \(zhan2024injecagent\). WebArena evaluates long-horizon functional) Tj
--54.0 -12.0 Td
-54.0 327.0 Td (web-agent tasks \(zhou2024webarena\). AgentDAM is the closest external privacy benchmark) Tj
--54.0 -12.0 Td
-54.0 315.0 Td (because it evaluates data minimization and unnecessary sensitive-information use in web) Tj
--54.0 -12.0 Td
-54.0 303.0 Td (agents \(zharmagambetov2025agentdam\).) Tj
+54.0 279.0 Td (prototype benchmark, not a community-adopted dataset.) Tj
 -54.0 -12.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F1 9.5 Tf
-54.0 281.0 Td (The right evaluation strategy is not to replace PAPF's seed suite immediately. Instead, the) Tj
+54.0 257.0 Td (This local suite is still useful because existing peer-reviewed agent benchmarks do not) Tj
 -54.0 -12.0 Td
-54.0 269.0 Td (current paper should use the PAPF suite for capability-level enforcement metrics, then) Tj
+54.0 245.0 Td (exactly test PAPF's full permission-boundary question. AgentDojo evaluates attacks and) Tj
 -54.0 -12.0 Td
-54.0 257.0 Td (define external validation adapters for the peer-reviewed benchmarks. AgentDojo and) Tj
+54.0 233.0 Td (defenses for tool-using agents with realistic tasks and security cases) Tj
 -54.0 -12.0 Td
-54.0 245.0 Td (InjecAgent can test prompt-injection and exfiltration robustness, ToolEmu can stress) Tj
+54.0 221.0 Td (\(debenedetti2024agentdojo\). ToolEmu evaluates LM-agent risks with emulated tools and safety) Tj
 -54.0 -12.0 Td
-54.0 233.0 Td (high-stakes tool risks, WebArena can measure task-success overhead in realistic web) Tj
+54.0 209.0 Td (evaluators \(ruan2024toolemu\). InjecAgent measures indirect prompt-injection vulnerability in) Tj
 -54.0 -12.0 Td
-54.0 221.0 Td (workflows, and AgentDAM can test privacy leakage and data minimization against a recognized) Tj
+54.0 197.0 Td (tool-integrated agents \(zhan2024injecagent\). WebArena evaluates long-horizon functional) Tj
 -54.0 -12.0 Td
-54.0 209.0 Td (privacy benchmark. The positioning table is in) Tj
+54.0 185.0 Td (web-agent tasks \(zhou2024webarena\). AgentDAM is the closest external privacy benchmark) Tj
 -54.0 -12.0 Td
-54.0 197.0 Td (paper/tables/external_benchmark_positioning.md.) Tj
+54.0 173.0 Td (because it evaluates data minimization and unnecessary sensitive-information use in web) Tj
 -54.0 -12.0 Td
-/F1 10.0 Tf
-0 -8.0 Td
-/F2 14.0 Tf
-54.0 167.0 Td (8. Experimental Setup) Tj
--54.0 -17.0 Td
-/F1 10.0 Tf
-0 -8.0 Td
-/F1 9.5 Tf
-54.0 140.0 Td (The default experiment runs PAPF, broad-access, prompt-only, tool-scope, static-policy, and) Tj
--54.0 -12.0 Td
-54.0 128.0 Td (five PAPF ablation modes across all 12 traces in the synthetic seed suite. The deterministic) Tj
--54.0 -12.0 Td
-54.0 116.0 Td (run timestamp is 2026-04-30T00:00:00+00:00. Serialized artifacts include metadata, metrics) Tj
--54.0 -12.0 Td
-54.0 104.0 Td (JSONL and CSV, decisions JSONL, audit summaries JSONL, generated paper tables, and generated) Tj
--54.0 -12.0 Td
-54.0 92.0 Td (SVG figures under experiments/runs/default_email_files_browser/ and paper/.) Tj
+54.0 161.0 Td (agents \(zharmagambetov2025agentdam\).) Tj
 -54.0 -12.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F1 9.5 Tf
-54.0 70.0 Td (The primary reproduction command is:) Tj
+54.0 139.0 Td (The right evaluation strategy is not to replace PAPF's seed suite immediately. Instead, the) Tj
+-54.0 -12.0 Td
+54.0 127.0 Td (current paper should use the PAPF suite for capability-level enforcement metrics, then) Tj
+-54.0 -12.0 Td
+54.0 115.0 Td (define external validation adapters for the peer-reviewed benchmarks. AgentDojo and) Tj
+-54.0 -12.0 Td
+54.0 103.0 Td (InjecAgent can test prompt-injection and exfiltration robustness, ToolEmu can stress) Tj
+-54.0 -12.0 Td
+54.0 91.0 Td (high-stakes tool risks, WebArena can measure task-success overhead in realistic web) Tj
+-54.0 -12.0 Td
+54.0 79.0 Td (workflows, and AgentDAM can test privacy leakage and data minimization against a recognized) Tj
+-54.0 -12.0 Td
+54.0 67.0 Td (privacy benchmark. The positioning table is in) Tj
 -54.0 -12.0 Td
 /F1 8 Tf
 516.0 28 Td (Page 7) Tj
@@ -980,133 +980,134 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> /F3 << /Type /Font /Subtype /Type1 /BaseFont /Courier >> >> >> /Contents 18 0 R >>
 endobj
 18 0 obj
-<< /Length 5468 >>
+<< /Length 5020 >>
 stream
 BT
-/F1 10.0 Tf
-0 -8.0 Td
-/F3 8.0 Tf
-0 -10.0 Td
-54.0 714.0 Td ($env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m papf.cli) Tj
--54.0 -10.0 Td
-54.0 704.0 Td (run-experiment --config experiments/configs/default_email_files_browser.json) Tj
--54.0 -10.0 Td
-54.0 694.0 Td (--timestamp 2026-04-30T00:00:00+00:00) Tj
--54.0 -10.0 Td
-0 -10.0 Td
 /F1 9.5 Tf
-54.0 670.0 Td (Paper tables and figures are derived only from serialized run artifacts:) Tj
--54.0 -12.0 Td
-/F1 10.0 Tf
-0 -8.0 Td
-/F3 8.0 Tf
-0 -10.0 Td
-54.0 634.0 Td ($env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -c "from) Tj
--54.0 -10.0 Td
-54.0 624.0 Td (papf.evaluation.reporting import generate_reporting_artifacts;) Tj
--54.0 -10.0 Td
-54.0 614.0 Td (generate_reporting_artifacts\('experiments/runs/default_email_files_browser'\)") Tj
--54.0 -10.0 Td
-0 -10.0 Td
-/F1 9.5 Tf
-54.0 590.0 Td (The automated artifact addresses two earlier evidence gaps. It includes measured ablations) Tj
--54.0 -12.0 Td
-54.0 578.0 Td (for scope narrowing, redaction evidence, confirmation gating, safer-alternative recovery,) Tj
--54.0 -12.0 Td
-54.0 566.0 Td (and audit-completeness validation. It also includes stronger external-enforcement baselines) Tj
--54.0 -12.0 Td
-54.0 554.0 Td (for coarse tool-scope enforcement and exact static-policy enforcement. The remaining) Tj
--54.0 -12.0 Td
-54.0 542.0 Td (non-automated gap is non-expert comprehension, which should remain protocol-only until a) Tj
--54.0 -12.0 Td
-54.0 530.0 Td (participant study is run.) Tj
+54.0 738.0 Td (paper/tables/external_benchmark_positioning.md.) Tj
 -54.0 -12.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F2 14.0 Tf
-54.0 500.0 Td (9. Results) Tj
+54.0 708.0 Td (8. Experimental Setup) Tj
 -54.0 -17.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F1 9.5 Tf
-54.0 473.0 Td (Table 1 summarizes the current generated metrics. PAPF records zero over-access, zero false) Tj
+54.0 681.0 Td (The default experiment runs PAPF, broad-access, prompt-only, tool-scope, static-policy, and) Tj
 -54.0 -12.0 Td
-54.0 461.0 Td (allows, zero false denies, and zero unredacted disclosures in the 12-trace suite.) Tj
+54.0 669.0 Td (five PAPF ablation modes across all 12 traces in the synthetic seed suite. The deterministic) Tj
 -54.0 -12.0 Td
-54.0 449.0 Td (Broad-access and prompt-only baselines each record an over-access rate of 0.2639 and 16) Tj
+54.0 657.0 Td (run timestamp is 2026-04-30T00:00:00+00:00. Serialized artifacts include metadata, metrics) Tj
 -54.0 -12.0 Td
-54.0 437.0 Td (false allows. The tool-scope baseline improves over ambient access on false allows but still) Tj
+54.0 645.0 Td (JSONL and CSV, decisions JSONL, audit summaries JSONL, generated paper tables, and generated) Tj
 -54.0 -12.0 Td
-54.0 425.0 Td (records seven false allows and the highest over-access rate, 0.2917. The static-policy) Tj
--54.0 -12.0 Td
-54.0 413.0 Td (baseline records zero false allows and zero over-access, but it has three false denies) Tj
--54.0 -12.0 Td
-54.0 401.0 Td (because it lacks PAPF-style scope narrowing.) Tj
+54.0 633.0 Td (SVG figures under experiments/runs/default_email_files_browser/ and paper/.) Tj
 -54.0 -12.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F1 9.5 Tf
-54.0 379.0 Td (Table 1: Main metrics from paper/tables/main_metrics.md.) Tj
+54.0 611.0 Td (The primary reproduction command is:) Tj
+-54.0 -12.0 Td
+/F1 10.0 Tf
+0 -8.0 Td
+/F3 8.0 Tf
+0 -10.0 Td
+54.0 575.0 Td ($env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m papf.cli) Tj
+-54.0 -10.0 Td
+54.0 565.0 Td (run-experiment --config experiments/configs/default_email_files_browser.json) Tj
+-54.0 -10.0 Td
+54.0 555.0 Td (--timestamp 2026-04-30T00:00:00+00:00) Tj
+-54.0 -10.0 Td
+0 -10.0 Td
+/F1 9.5 Tf
+54.0 531.0 Td (Paper tables and figures are derived only from serialized run artifacts:) Tj
+-54.0 -12.0 Td
+/F1 10.0 Tf
+0 -8.0 Td
+/F3 8.0 Tf
+0 -10.0 Td
+54.0 495.0 Td ($env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -c "from) Tj
+-54.0 -10.0 Td
+54.0 485.0 Td (papf.evaluation.reporting import generate_reporting_artifacts;) Tj
+-54.0 -10.0 Td
+54.0 475.0 Td (generate_reporting_artifacts\('experiments/runs/default_email_files_browser'\)") Tj
+-54.0 -10.0 Td
+0 -10.0 Td
+/F1 9.5 Tf
+54.0 451.0 Td (The automated artifact addresses two earlier evidence gaps. It includes measured ablations) Tj
+-54.0 -12.0 Td
+54.0 439.0 Td (for scope narrowing, redaction evidence, confirmation gating, safer-alternative recovery,) Tj
+-54.0 -12.0 Td
+54.0 427.0 Td (and audit-completeness validation. It also includes stronger external-enforcement baselines) Tj
+-54.0 -12.0 Td
+54.0 415.0 Td (for coarse tool-scope enforcement and exact static-policy enforcement. The remaining) Tj
+-54.0 -12.0 Td
+54.0 403.0 Td (non-automated gap is non-expert comprehension, which should remain protocol-only until a) Tj
+-54.0 -12.0 Td
+54.0 391.0 Td (participant study is run.) Tj
+-54.0 -12.0 Td
+/F1 10.0 Tf
+0 -8.0 Td
+/F2 14.0 Tf
+54.0 361.0 Td (9. Results) Tj
+-54.0 -17.0 Td
+/F1 10.0 Tf
+0 -8.0 Td
+/F1 9.5 Tf
+54.0 334.0 Td (Table 1 summarizes the current generated metrics. PAPF records zero over-access, zero false) Tj
+-54.0 -12.0 Td
+54.0 322.0 Td (allows, zero false denies, and zero unredacted disclosures in the 12-trace suite.) Tj
+-54.0 -12.0 Td
+54.0 310.0 Td (Broad-access and prompt-only baselines each record an over-access rate of 0.2639 and 16) Tj
+-54.0 -12.0 Td
+54.0 298.0 Td (false allows. The tool-scope baseline improves over ambient access on false allows but still) Tj
+-54.0 -12.0 Td
+54.0 286.0 Td (records seven false allows and the highest over-access rate, 0.2917. The static-policy) Tj
+-54.0 -12.0 Td
+54.0 274.0 Td (baseline records zero false allows and zero over-access, but it has three false denies) Tj
+-54.0 -12.0 Td
+54.0 262.0 Td (because it lacks PAPF-style scope narrowing.) Tj
+-54.0 -12.0 Td
+/F1 10.0 Tf
+0 -8.0 Td
+/F1 9.5 Tf
+54.0 240.0 Td (Table 1: Main metrics from paper/tables/main_metrics.md.) Tj
 -54.0 -12.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F3 7.0 Tf
-54.0 357.0 Td (| mode | task success | over-access | false allows | false denies | consent prompts | auditability |) Tj
+54.0 218.0 Td (| mode | task success | over-access | false allows | false denies | consent prompts | auditability |) Tj
 -54.0 -9.0 Td
-54.0 348.0 Td (|---|---:|---:|---:|---:|---:|---:|) Tj
+54.0 209.0 Td (|---|---:|---:|---:|---:|---:|---:|) Tj
 -54.0 -9.0 Td
-54.0 339.0 Td (| papf | 0.1667 | 0.0000 | 0 | 0 | 3 | 1.0 |) Tj
+54.0 200.0 Td (| papf | 0.1667 | 0.0000 | 0 | 0 | 3 | 1.0 |) Tj
 -54.0 -9.0 Td
-54.0 330.0 Td (| broad_access | 0.2500 | 0.2639 | 16 | 0 | 0 | 1.0 |) Tj
+54.0 191.0 Td (| broad_access | 0.2500 | 0.2639 | 16 | 0 | 0 | 1.0 |) Tj
 -54.0 -9.0 Td
-54.0 321.0 Td (| prompt_only | 0.2500 | 0.2639 | 16 | 0 | 0 | 1.0 |) Tj
+54.0 182.0 Td (| prompt_only | 0.2500 | 0.2639 | 16 | 0 | 0 | 1.0 |) Tj
 -54.0 -9.0 Td
-54.0 312.0 Td (| tool_scope | 0.2500 | 0.2917 | 7 | 0 | 3 | 1.0 |) Tj
+54.0 173.0 Td (| tool_scope | 0.2500 | 0.2917 | 7 | 0 | 3 | 1.0 |) Tj
 -54.0 -9.0 Td
-54.0 303.0 Td (| static_policy | 0.1667 | 0.0000 | 0 | 3 | 3 | 1.0 |) Tj
+54.0 164.0 Td (| static_policy | 0.1667 | 0.0000 | 0 | 3 | 3 | 1.0 |) Tj
 -54.0 -9.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F1 9.5 Tf
-54.0 284.0 Td (The main result is a safety-utility tradeoff, not a task-success win. PAPF's task-success) Tj
+54.0 145.0 Td (The main result is a safety-utility tradeoff, not a task-success win. PAPF's task-success) Tj
 -54.0 -12.0 Td
-54.0 272.0 Td (proxy is 0.1667, compared with 0.25 for broad-access, prompt-only, and tool-scope modes.) Tj
+54.0 133.0 Td (proxy is 0.1667, compared with 0.25 for broad-access, prompt-only, and tool-scope modes.) Tj
 -54.0 -12.0 Td
-54.0 260.0 Td (PAPF also issues three consent prompts while broad-access and prompt-only issue none. This) Tj
+54.0 121.0 Td (PAPF also issues three consent prompts while broad-access and prompt-only issue none. This) Tj
 -54.0 -12.0 Td
-54.0 248.0 Td (is expected for a strict permission boundary: PAPF prevents observed unsafe grants but) Tj
+54.0 109.0 Td (is expected for a strict permission boundary: PAPF prevents observed unsafe grants but) Tj
 -54.0 -12.0 Td
-54.0 236.0 Td (frequently fails closed or requires confirmation rather than completing the nominal task.) Tj
--54.0 -12.0 Td
-/F1 10.0 Tf
-0 -8.0 Td
-/F1 9.5 Tf
-54.0 214.0 Td (Failure-case analysis shows that ambient and prompt-only modes fail in structurally similar) Tj
--54.0 -12.0 Td
-54.0 202.0 Td (ways. In the account-attack scenario, both baselines allow off-boundary actions and touch a) Tj
--54.0 -12.0 Td
-54.0 190.0 Td (fake security page, a bank alert thread, and account notes. In the reimbursement attack,) Tj
--54.0 -12.0 Td
-54.0 178.0 Td (broad access allows the prompt-injection page and receipt upload path. PAPF blocks those) Tj
--54.0 -12.0 Td
-54.0 166.0 Td (unsafe actions and records zero over-access, but several PAPF attack and temptation traces) Tj
--54.0 -12.0 Td
-54.0 154.0 Td (still end as task failures or unsafe-workaround failures. The selected examples in) Tj
--54.0 -12.0 Td
-54.0 142.0 Td (paper/tables/failure_case_highlights.md support the interpretation that external enforcement) Tj
--54.0 -12.0 Td
-54.0 130.0 Td (improves boundary control in this slice while recovery remains underdeveloped.) Tj
+54.0 97.0 Td (frequently fails closed or requires confirmation rather than completing the nominal task.) Tj
 -54.0 -12.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F1 9.5 Tf
-54.0 108.0 Td (The ablations isolate visible component effects. Disabling redaction evidence creates two) Tj
--54.0 -12.0 Td
-54.0 96.0 Td (unredacted-disclosure counts. Disabling confirmation gating removes three consent prompts) Tj
--54.0 -12.0 Td
-54.0 84.0 Td (but creates three false allows and eliminates PAPF's safe-partial-success rate. Disabling) Tj
--54.0 -12.0 Td
-54.0 72.0 Td (safer-alternative recovery removes PAPF's recovery-quality credit and safe-partial-success) Tj
+54.0 75.0 Td (Failure-case analysis shows that ambient and prompt-only modes fail in structurally similar) Tj
 -54.0 -12.0 Td
 /F1 8 Tf
 516.0 28 Td (Page 8) Tj
@@ -1117,131 +1118,130 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> /F3 << /Type /Font /Subtype /Type1 /BaseFont /Courier >> >> >> /Contents 20 0 R >>
 endobj
 20 0 obj
-<< /Length 5552 >>
+<< /Length 5687 >>
 stream
 BT
 /F1 9.5 Tf
-54.0 738.0 Td (rate. Disabling audit-completeness validation drives auditability completeness from 1.0 to) Tj
+54.0 738.0 Td (ways. In the account-attack scenario, both baselines allow off-boundary actions and touch a) Tj
 -54.0 -12.0 Td
-54.0 726.0 Td (0.0. Disabling scope narrowing produces three false denies and lowers necessary-access rate,) Tj
+54.0 726.0 Td (fake security page, a bank alert thread, and account notes. In the reimbursement attack,) Tj
 -54.0 -12.0 Td
-54.0 714.0 Td (but does not change aggregate task success in this small suite.) Tj
+54.0 714.0 Td (broad access allows the prompt-injection page and receipt upload path. PAPF blocks those) Tj
+-54.0 -12.0 Td
+54.0 702.0 Td (unsafe actions and records zero over-access, but several PAPF attack and temptation traces) Tj
+-54.0 -12.0 Td
+54.0 690.0 Td (still end as task failures or unsafe-workaround failures. The selected examples in) Tj
+-54.0 -12.0 Td
+54.0 678.0 Td (paper/tables/failure_case_highlights.md support the interpretation that external enforcement) Tj
+-54.0 -12.0 Td
+54.0 666.0 Td (improves boundary control in this slice while recovery remains underdeveloped.) Tj
 -54.0 -12.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F1 9.5 Tf
-54.0 692.0 Td (The stronger baselines sharpen the claim. Coarse tool-scope enforcement blocks actions) Tj
+54.0 644.0 Td (The ablations isolate visible component effects. Disabling redaction evidence creates two) Tj
 -54.0 -12.0 Td
-54.0 680.0 Td (outside granted tool/action scopes, but still allows off-task data inside granted scopes.) Tj
+54.0 632.0 Td (unredacted-disclosure counts. Disabling confirmation gating removes three consent prompts) Tj
 -54.0 -12.0 Td
-54.0 668.0 Td (Exact static policy blocks observed unsafe actions, but it over-denies when a safe narrowing) Tj
+54.0 620.0 Td (but creates three false allows and eliminates PAPF's safe-partial-success rate. Disabling) Tj
 -54.0 -12.0 Td
-54.0 656.0 Td (would preserve useful access. These results suggest that external enforcement is not a) Tj
+54.0 608.0 Td (safer-alternative recovery removes PAPF's recovery-quality credit and safe-partial-success) Tj
 -54.0 -12.0 Td
-54.0 644.0 Td (single design point: coarse scopes under-protect, while exact static rules can over-deny) Tj
+54.0 596.0 Td (rate. Disabling audit-completeness validation drives auditability completeness from 1.0 to) Tj
 -54.0 -12.0 Td
-54.0 632.0 Td (without narrowing and recovery.) Tj
+54.0 584.0 Td (0.0. Disabling scope narrowing produces three false denies and lowers necessary-access rate,) Tj
+-54.0 -12.0 Td
+54.0 572.0 Td (but does not change aggregate task success in this small suite.) Tj
+-54.0 -12.0 Td
+/F1 10.0 Tf
+0 -8.0 Td
+/F1 9.5 Tf
+54.0 550.0 Td (The stronger baselines sharpen the claim. Coarse tool-scope enforcement blocks actions) Tj
+-54.0 -12.0 Td
+54.0 538.0 Td (outside granted tool/action scopes, but still allows off-task data inside granted scopes.) Tj
+-54.0 -12.0 Td
+54.0 526.0 Td (Exact static policy blocks observed unsafe actions, but it over-denies when a safe narrowing) Tj
+-54.0 -12.0 Td
+54.0 514.0 Td (would preserve useful access. These results suggest that external enforcement is not a) Tj
+-54.0 -12.0 Td
+54.0 502.0 Td (single design point: coarse scopes under-protect, while exact static rules can over-deny) Tj
+-54.0 -12.0 Td
+54.0 490.0 Td (without narrowing and recovery.) Tj
 -54.0 -12.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F2 14.0 Tf
-54.0 602.0 Td (10. Discussion and Limitations) Tj
+54.0 460.0 Td (10. Discussion and Limitations) Tj
 -54.0 -17.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F1 9.5 Tf
-54.0 575.0 Td (The largest current limitation is that strict mediation reduces the task-success proxy. This) Tj
+54.0 433.0 Td (The largest current limitation is that strict mediation reduces the task-success proxy. This) Tj
 -54.0 -12.0 Td
-54.0 563.0 Td (may be correct safe-failure behavior for attack and temptation cases, but it also shows that) Tj
+54.0 421.0 Td (may be correct safe-failure behavior for attack and temptation cases, but it also shows that) Tj
 -54.0 -12.0 Td
-54.0 551.0 Td (the compiler, policies, and recovery planner need stronger handling of legitimate safe) Tj
+54.0 409.0 Td (the compiler, policies, and recovery planner need stronger handling of legitimate safe) Tj
 -54.0 -12.0 Td
-54.0 539.0 Td (alternatives. Future runs should break down failures by policy bug, benchmark label, missing) Tj
+54.0 397.0 Td (alternatives. Future runs should break down failures by policy bug, benchmark label, missing) Tj
 -54.0 -12.0 Td
-54.0 527.0 Td (capability, and intentional safe refusal.) Tj
--54.0 -12.0 Td
-/F1 10.0 Tf
-0 -8.0 Td
-/F1 9.5 Tf
-54.0 505.0 Td (The baselines are stronger than ambient access but are still not faithful implementations of) Tj
--54.0 -12.0 Td
-54.0 493.0 Td (all prior systems. Tool-scope and static-policy runners test important design points under) Tj
--54.0 -12.0 Td
-54.0 481.0 Td (the shared benchmark, but they should not be described as implementations of Progent,) Tj
--54.0 -12.0 Td
-54.0 469.0 Td (AgentSpec, Fides, MiniScope, IsolateGPT, or other published systems. A stronger submission) Tj
--54.0 -12.0 Td
-54.0 457.0 Td (should add faithful integrations or carefully named approximations with documented) Tj
--54.0 -12.0 Td
-54.0 445.0 Td (differences.) Tj
+54.0 385.0 Td (capability, and intentional safe refusal.) Tj
 -54.0 -12.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F1 9.5 Tf
-54.0 423.0 Td (The benchmark covers only a narrow email-files-browser slice. It is attack-rich, but it) Tj
+54.0 363.0 Td (The baselines are stronger than ambient access but are still not faithful implementations of) Tj
 -54.0 -12.0 Td
-54.0 411.0 Td (cannot establish generality over calendar, contacts, travel, payments, messaging, cloud) Tj
+54.0 351.0 Td (all prior systems. Tool-scope and static-policy runners test important design points under) Tj
 -54.0 -12.0 Td
-54.0 399.0 Td (management, or device administration. The paper should present it as a first systems) Tj
+54.0 339.0 Td (the shared benchmark, but they should not be described as implementations of Progent,) Tj
 -54.0 -12.0 Td
-54.0 387.0 Td (artifact, not a full consumer-agent benchmark release.) Tj
+54.0 327.0 Td (AgentSpec, Fides, MiniScope, IsolateGPT, or other published systems. A stronger submission) Tj
+-54.0 -12.0 Td
+54.0 315.0 Td (should add faithful integrations or carefully named approximations with documented) Tj
+-54.0 -12.0 Td
+54.0 303.0 Td (differences.) Tj
 -54.0 -12.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F1 9.5 Tf
-54.0 365.0 Td (PAPF is motivated by user-facing permission boundaries, but comprehension is not validated) Tj
+54.0 281.0 Td (The benchmark covers only a narrow email-files-browser slice. It is attack-rich, but it) Tj
 -54.0 -12.0 Td
-54.0 353.0 Td (by automated metrics. The paper can say that PAPF includes a planned protocol, synthetic) Tj
+54.0 269.0 Td (cannot establish generality over calendar, contacts, travel, payments, messaging, cloud) Tj
 -54.0 -12.0 Td
-54.0 341.0 Td (scenario records, and prompt examples for later non-expert evaluation, but it should not) Tj
+54.0 257.0 Td (management, or device administration. The paper should present it as a first systems) Tj
 -54.0 -12.0 Td
-54.0 329.0 Td (report comprehension, consent-fatigue, or safer-user-choice effects until a participant) Tj
+54.0 245.0 Td (artifact, not a full consumer-agent benchmark release.) Tj
 -54.0 -12.0 Td
-54.0 317.0 Td (study is reviewed, run, and analyzed.) Tj
+/F1 10.0 Tf
+0 -8.0 Td
+/F1 9.5 Tf
+54.0 223.0 Td (PAPF is motivated by user-facing permission boundaries, but comprehension is not validated) Tj
+-54.0 -12.0 Td
+54.0 211.0 Td (by automated metrics. The paper can say that PAPF includes a planned protocol, synthetic) Tj
+-54.0 -12.0 Td
+54.0 199.0 Td (scenario records, and prompt examples for later non-expert evaluation, but it should not) Tj
+-54.0 -12.0 Td
+54.0 187.0 Td (report comprehension, consent-fatigue, or safer-user-choice effects until a participant) Tj
+-54.0 -12.0 Td
+54.0 175.0 Td (study is reviewed, run, and analyzed.) Tj
 -54.0 -12.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F2 14.0 Tf
-54.0 287.0 Td (11. Related Work) Tj
+54.0 145.0 Td (11. Related Work) Tj
 -54.0 -17.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F1 9.5 Tf
-54.0 260.0 Td (Prompt-injection and agent-safety benchmarks establish that untrusted content and tool use) Tj
+54.0 118.0 Td (Prompt-injection and agent-safety benchmarks establish that untrusted content and tool use) Tj
 -54.0 -12.0 Td
-54.0 248.0 Td (create safety failures beyond ordinary chat alignment \(greshake2023not, yi2023benchmarking,) Tj
+54.0 106.0 Td (create safety failures beyond ordinary chat alignment \(greshake2023not, yi2023benchmarking,) Tj
 -54.0 -12.0 Td
-54.0 236.0 Td (zhan2024injecagent, debenedetti2024agentdojo, ruan2024toolemu, zhou2024webarena,) Tj
+54.0 94.0 Td (zhan2024injecagent, debenedetti2024agentdojo, ruan2024toolemu, zhou2024webarena,) Tj
 -54.0 -12.0 Td
-54.0 224.0 Td (kumar2025aligned, zhang2025browsesafe\). PAPF builds on that threat model but moves the main) Tj
+54.0 82.0 Td (kumar2025aligned, zhang2025browsesafe\). PAPF builds on that threat model but moves the main) Tj
 -54.0 -12.0 Td
-54.0 212.0 Td (intervention to authority issuance and runtime mediation.) Tj
--54.0 -12.0 Td
-/F1 10.0 Tf
-0 -8.0 Td
-/F1 9.5 Tf
-54.0 190.0 Td (Agent-specific authorization systems are the closest technical neighbors. Progent,) Tj
--54.0 -12.0 Td
-54.0 178.0 Td (AgentSpec, MiniScope, and IsolateGPT move constraints outside ordinary prompt instructions) Tj
--54.0 -12.0 Td
-54.0 166.0 Td (in different ways \(shi2025progent, wang2025agentspec, zhu2025miniscope, wu2025isolategpt\).) Tj
--54.0 -12.0 Td
-54.0 154.0 Td (PAPF should not claim this space is empty. Its narrower distinction is the combination of) Tj
--54.0 -12.0 Td
-54.0 142.0 Td (consumer task-derived personal-data scopes, redaction and consent artifacts, recovery) Tj
--54.0 -12.0 Td
-54.0 130.0 Td (scoring, and audit-linked benchmark evaluation.) Tj
--54.0 -12.0 Td
-/F1 10.0 Tf
-0 -8.0 Td
-/F1 9.5 Tf
-54.0 108.0 Td (Capability security, least privilege, confused-deputy analysis, OAuth, RAR, GNAP, token) Tj
--54.0 -12.0 Td
-54.0 96.0 Td (introspection, and MCP authorization provide mature concepts for explicit and inspectable) Tj
--54.0 -12.0 Td
-54.0 84.0 Td (authority \(saltzer1975protection, wagner2006object, hardy1988confused, felt2011permission,) Tj
--54.0 -12.0 Td
-54.0 72.0 Td (hardt2012oauth, lodderstedt2023oauthrar, richer2015introspection, richer2024gnap,) Tj
+54.0 70.0 Td (intervention to authority issuance and runtime mediation.) Tj
 -54.0 -12.0 Td
 /F1 8 Tf
 516.0 28 Td (Page 9) Tj
@@ -1252,133 +1252,130 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> /F3 << /Type /Font /Subtype /Type1 /BaseFont /Courier >> >> >> /Contents 22 0 R >>
 endobj
 22 0 obj
-<< /Length 5575 >>
+<< /Length 5611 >>
 stream
 BT
+/F1 10.0 Tf
+0 -8.0 Td
 /F1 9.5 Tf
-54.0 738.0 Td (richer2025gnaprs, modelcontextprotocol2025authorization\). PAPF's challenge is compiling and) Tj
+54.0 728.0 Td (Agent-specific authorization systems are the closest technical neighbors. Progent,) Tj
 -54.0 -12.0 Td
-54.0 726.0 Td (explaining that authority from natural-language tasks across heterogeneous consumer tools.) Tj
+54.0 716.0 Td (AgentSpec, MiniScope, and IsolateGPT move constraints outside ordinary prompt instructions) Tj
+-54.0 -12.0 Td
+54.0 704.0 Td (in different ways \(shi2025progent, wang2025agentspec, zhu2025miniscope, wu2025isolategpt\).) Tj
+-54.0 -12.0 Td
+54.0 692.0 Td (PAPF should not claim this space is empty. Its narrower distinction is the combination of) Tj
+-54.0 -12.0 Td
+54.0 680.0 Td (consumer task-derived personal-data scopes, redaction and consent artifacts, recovery) Tj
+-54.0 -12.0 Td
+54.0 668.0 Td (scoring, and audit-linked benchmark evaluation.) Tj
 -54.0 -12.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F1 9.5 Tf
-54.0 704.0 Td (Permission-UX and consent-fatigue work shows why user-facing approval prompts must be) Tj
+54.0 646.0 Td (Capability security, least privilege, confused-deputy analysis, OAuth, RAR, GNAP, token) Tj
 -54.0 -12.0 Td
-54.0 692.0 Td (contextual and not excessive \(felt2012androidpermissions, felt2012askpermission,) Tj
+54.0 634.0 Td (introspection, and MCP authorization provide mature concepts for explicit and inspectable) Tj
 -54.0 -12.0 Td
-54.0 680.0 Td (wijesekera2015androidpermissions, akhawe2013alice, vance2019fog, cao2021androidpermissions,) Tj
+54.0 622.0 Td (authority \(saltzer1975protection, wagner2006object, hardy1988confused, felt2011permission,) Tj
 -54.0 -12.0 Td
-54.0 668.0 Td (wu2026automatingpermissions\). Provenance and access-control audit work motivates recording) Tj
+54.0 610.0 Td (hardt2012oauth, lodderstedt2023oauthrar, richer2015introspection, richer2024gnap,) Tj
 -54.0 -12.0 Td
-54.0 656.0 Td (why access was allowed or denied \(groth2013provoverview, capobianco2017accessprov,) Tj
+54.0 598.0 Td (richer2025gnaprs, modelcontextprotocol2025authorization\). PAPF's challenge is compiling and) Tj
 -54.0 -12.0 Td
-54.0 644.0 Td (souza2025workflowprovenance, gupta2025verifiability\). PAPF connects these threads by making) Tj
+54.0 586.0 Td (explaining that authority from natural-language tasks across heterogeneous consumer tools.) Tj
 -54.0 -12.0 Td
-54.0 632.0 Td (task intent, compiled capabilities, enforcement decisions, redaction artifacts, and outcomes) Tj
+/F1 10.0 Tf
+0 -8.0 Td
+/F1 9.5 Tf
+54.0 564.0 Td (Permission-UX and consent-fatigue work shows why user-facing approval prompts must be) Tj
 -54.0 -12.0 Td
-54.0 620.0 Td (part of one trace.) Tj
+54.0 552.0 Td (contextual and not excessive \(felt2012androidpermissions, felt2012askpermission,) Tj
+-54.0 -12.0 Td
+54.0 540.0 Td (wijesekera2015androidpermissions, akhawe2013alice, vance2019fog, cao2021androidpermissions,) Tj
+-54.0 -12.0 Td
+54.0 528.0 Td (wu2026automatingpermissions\). Provenance and access-control audit work motivates recording) Tj
+-54.0 -12.0 Td
+54.0 516.0 Td (why access was allowed or denied \(groth2013provoverview, capobianco2017accessprov,) Tj
+-54.0 -12.0 Td
+54.0 504.0 Td (souza2025workflowprovenance, gupta2025verifiability\). PAPF connects these threads by making) Tj
+-54.0 -12.0 Td
+54.0 492.0 Td (task intent, compiled capabilities, enforcement decisions, redaction artifacts, and outcomes) Tj
+-54.0 -12.0 Td
+54.0 480.0 Td (part of one trace.) Tj
 -54.0 -12.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F2 14.0 Tf
-54.0 590.0 Td (12. Conclusion) Tj
+54.0 450.0 Td (12. Conclusion) Tj
 -54.0 -17.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F1 9.5 Tf
-54.0 563.0 Td (PAPF addresses consumer-agent overreach by moving permission enforcement out of the LLM and) Tj
+54.0 423.0 Td (PAPF addresses consumer-agent overreach by moving permission enforcement out of the LLM and) Tj
 -54.0 -12.0 Td
-54.0 551.0 Td (into a task-scoped control plane. The current prototype compiles validated tasks into) Tj
+54.0 411.0 Td (into a task-scoped control plane. The current prototype compiles validated tasks into) Tj
 -54.0 -12.0 Td
-54.0 539.0 Td (capabilities, mediates every synthetic tool call, records redaction and consent evidence,) Tj
+54.0 399.0 Td (capabilities, mediates every synthetic tool call, records redaction and consent evidence,) Tj
 -54.0 -12.0 Td
-54.0 527.0 Td (and scores runs against utility and privacy/security metrics.) Tj
--54.0 -12.0 Td
-/F1 10.0 Tf
-0 -8.0 Td
-/F1 9.5 Tf
-54.0 505.0 Td (In the current 12-trace synthetic slice, PAPF eliminates observed false allows and) Tj
--54.0 -12.0 Td
-54.0 493.0 Td (over-access relative to broad-access and prompt-only baselines, but it also produces lower) Tj
--54.0 -12.0 Td
-54.0 481.0 Td (task-success proxy scores and additional consent prompts. This is a useful first result) Tj
--54.0 -12.0 Td
-54.0 469.0 Td (because it exposes the tradeoff that permission-boundary research must measure rather than) Tj
--54.0 -12.0 Td
-54.0 457.0 Td (hiding it behind final-task success alone.) Tj
+54.0 387.0 Td (and scores runs against utility and privacy/security metrics.) Tj
 -54.0 -12.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F1 9.5 Tf
-54.0 435.0 Td (The next paper-development step is to pilot the HCI/privacy materials, run the non-expert) Tj
+54.0 365.0 Td (In the current 12-trace synthetic slice, PAPF eliminates observed false allows and) Tj
 -54.0 -12.0 Td
-54.0 423.0 Td (comprehension study, and report ordinary-user understanding, safe/unsafe-action) Tj
+54.0 353.0 Td (over-access relative to broad-access and prompt-only baselines, but it also produces lower) Tj
 -54.0 -12.0 Td
-54.0 411.0 Td (discrimination, privacy-preserving consent decisions, perceived control, trust, workload,) Tj
+54.0 341.0 Td (task-success proxy scores and additional consent prompts. This is a useful first result) Tj
 -54.0 -12.0 Td
-54.0 399.0 Td (and consent fatigue separately from the prototype trace results. Technical follow-up work) Tj
+54.0 329.0 Td (because it exposes the tradeoff that permission-boundary research must measure rather than) Tj
 -54.0 -12.0 Td
-54.0 387.0 Td (should continue to strengthen recovery behavior, add harder benchmark slices, and compare) Tj
+54.0 317.0 Td (hiding it behind final-task success alone.) Tj
 -54.0 -12.0 Td
-54.0 375.0 Td (against faithful implementations or closer approximations of agent-specific authorization) Tj
+/F1 10.0 Tf
+0 -8.0 Td
+/F1 9.5 Tf
+54.0 295.0 Td (The next paper-development step is to pilot the HCI/privacy materials, run the non-expert) Tj
 -54.0 -12.0 Td
-54.0 363.0 Td (and information-flow-control systems.) Tj
+54.0 283.0 Td (comprehension study, and report ordinary-user understanding, safe/unsafe-action) Tj
+-54.0 -12.0 Td
+54.0 271.0 Td (discrimination, privacy-preserving consent decisions, perceived control, trust, workload,) Tj
+-54.0 -12.0 Td
+54.0 259.0 Td (and consent fatigue separately from the prototype trace results. Technical follow-up work) Tj
+-54.0 -12.0 Td
+54.0 247.0 Td (should continue to strengthen recovery behavior, add harder benchmark slices, and compare) Tj
+-54.0 -12.0 Td
+54.0 235.0 Td (against faithful implementations or closer approximations of agent-specific authorization) Tj
+-54.0 -12.0 Td
+54.0 223.0 Td (and information-flow-control systems.) Tj
 -54.0 -12.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F2 14.0 Tf
-54.0 333.0 Td (Source Notes) Tj
+54.0 193.0 Td (Source Notes) Tj
 -54.0 -17.0 Td
 /F1 10.0 Tf
 0 -8.0 Td
 /F1 9.5 Tf
-54.0 306.0 Td (- AgentDojo: NeurIPS 2024 benchmark for prompt-injection attacks and defenses in) Tj
+54.0 166.0 Td (- AgentDojo: NeurIPS 2024 benchmark for prompt-injection attacks and defenses in) Tj
 -54.0 -12.0 Td
-54.0 294.0 Td (  tool-using agents, with 97 tasks and 629 security test cases. Source:) Tj
+54.0 154.0 Td (  tool-using agents, with 97 tasks and 629 security test cases. Source:) Tj
 -54.0 -12.0 Td
-54.0 282.0 Td (  https://mlanthology.org/neurips/2024/debenedetti2024neurips-agentdojo/) Tj
+54.0 142.0 Td (  https://mlanthology.org/neurips/2024/debenedetti2024neurips-agentdojo/) Tj
 -54.0 -12.0 Td
-54.0 270.0 Td (- ToolEmu: ICLR 2024 benchmark and LM-emulated sandbox for scalable risk evaluation of) Tj
+54.0 130.0 Td (- ToolEmu: ICLR 2024 benchmark and LM-emulated sandbox for scalable risk evaluation of) Tj
 -54.0 -12.0 Td
-54.0 258.0 Td (  LM agents. Source:) Tj
+54.0 118.0 Td (  LM agents. Source:) Tj
 -54.0 -12.0 Td
-54.0 246.0 Td (  https://proceedings.iclr.cc/paper_files/paper/2024/hash/7274ed909a312d4d869cc328ad1c5f04-Abstract-Conference.html) Tj
+54.0 106.0 Td (  https://proceedings.iclr.cc/paper_files/paper/2024/hash/7274ed909a312d4d869cc328ad1c5f04-Abstract-Conference.html) Tj
 -54.0 -12.0 Td
-54.0 234.0 Td (- InjecAgent: Findings of ACL 2024 benchmark for indirect prompt injection in) Tj
+54.0 94.0 Td (- InjecAgent: Findings of ACL 2024 benchmark for indirect prompt injection in) Tj
 -54.0 -12.0 Td
-54.0 222.0 Td (  tool-integrated agents. Source: https://aclanthology.org/2024.findings-acl.624/) Tj
+54.0 82.0 Td (  tool-integrated agents. Source: https://aclanthology.org/2024.findings-acl.624/) Tj
 -54.0 -12.0 Td
-54.0 210.0 Td (- WebArena: ICLR 2024 realistic web-agent environment and benchmark. Source:) Tj
+54.0 70.0 Td (- WebArena: ICLR 2024 realistic web-agent environment and benchmark. Source:) Tj
 -54.0 -12.0 Td
-54.0 198.0 Td (  https://proceedings.iclr.cc/paper_files/paper/2024/hash/4410c0711e9154a7a2d26f9b3816d1ef-Abstract-Conference.html) Tj
--54.0 -12.0 Td
-54.0 186.0 Td (- AgentDAM: NeurIPS 2025 Datasets and Benchmarks privacy benchmark for data minimization) Tj
--54.0 -12.0 Td
-54.0 174.0 Td (  in web agents. Source: https://openreview.net/forum?id=qaxf7q41aK) Tj
--54.0 -12.0 Td
-/F1 10.0 Tf
-0 -8.0 Td
-/F2 14.0 Tf
-54.0 144.0 Td (Claim-Evidence Check) Tj
--54.0 -17.0 Td
-/F1 10.0 Tf
-0 -8.0 Td
-/F3 7.0 Tf
-54.0 117.0 Td (| claim | evidence | status |) Tj
--54.0 -9.0 Td
-54.0 108.0 Td (|---|---|---|) Tj
--54.0 -9.0 Td
-54.0 99.0 Td (| PAPF keeps final permission enforcement outside the LLM. | Control-plane modules, model-assisted) Tj
--54.0 -9.0 Td
-54.0 90.0 Td (proposer contract tests, and design docs specify non-authoritative proposals plus deterministic) Tj
--54.0 -9.0 Td
-54.0 81.0 Td (validation and enforcement. | Supported in artifact |) Tj
--54.0 -9.0 Td
-54.0 72.0 Td (| PAPF eliminates observed false allows and over-access in the current 12-trace suite. |) Tj
--54.0 -9.0 Td
-54.0 63.0 Td (paper/tables/main_metrics.md reports false_allow_count=0 and over_access_rate=0.0 for PAPF. |) Tj
--54.0 -9.0 Td
 /F1 8 Tf
 516.0 28 Td (Page 10) Tj
 ET
@@ -1388,41 +1385,69 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> /F3 << /Type /Font /Subtype /Type1 /BaseFont /Courier >> >> >> /Contents 24 0 R >>
 endobj
 24 0 obj
-<< /Length 1793 >>
+<< /Length 2997 >>
 stream
 BT
+/F1 9.5 Tf
+54.0 738.0 Td (  https://proceedings.iclr.cc/paper_files/paper/2024/hash/4410c0711e9154a7a2d26f9b3816d1ef-Abstract-Conference.html) Tj
+-54.0 -12.0 Td
+54.0 726.0 Td (- AgentDAM: NeurIPS 2025 Datasets and Benchmarks privacy benchmark for data minimization) Tj
+-54.0 -12.0 Td
+54.0 714.0 Td (  in web agents. Source: https://openreview.net/forum?id=qaxf7q41aK) Tj
+-54.0 -12.0 Td
+/F1 10.0 Tf
+0 -8.0 Td
+/F2 14.0 Tf
+54.0 684.0 Td (Claim-Evidence Check) Tj
+-54.0 -17.0 Td
+/F1 10.0 Tf
+0 -8.0 Td
 /F3 7.0 Tf
-54.0 738.0 Td (Supported in current run |) Tj
+54.0 657.0 Td (| claim | evidence | status |) Tj
 -54.0 -9.0 Td
-54.0 729.0 Td (| The PAPF seed suite is well known. | It is local synthetic data under benchmarks/papf_seed_cases/;) Tj
+54.0 648.0 Td (|---|---|---|) Tj
 -54.0 -9.0 Td
-54.0 720.0 Td (no public adoption evidence exists. | Unsupported and explicitly rejected |) Tj
+54.0 639.0 Td (| PAPF keeps final permission enforcement outside the LLM. | Control-plane modules, model-assisted) Tj
 -54.0 -9.0 Td
-54.0 711.0 Td (| PAPF improves task success. | Generated metrics show lower PAPF task-success proxy than several) Tj
+54.0 630.0 Td (proposer contract tests, and design docs specify non-authoritative proposals plus deterministic) Tj
 -54.0 -9.0 Td
-54.0 702.0 Td (baselines. | Unsupported and explicitly rejected |) Tj
+54.0 621.0 Td (validation and enforcement. | Supported in artifact |) Tj
 -54.0 -9.0 Td
-54.0 693.0 Td (| PAPF includes planned synthetic user-study scenarios mapped to benchmark labels. |) Tj
+54.0 612.0 Td (| PAPF eliminates observed false allows and over-access in the current 12-trace suite. |) Tj
 -54.0 -9.0 Td
-54.0 684.0 Td (docs/user_study_protocol.md and paper/tables/user_study_scenarios.md define six synthetic scenario) Tj
+54.0 603.0 Td (paper/tables/main_metrics.md reports false_allow_count=0 and over_access_rate=0.0 for PAPF. |) Tj
 -54.0 -9.0 Td
-54.0 675.0 Td (records with allowed data/tools, blocked data/tools, privacy risks, expected safe decisions, and) Tj
+54.0 594.0 Td (Supported in current run |) Tj
 -54.0 -9.0 Td
-54.0 666.0 Td (current or future trace mappings. | Supported as study design |) Tj
+54.0 585.0 Td (| The PAPF seed suite is well known. | It is local synthetic data under benchmarks/papf_seed_cases/;) Tj
 -54.0 -9.0 Td
-54.0 657.0 Td (| PAPF permission prompts are understandable to non-experts. | Only a protocol and prompt examples) Tj
+54.0 576.0 Td (no public adoption evidence exists. | Unsupported and explicitly rejected |) Tj
 -54.0 -9.0 Td
-54.0 648.0 Td (exist. | Needs user-study evidence |) Tj
+54.0 567.0 Td (| PAPF improves task success. | Generated metrics show lower PAPF task-success proxy than several) Tj
 -54.0 -9.0 Td
-54.0 639.0 Td (| PAPF improves privacy-preserving consent decisions, perceived control, trust, or consent fatigue.) Tj
+54.0 558.0 Td (baselines. | Unsupported and explicitly rejected |) Tj
 -54.0 -9.0 Td
-54.0 630.0 Td (| No participant data has been collected. | Needs user-study evidence |) Tj
+54.0 549.0 Td (| PAPF includes planned synthetic user-study scenarios mapped to benchmark labels. |) Tj
 -54.0 -9.0 Td
-54.0 621.0 Td (| PAPF can reduce observed over-access and false allows in synthetic traces. | RQ6 trace metrics) Tj
+54.0 540.0 Td (docs/user_study_protocol.md and paper/tables/user_study_scenarios.md define six synthetic scenario) Tj
 -54.0 -9.0 Td
-54.0 612.0 Td (report zero PAPF false allows and over-access in the current 12-trace suite. | Supported only in) Tj
+54.0 531.0 Td (records with allowed data/tools, blocked data/tools, privacy risks, expected safe decisions, and) Tj
 -54.0 -9.0 Td
-54.0 603.0 Td (current run |) Tj
+54.0 522.0 Td (current or future trace mappings. | Supported as study design |) Tj
+-54.0 -9.0 Td
+54.0 513.0 Td (| PAPF permission prompts are understandable to non-experts. | Only a protocol and prompt examples) Tj
+-54.0 -9.0 Td
+54.0 504.0 Td (exist. | Needs user-study evidence |) Tj
+-54.0 -9.0 Td
+54.0 495.0 Td (| PAPF improves privacy-preserving consent decisions, perceived control, trust, or consent fatigue.) Tj
+-54.0 -9.0 Td
+54.0 486.0 Td (| No participant data has been collected. | Needs user-study evidence |) Tj
+-54.0 -9.0 Td
+54.0 477.0 Td (| PAPF can reduce observed over-access and false allows in synthetic traces. | RQ6 trace metrics) Tj
+-54.0 -9.0 Td
+54.0 468.0 Td (report zero PAPF false allows and over-access in the current 12-trace suite. | Supported only in) Tj
+-54.0 -9.0 Td
+54.0 459.0 Td (current run |) Tj
 -54.0 -9.0 Td
 /F1 8 Tf
 516.0 28 Td (Page 11) Tj
@@ -1448,16 +1473,16 @@ xref
 0000032983 00000 n 
 0000039608 00000 n 
 0000039906 00000 n 
-0000045617 00000 n 
-0000045915 00000 n 
-0000051435 00000 n 
-0000051733 00000 n 
-0000057337 00000 n 
-0000057635 00000 n 
-0000063262 00000 n 
-0000063560 00000 n 
+0000046053 00000 n 
+0000046351 00000 n 
+0000051423 00000 n 
+0000051721 00000 n 
+0000057460 00000 n 
+0000057758 00000 n 
+0000063421 00000 n 
+0000063719 00000 n 
 trailer
 << /Size 25 /Root 1 0 R >>
 startxref
-65405
+66768
 %%EOF
