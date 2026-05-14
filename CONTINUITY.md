@@ -87,6 +87,7 @@
 - 2026-05-14 [CODE]: Added planned HCI/privacy paper-revision Tasks 027-045 covering reframing, motivating example, research questions, user study, scenarios, measures, hypotheses, claim cleanup, evaluation rework, consent fatigue, prompt variants, privacy framing, related work, title/abstract, limitations, conclusion, outline, venue positioning, and final consistency.
 - 2026-05-14 [CODE]: Implemented Task 027 by replacing the old systems-first outline/plan with an HCI/privacy outline and adding `paper/papf_hci_outline.md`.
 - 2026-05-14 [CODE]: Implemented the first Task 028 pass by reframing `paper/papf_final.md` title, abstract, introduction, and contribution list around task-scoped consent, permission UX, and planned user evaluation while keeping trace evaluation secondary.
+- 2026-05-14 [CODE]: Tightened Task 028 front matter by removing meta-revision wording from the abstract, making prompt/consent design explicit in the contribution list, and refreshing `paper/papf_final.pdf`.
 - 2026-05-14 [CODE]: Renamed the HCI/privacy task files so Tasks 027-045 now match the corrected execution order.
 
 ### Now
@@ -350,3 +351,5 @@
 - 2026-05-14 [TOOL]: `rg` for stale systems-first framing in `docs/paper_outline.md`, `docs/paper_plan.md`, `paper/papf_final.md`, and `tasks/009_pipeline_backlog.md` -> no matches.
 - 2026-05-14 [TOOL]: `python -B paper\export_simple_pdf.py paper\papf_final.md paper\papf_final.pdf` -> refreshed 7-page PDF after Task 028 edits.
 - 2026-05-14 [TOOL]: Two-stage `Move-Item` rename and follow-up reference check -> HCI/privacy task files `027`-`045` now match the execution order.
+- 2026-05-14 [TOOL]: `rg` checks over `paper/papf_final.md`, `docs/paper_outline.md`, and `docs/paper_plan.md` -> HCI/privacy framing terms present; unsupported comprehension/deployment claims appear only as caveats, planned-study questions, or explicit unsupported-claim warnings.
+- 2026-05-14 [TOOL]: `python -B paper\export_simple_pdf.py paper\papf_final.md paper\papf_final.pdf` -> refreshed PDF after prompt/consent contribution-list tightening.
