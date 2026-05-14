@@ -1,6 +1,6 @@
 # Task 033: Define User Study Scenarios
 
-Status: planned.
+Status: completed.
 
 ## Goal
 

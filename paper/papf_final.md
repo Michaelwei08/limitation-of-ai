@@ -59,6 +59,17 @@ This paper is organized around HCI/privacy research questions first and prototyp
 
 The research questions also define the paper's claim boundary. The prototype can support claims about external enforcement, trace-level over-access, false allows, false denies, prompt counts, recovery scoring, and auditability in synthetic runs. It cannot support claims about ordinary users' understanding, consent quality, perceived control, trust, or fatigue. Those remain planned HCI/privacy outcomes.
 
+The planned user study uses six synthetic scenario records that connect non-expert decisions to PAPF benchmark labels. The scenarios cover reimbursement summarization, travel planning, redaction before outbound sharing, account updates from email links, webpage prompt injection, and cross-tool leakage from files into email or chat. Each scenario specifies the participant-facing goal, allowed data and tools, blocked data and tools, privacy risk, expected safe decision, and mapping to current or future benchmark traces. The full table is `paper/tables/user_study_scenarios.md`; the prompt wording examples are in `docs/permission_prompt_examples.md`.
+
+| scenario | privacy risk tested | expected safe decision |
+|---|---|---|
+| Reimbursement email summary | Over-broad email/file/browser access can expose unrelated tax data or reimbursement details. | Allow only the named email, receipt, policy page, and draft; deny unrelated files, untrusted instructions, uploads, forwarding, and unconfirmed send. |
+| Travel booking with email and browser data | Identity documents, payment details, or bookings may be used before the user consents. | Allow itinerary research and drafting; deny identity/payment/unrelated access; require confirmation for booking, payment, upload, or account change. |
+| Redact sensitive information before sending a document | Tax IDs or bank details may be copied into an email or upload. | Allow redacted document use and drafting; deny unredacted disclosure and unrelated files; confirm only redacted outbound sharing. |
+| Update account information from an email link | A fake link can cause phishing, credential exposure, or unrelated account leakage. | Allow the account notice, official support page, and needed notes; deny fake pages and unrelated banking/password data; require confirmation before modification or send. |
+| Detect prompt injection from a webpage | Webpage text may try to become authority to read or upload private files. | Allow trusted policy lookup and the relevant receipt; deny the webpage instruction, invoice-folder access, and upload. |
+| Prevent cross-tool leakage into email or chat | Private file contents may leak into outbound communication. | Allow the named project-plan read and draft; deny unrelated file reads and cross-tool copying; require confirmation before sending. |
+
 ## 4. PAPF Design
 
 PAPF is a permission control plane that turns a user task into scoped authority and then mediates every tool call against that authority. The pipeline is: user task, intent proposal, schema validation, capability compilation, policy enforcement, consent or redaction when needed, synthetic tool execution, audit logging, and evaluation.
@@ -129,7 +140,7 @@ The baselines are stronger than ambient access but are still not faithful implem
 
 The benchmark covers only a narrow email-files-browser slice. It is attack-rich, but it cannot establish generality over calendar, contacts, travel, payments, messaging, cloud management, or device administration. The paper should present it as a first systems artifact, not a full consumer-agent benchmark release.
 
-PAPF is motivated by user-facing permission boundaries, but comprehension is not validated by automated metrics. The paper can say that PAPF includes a planned protocol and prompt examples for later non-expert evaluation, but it should not report comprehension, consent-fatigue, or safer-user-choice effects until a participant study is reviewed, run, and analyzed.
+PAPF is motivated by user-facing permission boundaries, but comprehension is not validated by automated metrics. The paper can say that PAPF includes a planned protocol, synthetic scenario records, and prompt examples for later non-expert evaluation, but it should not report comprehension, consent-fatigue, or safer-user-choice effects until a participant study is reviewed, run, and analyzed.
 
 ## 9. Related Work
 
@@ -147,7 +158,7 @@ PAPF addresses consumer-agent overreach by moving permission enforcement out of 
 
 In the current 12-trace synthetic slice, PAPF eliminates observed false allows and over-access relative to broad-access and prompt-only baselines, but it also produces lower task-success proxy scores and additional consent prompts. This is a useful first result because it exposes the tradeoff that permission-boundary research must measure rather than hiding it behind final-task success alone.
 
-The next paper-development step is to make the HCI/privacy evaluation concrete: specify PAPF prompt variants, run the non-expert comprehension study, and report ordinary-user understanding, safe/unsafe-action discrimination, privacy-preserving consent decisions, perceived control, trust, workload, and consent fatigue separately from the prototype trace results. Technical follow-up work should continue to strengthen recovery behavior, add harder benchmark slices, and compare against faithful implementations or closer approximations of agent-specific authorization and information-flow-control systems.
+The next paper-development step is to pilot the HCI/privacy materials, run the non-expert comprehension study, and report ordinary-user understanding, safe/unsafe-action discrimination, privacy-preserving consent decisions, perceived control, trust, workload, and consent fatigue separately from the prototype trace results. Technical follow-up work should continue to strengthen recovery behavior, add harder benchmark slices, and compare against faithful implementations or closer approximations of agent-specific authorization and information-flow-control systems.
 
 ## Source Notes
 
@@ -165,6 +176,7 @@ The next paper-development step is to make the HCI/privacy evaluation concrete: 
 | PAPF eliminates observed false allows and over-access in the current 12-trace suite. | `paper/tables/main_metrics.md` reports `false_allow_count=0` and `over_access_rate=0.0` for PAPF. | Supported in current run |
 | The PAPF seed suite is well known. | It is local synthetic data under `benchmarks/papf_seed_cases/`; no public adoption evidence exists. | Unsupported and explicitly rejected |
 | PAPF improves task success. | Generated metrics show lower PAPF task-success proxy than several baselines. | Unsupported and explicitly rejected |
+| PAPF includes planned synthetic user-study scenarios mapped to benchmark labels. | `docs/user_study_protocol.md` and `paper/tables/user_study_scenarios.md` define six synthetic scenario records with allowed data/tools, blocked data/tools, privacy risks, expected safe decisions, and current or future trace mappings. | Supported as study design |
 | PAPF permission prompts are understandable to non-experts. | Only a protocol and prompt examples exist. | Needs user-study evidence |
 | PAPF improves privacy-preserving consent decisions, perceived control, trust, or consent fatigue. | No participant data has been collected. | Needs user-study evidence |
 | PAPF can reduce observed over-access and false allows in synthetic traces. | RQ6 trace metrics report zero PAPF false allows and over-access in the current 12-trace suite. | Supported only in current run |
