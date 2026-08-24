@@ -4,7 +4,7 @@
 - Goal: Build a research project on task-scoped permission boundaries for consumer AI agents.
 - Working title: Personal Agent Permission Firewall (PAPF).
 - Benchmark idea: NonExpert-AgentPermBench.
-- Now: Task 045 final HCI/privacy consistency pass completed; `paper/papf_final.md` and `docs/paper_plan.md` align around planned non-expert privacy-usability evaluation, secondary prototype trace feasibility, and evidence-bounded claims.
+- Now: Task 045 final HCI/privacy consistency pass completed; `paper/papf_final.md` and `docs/paper_plan.md` align around planned non-expert privacy-usability evaluation, secondary prototype trace feasibility, and evidence-bounded claims. `paper/paper_new.md` is a compact six-section design-focused version with code snippets and theoretical PAPF advantage claims under explicit assumptions.
 - Next: Run and analyze the planned non-expert user study, or keep the paper positioned as a bounded workshop/design/prototype contribution; refresh `paper/papf_final.pdf` only if requested after these final source edits.
 - Open questions: Whether the planned non-expert comprehension protocol will be run as an actual user study; clarification versus safe refusal under ambiguity; partial-success scoring.
 
@@ -107,6 +107,7 @@
 - 2026-05-14 [CODE]: Implemented Task 043 by updating `docs/paper_plan.md`, `docs/research_gap.md`, `docs/research_brief.md`, and `paper/papf_final.md` so HCI/privacy or usable-security privacy is the primary venue framing, systems/security and benchmark material are secondary feasibility support, and workshop/design/prototype positioning is the bounded fallback if the non-expert user study remains planned; refreshed `paper/papf_final.pdf`.
 - 2026-05-14 [CODE]: Implemented Task 044 by revising `paper/papf_final.md`, `paper/papf_draft.md`, `docs/paper_plan.md`, and `docs/user_study_protocol.md` so user-comprehension language is framed as design support, planned evaluation, or a claim requiring participant evidence.
 - 2026-05-14 [CODE]: Implemented Task 045 by tightening final HCI/privacy claim language in `paper/papf_final.md`, updating `docs/paper_plan.md` into an explicit HCI/privacy claim-evidence map, and rejecting trace metrics as evidence for user comprehension, consent quality, trust, or fatigue.
+- 2026-05-14 [CODE]: Created `paper/paper_new.md` from the PAPF final draft with only Introduction, Problem Setting, Research Questions, System Design, Discussion, and Conclusion; emphasized PAPF code-grounded system design plus theoretical normal-user advantage under explicit assumptions.
 
 ### Now
 - 2026-05-14 [CODE]: Tasks 027-045 are implemented. The active paper source makes participant data necessary for comprehension, consent-decision, perceived-control, trust, workload, and fatigue claims; prototype traces remain secondary feasibility evidence for scoped enforcement and auditability in the synthetic suite.
@@ -123,6 +124,7 @@
 - `docs/user_study_protocol.md`
 - `docs/permission_prompt_examples.md`
 - `paper/papf_final.md`
+- `paper/paper_new.md`
 - `paper/papf_hci_outline.md`
 - `paper/export_simple_pdf.py`
 - `paper/tables/user_study_scenarios.md`
@@ -304,3 +306,5 @@
 - 2026-05-14 [TOOL]: Citation-like key check over `paper/papf_final.md` -> PASS: 19 citation-like keys all exist in `references.bib`.
 - 2026-05-14 [TOOL]: `git diff --check -- paper/papf_final.md docs/paper_plan.md` -> markdown diff check passed with Git line-ending warnings only.
 - 2026-05-14 [CODE]: PDF export skipped after Task 045 because the task requested PDF refresh only if requested; source markdown is newer than `paper/papf_final.pdf`.
+- 2026-05-14 [TOOL]: `Select-String -Path paper\paper_new.md -Pattern '^## '` -> confirmed only six requested main sections: Introduction, Problem Setting, Research Questions, System Design, Discussion, Conclusion.
+- 2026-05-14 [TOOL]: `git diff --check -- paper\paper_new.md` -> markdown diff check passed.
