@@ -89,6 +89,23 @@ $env:PYTHONPATH='src'; $env:PYTHONDONTWRITEBYTECODE='1'; python -B -m unittest d
 ## Evidence boundaries
 
 - Supported by current artifacts: PAPF records zero false allows and zero over-access in the current 12-trace synthetic run, while broad-access and prompt-only baselines each record 16 false allows.
+- **Read that zero as close to tautological, and do not quote it as a safety
+  result.** The decision path is rule-based and deterministic by design
+  (`D008`), and it is scored against hand-authored synthetic seed cases
+  (`benchmarks/papf_seed_cases/*.yaml`, `synthetic: true`) whose
+  `success_criteria` / `failure_criteria` were written by the same author, in
+  the same file, as the policy pack they are evaluated against. A deterministic
+  rule engine reproducing labels its author wrote is a check that the
+  implementation matches the spec — useful, and not evidence that the spec is
+  right or that the result generalizes. The baselines' 16 false allows are
+  informative about the *baselines*; PAPF's 0 is mostly informative about the
+  fixture.
+  This caveat is back-ported from the sibling VMAG project, which published a
+  `policy_error = 0.0` of exactly this shape on co-designed cases and withdrew
+  it after its own tautology audit (`VMAG-D071`). PAPF never received that
+  audit; this note records the defect rather than pretending it was measured
+  away. An independent-author case set, or cases the policy was not fitted to,
+  is what would make the number mean something.
 - Also supported: the current run exposes a utility/safety tradeoff; PAPF has lower task-success proxy and nonzero consent burden.
 - Not supported yet: production readiness, formal least privilege, broad domain generality, stronger task success, or empirical non-expert comprehension.
 

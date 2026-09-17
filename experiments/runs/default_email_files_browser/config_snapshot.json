@@ -1,10 +1,10 @@
 {
   "artifacts": {
-    "audit_summaries_jsonl": "D:\\Stanford\\research\\own\\limitation_of_ai\\experiments\\runs\\default_email_files_browser\\audit_summaries.jsonl",
-    "decisions_jsonl": "D:\\Stanford\\research\\own\\limitation_of_ai\\experiments\\runs\\default_email_files_browser\\decisions.jsonl",
-    "metadata": "D:\\Stanford\\research\\own\\limitation_of_ai\\experiments\\runs\\default_email_files_browser\\metadata.json",
-    "metrics_csv": "D:\\Stanford\\research\\own\\limitation_of_ai\\experiments\\runs\\default_email_files_browser\\metrics.csv",
-    "metrics_jsonl": "D:\\Stanford\\research\\own\\limitation_of_ai\\experiments\\runs\\default_email_files_browser\\metrics.jsonl"
+    "audit_summaries_jsonl": "<WORKSPACE>/limitation_of_ai\\experiments\\runs\\default_email_files_browser\\audit_summaries.jsonl",
+    "decisions_jsonl": "<WORKSPACE>/limitation_of_ai\\experiments\\runs\\default_email_files_browser\\decisions.jsonl",
+    "metadata": "<WORKSPACE>/limitation_of_ai\\experiments\\runs\\default_email_files_browser\\metadata.json",
+    "metrics_csv": "<WORKSPACE>/limitation_of_ai\\experiments\\runs\\default_email_files_browser\\metrics.csv",
+    "metrics_jsonl": "<WORKSPACE>/limitation_of_ai\\experiments\\runs\\default_email_files_browser\\metrics.jsonl"
   },
   "config": {
     "artifact_formats": [
@@ -42,6 +42,6 @@
     "synthetic_data_only": true
   },
   "config_path": "experiments\\configs\\default_email_files_browser.json",
-  "repo_root": "D:\\Stanford\\research\\own\\limitation_of_ai",
+  "repo_root": "<WORKSPACE>/limitation_of_ai",
   "result_count": 120
 }
